@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MSM Egg-Zapping Tracker (Wublin / Celestial / Amber)</title>
+  <style>
+    :root {
+      --bg-main: #e6dfd3;
+      --bg-row: #efe9de;
+      --bg-row-alt: #e8e1d5;
+      --bg-header: #2c2623;
+      --text-main: #2b2520;
+      --text-muted: #6e6459;
+      --green-name: #1b632c;
+      --border-line: #b8afa0;
+      --accent-red: #d11919;
+      --accent-green: #2e8b57;
+      --accent-gold: #d4a017;
+      --badge-bg: #fffbf2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      padding-bottom: 60px;
+    }
+
+    /* Top Navigation & Controls */
+    header {
+      background: var(--bg-header);
+      color: #f7f3eb;
+      padding: 14px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .save-pill {
+      font-size: 0.75rem;
+      background: #3a4f3c;
+      color: #a7f3d0;
+      padding: 3px 8px;
+      border-radius: 99px;
+      border: 1px solid #527955;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+    }
+    .tab-btn {
+      background: #403833;
+      color: #ddd4c8;
+      border: 1px solid #594e47;
+      padding: 7px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.15s;
+    }
+    .tab-btn:hover { background: #524741; }
+    .tab-btn.active {
+      background: var(--accent-gold);
+      color: #1f1a17;
+      border-color: #f3c64f;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .btn {
+      background: #403833;
+      color: #f4eee6;
+      border: 1px solid #63574f;
+      padding: 6px 11px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn:hover { background: #574c45; }
+    .btn-danger { background: #5c2626; border-color: #823535; }
+    .btn-danger:hover { background: #783030; }
+
+    /* Sub-bar: Filters + Active Egg Shopping List */
+    .sub-bar {
+      max-width: 1260px;
+      margin: 14px auto 0;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      background: #ded6c6;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-line);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+    }
+    .search-input {
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: 1px solid #9e9484;
+      background: #fbf9f5;
+      font-size: 0.88rem;
+      width: 210px;
+    }
+
+    .help-hint {
+      font-size: 0.82rem;
+      color: #4f463d;
+      background: #f5efe4;
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: 1px dashed #a89e8e;
+    }
+    .help-hint b { color: var(--accent-red); }
+
+    /* Shopping Summary Box */
+    .shopping-summary {
+      background: #f7f3eb;
+      border: 1px solid var(--border-line);
+      border-left: 4px solid var(--accent-red);
+      border-radius: 6px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .shopping-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #3d342b;
+    }
+    .shopping-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .shop-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #fff;
+      border: 1px solid #cbbba0;
+      padding: 3px 8px;
+      border-radius: 99px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .shop-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* Main Wiki-Style Table */
+    .table-container {
+      max-width: 1260px;
+      margin: 12px auto;
+      padding: 0 16px;
+    }
+    .wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-row);
+      border: 1px solid var(--border-line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .wiki-table tr {
+      border-bottom: 1px solid var(--border-line);
+      transition: background 0.12s;
+    }
+    .wiki-table tr:nth-child(even) { background: var(--bg-row-alt); }
+    .wiki-table tr.row-completed {
+      background: #dfeadf;
+      opacity: 0.82;
+    }
+    .wiki-table td {
+      padding: 14px 12px;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    /* Column 1: Monster Name & Pin */
+    .col-monster {
+      width: 165px;
+    }
+    .monster-name {
+      color: var(--green-name);
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+    .monster-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .pin-btn {
+      font-size: 0.73rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid #9c9283;
+      background: #f5f0e6;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .pin-btn.pinned {
+      background: #ffe8e8;
+      border-color: var(--accent-red);
+      color: var(--accent-red);
+    }
+
+    /* Column 2: Grid Size Diamond */
+    .col-grid {
+      width: 85px;
+    }
+    .grid-diamond {
+      width: 44px;
+      height: 24px;
+      margin: 0 auto 4px;
+      background: linear-gradient(135deg, #4ef037, #27b312);
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      border: 1px solid #1e870e;
+    }
+    .grid-text {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #2f2924;
+    }
+
+    /* Column 3: Interactive Egg Inventory */
+    .col-eggs {
+      min-width: 420px;
+    }
+    .eggs-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 14px;
+      margin-bottom: 8px;
+    }
+
+    /* Individual Egg Widget */
+    .egg-item {
+      position: relative;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      width: 78px;
+      padding: 6px 4px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.45);
+      border: 1px solid rgba(0,0,0,0.08);
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.08s, background 0.12s;
+    }
+    .egg-item:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.8);
+      border-color: #8f8474;
+    }
+    .egg-item.egg-done {
+      background: rgba(212, 237, 218, 0.55);
+      border-color: #5cb85c;
+    }
+
+    .egg-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      width: 100%;
+    }
+
+    .egg-oval {
+      width: 34px;
+      height: 40px;
+      border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+      box-shadow: inset -4px -5px 8px rgba(0,0,0,0.28), inset 3px 3px 6px rgba(255,255,255,0.45), 0 2px 3px rgba(0,0,0,0.18);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.85);
+      border: 1.5px solid rgba(0,0,0,0.28);
+    }
+
+    /* Red scribble overlay when an egg is 100% completed (just like screenshot) */
+    .egg-scribble {
+      display: none;
+      position: absolute;
+      inset: -3px;
+      pointer-events: none;
+    }
+    .egg-item.egg-done .egg-scribble {
+      display: block;
+    }
+
+    .egg-req {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #1f1b18;
+      margin-left: 2px;
+    }
+
+    .egg-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #3b332b;
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 74px;
+    }
+
+    /* Red hand-drawn style tally marks under/next to the egg */
+    .tally-box {
+      min-height: 18px;
+      margin-top: 2px;
+      font-family: 'Comic Sans MS', 'Bradley Hand', cursive, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 900;
+      color: var(--accent-red);
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .tally-group-five {
+      text-decoration: line-through;
+      text-decoration-thickness: 2.2px;
+      text-decoration-color: var(--accent-red);
+      margin-right: 3px;
+    }
+    .tally-fraction {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.68rem;
+      color: #6b5f52;
+      font-weight: 700;
+    }
+
+    .total-line {
+      font-size: 0.93rem;
+      font-weight: 700;
+      color: #2b2520;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .progress-pill {
+      font-size: 0.78rem;
+      padding: 2px 8px;
+      border-radius: 99px;
+      background: #ded5c5;
+      color: #332c25;
+    }
+    .progress-pill.complete {
+      background: var(--accent-green);
+      color: #fff;
+    }
+
+    /* Column 4 & 5: Cost, Time & Row Actions */
+    .col-cost {
+      width: 115px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .col-time {
+      width: 70px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .col-actions {
+      width: 110px;
+    }
+    .row-btn {
+      display: block;
+      width: 100%;
+      margin-bottom: 5px;
+      padding: 4px 6px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      border-radius: 4px;
+      border: 1px solid #9c9283;
+      background: #f7f3eb;
+      cursor: pointer;
+    }
+    .row-btn:hover { background: #e8dfd1; }
+
+    /* Custom Monster Modal / Drawer */
+    .custom-builder {
+      max-width: 1260px;
+      margin: 16px auto;
+      padding: 0 16px;
+      display: none;
+    }
+    .custom-builder.open { display: block; }
+    .builder-card {
+      background: #f7f3eb;
+      border: 1px solid var(--border-line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .builder-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      align-items: center;
+    }
+    .builder-grid input, .builder-grid select {
+      padding: 6px 8px;
+      border: 1px solid #9e9484;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 820px) {
+      .wiki-table, .wiki-table tbody, .wiki-table tr, .wiki-table td {
+        display: block;
+        width: 100%;
+      }
+      .wiki-table tr {
+        margin-bottom: 12px;
+        border: 2px solid var(--border-line);
+        border-radius: 8px;
+      }
+      .col-eggs { min-width: unset; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <h1>⚡ MSM Egg-Zapping Tracker</h1>
+      <span class="save-pill" id="saveIndicator">✓ Auto-saved locally</span>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('wublins')">Wublins (19)</button>
+      <button class="tab-btn" onclick="switchTab('celestials')">Celestials (12)</button>
+      <button class="tab-btn" onclick="switchTab('amber')">Amber Vessels</button>
+    </div>
+
+    <div class="toolbar-actions">
+      <button class="btn" onclick="toggleCustomBuilder()">+ Add Custom Vessel/Rare</button>
+      <button class="btn" onclick="exportProgress()">Export JSON</button>
+      <button class="btn" onclick="document.getElementById('importFile').click()">Import JSON</button>
+      <input type="file" id="importFile" style="display:none" accept=".json" onchange="importProgress(event)" />
+      <button class="btn btn-danger" onclick="resetCurrentTab()">Reset Tab</button>
+    </div>
+  </header>
+
+  <!-- Custom Statue / Vessel Builder -->
+  <div class="custom-builder" id="customBuilder">
+    <div class="builder-card">
+      <strong>Add Custom Statue / Amber Vessel / Rare or Adult Inventory</strong>
+      <p style="font-size:0.8rem; color:#5c5248; margin-top:2px;">
+        Format eggs as <code>Monster:Count, Monster:Count</code> (e.g., <code>Kayna:4, Boskus:3, Ziggurab:2, Wynq:2</code>)
+      </p>
+      <div class="builder-grid">
+        <select id="custCategory">
+          <option value="amber">Amber Vessels</option>
+          <option value="wublins">Wublins</option>
+          <option value="celestials">Celestials</option>
+        </select>
+        <input type="text" id="custName" placeholder="Monster Name (e.g. Flum Ox)" />
+        <input type="text" id="custSize" placeholder="Size (2x2)" value="2x2" style="width:75px;" />
+        <input type="text" id="custCost" placeholder="Cost (30 Relics)" style="width:120px;" />
+        <input type="text" id="custTime" placeholder="Time (14d)" value="14d" style="width:75px;" />
+        <input type="text" id="custEggs" placeholder="Kayna:6, Stogg:4, Flowah:3..." style="flex:1; min-width:240px;" />
+        <button class="btn" onclick="addCustomMonster()">Save Monster</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-bar">
+    <div class="controls-row">
+      <div class="filter-group">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search monster or egg (e.g. Riff)..." oninput="render()" />
+        <label style="cursor:pointer; display:flex; align-items:center; gap:4px;">
+          <input type="checkbox" id="filterActiveOnly" onchange="render()" />
+          Show Only Active / In-Progress
+        </label>
+        <label style="cursor:pointer; display:flex; align-items:center; gap:4px;">
+          <input type="checkbox" id="hideCompleted" onchange="render()" />
+          Hide Awakened (100%)
+        </label>
+      </div>
+
+      <div class="help-hint">
+        <b>Left-Click Egg:</b> +1 Tally &nbsp;|&nbsp; <b>Right-Click Egg:</b> -1 Tally &nbsp;|&nbsp; <b>Shift + Click:</b> Cross Out / Max
+      </div>
+    </div>
+
+    <!-- Aggregated Remaining Egg Shopping List -->
+    <div class="shopping-summary" id="shoppingSummary">
+      <div class="shopping-header">
+        <span id="shoppingTitle">Remaining Eggs Needed (Active / In-Progress Statues):</span>
+        <span style="font-weight:400; font-size:0.78rem;">Pin or tally any monster below to include its remaining eggs here</span>
+      </div>
+      <div class="shopping-pills" id="shoppingPills"></div>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="wiki-table">
+      <tbody id="monsterTableBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    // Egg visual palette (matches MSM egg colors & patterns)
+    const EGG_COLORS = {
+      // Quads
+      "Entbrat": { bg: "linear-gradient(135deg, #d87c27, #9e4b14)", badge: "4E" },
+      "Deedge": { bg: "linear-gradient(135deg, #4da6ff, #1d5ba6)", badge: "4E" },
+      "Riff": { bg: "linear-gradient(135deg, #c852e0, #6c2282)", badge: "4E" },
+      "Shellbeat": { bg: "linear-gradient(135deg, #d95b72, #388cb8)", badge: "4E" },
+      "Quarrister": { bg: "linear-gradient(135deg, #b5b3a8, #706e65)", badge: "4E" },
+      // Triples
+      "T-Rox": { bg: "linear-gradient(135deg, #8c8275, #544d44)", badge: "3E" },
+      "Bowgart": { bg: "linear-gradient(135deg, #6385b5, #3d5270)", badge: "3E" },
+      "Clamble": { bg: "linear-gradient(135deg, #5c7548, #2b3325)", badge: "3E" },
+      "Pummel": { bg: "linear-gradient(135deg, #4b8f7a, #b85d79)", badge: "3E" },
+      "Congle": { bg: "linear-gradient(135deg, #d69878, #8c5a3c)", badge: "3E" },
+      "PomPom": { bg: "linear-gradient(135deg, #ff5ca8, #c72872)", badge: "3E" },
+      "Scups": { bg: "linear-gradient(135deg, #6298d9, #315a8c)", badge: "3E" },
+      "Thumpies": { bg: "linear-gradient(135deg, #96ab54, #5d6b30)", badge: "3E" },
+      "Spunge": { bg: "linear-gradient(135deg, #86cf38, #4f8514)", badge: "3E" },
+      "Reedling": { bg: "linear-gradient(135deg, #cf4e38, #4ba346)", badge: "3E" },
+      // Doubles
+      "Drumpler": { bg: "linear-gradient(135deg, #dec09e, #9e7f5d)", badge: "2E" },
+      "Fwog": { bg: "linear-gradient(135deg, #3cd19f, #1c8562)", badge: "2E" },
+      "Maw": { bg: "linear-gradient(135deg, #f05995, #a8275b)", badge: "2E" },
+      "Furcorn": { bg: "linear-gradient(135deg, #5cd629, #2f800d)", badge: "2E" },
+      "Oaktopus": { bg: "linear-gradient(135deg, #5c8fd6, #2d558f)", badge: "2E" },
+      "Shrubb": { bg: "linear-gradient(135deg, #87633a, #4d8528)", badge: "2E" },
+      "Pango": { bg: "linear-gradient(135deg, #424242, #c97724)", badge: "2E" },
+      "Quibble": { bg: "linear-gradient(135deg, #ff8533, #b54d07)", badge: "2E" },
+      "Cybop": { bg: "linear-gradient(135deg, #b87b4b, #478ca8)", badge: "2E" },
+      "Dandidoo": { bg: "linear-gradient(135deg, #d8eba4, #7da133)", badge: "2E" },
+      // Singles
+      "Noggin": { bg: "linear-gradient(135deg, #857e76, #4a4540)", badge: "1E" },
+      "Mammott": { bg: "linear-gradient(135deg, #f7f7f7, #bdbdbd)", badge: "1E" },
+      "Toe Jammer": { bg: "linear-gradient(135deg, #33b5ff, #0f6ca1)", badge: "1E" },
+      "Potbelly": { bg: "linear-gradient(135deg, #5cd12e, #2a780b)", badge: "1E" },
+      "Tweedle": { bg: "linear-gradient(135deg, #d66db5, #8a346f)", badge: "1E" },
+      // Fire / Magical
+      "Kayna": { bg: "linear-gradient(135deg, #ff621f, #a32a00)", badge: "Fire" },
+    };
+
+    function getEggStyle(name) {
+      return EGG_COLORS[name] || { bg: "linear-gradient(135deg, #9c7a54, #59432b)", badge: "Egg" };
+    }
+
+    // Default dataset: All 19 Wublins (with your 4 screenshot Wublins at the top), 12 Celestials, and Amber Vessels
+    const DEFAULT_DATA = {
+      wublins: [
+        // Top 4 from user's screenshot
+        {
+          id: "pixolotl", name: "Pixolotl", size: "2 x 2", cost: "34,000 Coins", time: "14d",
+          eggs: [["Entbrat",6], ["Furcorn",6], ["Riff",10], ["Scups",8], ["T-Rox",8], ["Cybop",14], ["Fwog",10]]
+        },
+        {
+          id: "bona-petite", name: "Bona-Petite", size: "3 x 3", cost: "20,000 Coins", time: "10d",
+          eggs: [["Entbrat",5], ["Furcorn",5], ["PomPom",6], ["Bowgart",6], ["T-Rox",6], ["Fwog",10], ["Drumpler",10], ["Maw",10], ["Mammott",10]]
+        },
+        {
+          id: "maulch", name: "Maulch", size: "3 x 3", cost: "17,000 Coins", time: "7d",
+          eggs: [["Quarrister",4], ["Entbrat",4], ["Spunge",6], ["Pummel",6], ["Clamble",4], ["Furcorn",8], ["Noggin",6]]
+        },
+        {
+          id: "fleechwurm", name: "Fleechwurm", size: "3 x 3", cost: "5,000 Coins", time: "5d",
+          eggs: [["Shellbeat",3], ["Quarrister",3], ["Reedling",3], ["Spunge",3], ["Scups",4], ["Dandidoo",4], ["Furcorn",4]]
+        },
+        // Remaining 15 Common Wublins
+        {
+          id: "brump", name: "Brump", size: "2 x 2", cost: "2,000 Coins", time: "2d",
+          eggs: [["Furcorn",6], ["Fwog",2]]
+        },
+        {
+          id: "zynth", name: "Zynth", size: "2 x 2", cost: "3,000 Coins", time: "3d",
+          eggs: [["T-Rox",1], ["Congle",1], ["Maw",1], ["Drumpler",1], ["Oaktopus",1], ["Pango",1]]
+        },
+        {
+          id: "poewk", name: "Poewk", size: "3 x 3", cost: "5,000 Coins", time: "3d",
+          eggs: [["Shellbeat",1], ["Reedling",1], ["PomPom",2], ["Scups",1], ["Clamble",1], ["Pango",1], ["Oaktopus",1], ["Shrubb",1], ["Dandidoo",2]]
+        },
+        {
+          id: "thwok", name: "Thwok", size: "3 x 3", cost: "17,000 Coins", time: "7d",
+          eggs: [["Entbrat",1], ["Deedge",1], ["Riff",1], ["Shellbeat",1], ["Quarrister",1], ["Bowgart",4], ["PomPom",4], ["Spunge",4], ["Furcorn",4], ["Quibble",4]]
+        },
+        {
+          id: "dwumrohl", name: "Dwumrohl", size: "3 x 3", cost: "34,000 Coins", time: "14d",
+          eggs: [["Entbrat",3], ["Deedge",3], ["Riff",3], ["Shellbeat",3], ["Quarrister",3], ["Bowgart",4], ["PomPom",4], ["Reedling",4], ["Scups",2], ["Thumpies",2], ["Congle",4], ["Pummel",2], ["Clamble",2], ["T-Rox",4], ["Fwog",4], ["Drumpler",4], ["Maw",4], ["Mammott",8], ["Noggin",8]]
+        },
+        {
+          id: "zuuker", name: "Zuuker", size: "2 x 2", cost: "20,000 Coins", time: "10d",
+          eggs: [["Entbrat",2], ["Deedge",2], ["Bowgart",4], ["T-Rox",6], ["Oaktopus",6], ["Furcorn",6], ["Fwog",8]]
+        },
+        {
+          id: "screemu", name: "Screemu", size: "3 x 3", cost: "5,000 Coins", time: "5d",
+          eggs: [["Shellbeat",2], ["Spunge",6], ["Shrubb",6], ["Quibble",6]]
+        },
+        {
+          id: "tympa", name: "Tympa", size: "2 x 2", cost: "34,000 Coins", time: "14d",
+          eggs: [["Shellbeat",8], ["Pummel",12], ["Clamble",12], ["T-Rox",12], ["Drumpler",24]]
+        },
+        {
+          id: "dermit", name: "Dermit", size: "2 x 2", cost: "5,000 Coins", time: "3d",
+          eggs: [["Quarrister",3], ["Entbrat",3], ["Thumpies",4], ["Scups",4], ["Fwog",12]]
+        },
+        {
+          id: "gheegur", name: "Gheegur", size: "3 x 3", cost: "17,000 Coins", time: "7d",
+          eggs: [["Riff",6], ["Quarrister",4], ["PomPom",6], ["Reedling",6], ["Scups",6], ["Cybop",8]]
+        },
+        {
+          id: "whajje", name: "Whajje", size: "2 x 2", cost: "20,000 Coins", time: "10d",
+          eggs: [["Deedge",7], ["Reedling",7], ["Cybop",10], ["Dandidoo",10], ["Fwog",14], ["Tweedle",14]]
+        },
+        {
+          id: "creepuscule", name: "Creepuscule", size: "3 x 3", cost: "17,000 Coins", time: "7d",
+          eggs: [["Shellbeat",5], ["Deedge",5], ["Congle",8], ["Pummel",6], ["T-Rox",6], ["Quibble",10], ["Noggin",12]]
+        },
+        {
+          id: "blipsqueak", name: "Blipsqueak", size: "2 x 2", cost: "5,000 Coins", time: "5d",
+          eggs: [["Deedge",4], ["PomPom",6], ["T-Rox",6], ["Cybop",6], ["Toe Jammer",8]]
+        },
+        {
+          id: "scargo", name: "Scargo", size: "2 x 2", cost: "3,000 Coins", time: "3d",
+          eggs: [["Shellbeat",3], ["Spunge",3], ["Reedling",3], ["Shrubb",3], ["Dandidoo",3]]
+        },
+        {
+          id: "astropod", name: "Astropod", size: "3 x 3", cost: "20,000 Coins", time: "10d",
+          eggs: [["Shellbeat",5], ["Deedge",5], ["Reedling",8], ["Spunge",8], ["Scups",6], ["Toe Jammer",10]]
+        }
+      ],
+      celestials: [
+        {
+          id: "scaratar", name: "Scaratar (Aug)", size: "2 x 2", cost: "100 Diamonds", time: "16d",
+          eggs: [["Quarrister",3], ["Reedling",6], ["Shrubb",12], ["Fwog",25], ["Noggin",65]]
+        },
+        {
+          id: "loodvigg", name: "Loodvigg (Sep)", size: "2 x 2", cost: "120 Diamonds", time: "20d",
+          eggs: [["Deedge",4], ["Bowgart",6], ["Spunge",5], ["Thumpies",5], ["Congle",5], ["Pango",12], ["Maw",20], ["Mammott",40]]
+        },
+        {
+          id: "torrt", name: "Torrt (Oct)", size: "2 x 2", cost: "130 Diamonds", time: "15d",
+          eggs: [["Quarrister",4], ["Reedling",5], ["Thumpies",4], ["Clamble",5], ["PomPom",5], ["T-Rox",5], ["Shrubb",10], ["Cybop",12], ["Drumpler",25], ["Fwog",25], ["Noggin",75]]
+        },
+        {
+          id: "plixie", name: "Plixie (Nov)", size: "2 x 2", cost: "110 Diamonds", time: "13d",
+          eggs: [["Entbrat",2], ["Furcorn",7], ["Potbelly",16], ["Maw",35], ["Fwog",20], ["Drumpler",12], ["Mammott",25], ["Toe Jammer",25], ["Noggin",70]]
+        },
+        {
+          id: "attmoz", name: "Attmoz (Dec)", size: "2 x 2", cost: "135 Diamonds", time: "10d",
+          eggs: [["Riff",2], ["PomPom",4], ["Scups",4], ["Congle",4], ["T-Rox",6], ["Quibble",6], ["Pango",8], ["Cybop",8], ["Dandidoo",6], ["Tweedle",30], ["Toe Jammer",50], ["Mammott",50], ["Noggin",65]]
+        },
+        {
+          id: "hornacle", name: "Hornacle (Jan)", size: "2 x 2", cost: "135 Diamonds", time: "14d",
+          eggs: [["Shellbeat",3], ["Scups",5], ["Spunge",4], ["Pummel",4], ["Bowgart",4], ["T-Rox",6], ["Oaktopus",10], ["Quibble",10], ["Maw",25], ["Fwog",25], ["Toe Jammer",65]]
+        },
+        {
+          id: "furnoss", name: "Furnoss (Feb)", size: "2 x 2", cost: "145 Diamonds", time: "9d",
+          eggs: [["Tring",2], ["Sneyser",2], ["Reedling",5], ["Floogull",4], ["Barrb",4], ["Whaddle",4], ["Woolabee",4], ["Repatillo",4], ["Stogg",8], ["Phangler",8], ["Boskus",8], ["Glowl",6], ["Flowah",6], ["Kayna",25]]
+        },
+        {
+          id: "glaishur", name: "Glaishur (Mar)", size: "2 x 2", cost: "105 Diamonds", time: "11d",
+          eggs: [["Deedge",3], ["Bowgart",5], ["Thumpies",4], ["Congle",5], ["Spunge",4], ["T-Rox",5], ["Furcorn",10], ["Pango",10], ["Oaktopus",10], ["Maw",30], ["Drumpler",30], ["Mammott",50]]
+        },
+        {
+          id: "blasoom", name: "Blasoom (Apr)", size: "2 x 2", cost: "125 Diamonds", time: "12d",
+          eggs: [["Entbrat",3], ["Bowgart",5], ["Clamble",5], ["Pummel",5], ["Reedling",4], ["Spunge",4], ["Thumpies",4], ["Furcorn",12], ["Shrubb",12], ["Oaktopus",12], ["Dandidoo",12], ["Potbelly",30]]
+        },
+        {
+          id: "syncopite", name: "Syncopite (May)", size: "2 x 2", cost: "105 Diamonds", time: "16d",
+          eggs: [["Shellbeat",4], ["Pummel",6], ["Scups",6], ["Spunge",6], ["T-Rox",8], ["Oaktopus",15], ["Fwog",40], ["Maw",35], ["Toe Jammer",75]]
+        },
+        {
+          id: "vhamp", name: "Vhamp (Jun)", size: "2 x 2", cost: "115 Diamonds", time: "14d",
+          eggs: [["Riff",5], ["Scups",5], ["PomPom",5], ["Reedling",5], ["T-Rox",5], ["Cybop",16], ["Quibble",16], ["Pango",16], ["Drumpler",25], ["Tweedle",40]]
+        },
+        {
+          id: "galvana", name: "Galvana (Jul)", size: "2 x 2", cost: "160 Diamonds", time: "9d",
+          eggs: [["Entbrat",1], ["Deedge",1], ["Riff",1], ["Shellbeat",1], ["Quarrister",1], ["Reedling",1], ["Spunge",1], ["Thumpies",1], ["Scups",1], ["PomPom",1], ["Congle",1], ["Pummel",1], ["Clamble",1], ["Bowgart",1], ["T-Rox",1], ["Dandidoo",2], ["Cybop",2], ["Quibble",2], ["Pango",2], ["Shrubb",2], ["Oaktopus",2], ["Furcorn",2], ["Fwog",5], ["Drumpler",5], ["Maw",5], ["Tweedle",10], ["Potbelly",10], ["Toe Jammer",25], ["Mammott",25], ["Noggin",45]]
+        }
+      ],
+      amber: [
+        {
+          id: "kayna", name: "Kayna Vessel", size: "2 x 2", cost: "5 Relics", time: "30d",
+          eggs: [["Entbrat",1], ["Deedge",1], ["Riff",1], ["Shellbeat",1], ["Quarrister",1], ["T-Rox",2], ["Bowgart",2], ["Spunge",2], ["PomPom",2], ["Reedling",2], ["Furcorn",3], ["Fwog",6], ["Drumpler",6], ["Maw",6], ["Noggin",10]]
+        },
+        {
+          id: "ziggurab", name: "Ziggurab Vessel", size: "2 x 2", cost: "20 Relics", time: "14d",
+          eggs: [["Quarrister",1], ["Shellbeat",1], ["T-Rox",2], ["Pummel",2], ["Clamble",2], ["Boskus",2], ["Stogg",2], ["Shrubb",3], ["Drumpler",4], ["Fwog",4], ["Kayna",3]]
+        },
+        {
+          id: "yelmut", name: "Yelmut Vessel", size: "2 x 2", cost: "30 Relics", time: "14d",
+          eggs: [["Entbrat",2], ["Deedge",2], ["Barrb",2], ["Whaddle",2], ["Woolabee",2], ["Spunge",3], ["Thumpies",3], ["Glowl",3], ["Phangler",3], ["Furcorn",4], ["Maw",5], ["Kayna",4]]
+        },
+        {
+          id: "flum-ox", name: "Flum Ox Vessel", size: "2 x 2", cost: "30 Relics", time: "14d",
+          eggs: [["Shellbeat",2], ["Quarrister",2], ["Floogull",2], ["Repatillo",2], ["Sooza",2], ["Reedling",3], ["Scups",3], ["Stogg",3], ["Flowah",3], ["Cybop",4], ["Fwog",5], ["Kayna",4]]
+        },
+        {
+          id: "krillby", name: "Krillby Vessel", size: "2 x 2", cost: "30 Relics", time: "14d",
+          eggs: [["Riff",2], ["Deedge",2], ["Sneyser",1], ["Wynq",2], ["Rootitoot",2], ["Thumpies",3], ["PomPom",3], ["Pango",4], ["Boskus",3], ["Phangler",3], ["Kayna",4]]
+        },
+        {
+          id: "candelavra", name: "Candelavra Vessel", size: "2 x 2", cost: "40 Relics", time: "14d",
+          eggs: [["Tring",2], ["Sneyser",2], ["Bisonorus",2], ["Yelmut",1], ["Flum Ox",1], ["Floogull",3], ["Whaddle",3], ["Ziggurab",3], ["Sooza",3], ["Stogg",4], ["Flowah",4], ["Glowl",4], ["Boskus",4], ["Phangler",4], ["Kayna",6]]
+        }
+      ]
+    };
+
+    // Pre-seeded tallies matching the user's uploaded screenshot!
+    const SCREENSHOT_INITIAL_STATE = {
+      tallies: {
+        // Bona-Petite: Entbrat crossed out (5/5), Drumpler 6/10 (I + HII)
+        "bona-petite__Entbrat": 5,
+        "bona-petite__Drumpler": 6,
+        // Maulch: Quarrister 1, Entbrat crossed out (4/4), Spunge 2, Clamble 1, Furcorn 6, Noggin 5
+        "maulch__Quarrister": 1,
+        "maulch__Entbrat": 4,
+        "maulch__Spunge": 2,
+        "maulch__Clamble": 1,
+        "maulch__Furcorn": 6,
+        "maulch__Noggin": 5,
+        // Fleechwurm: Shellbeat 1, Quarrister 3 (crossed+2), Reedling 3 (crossed+3), Spunge 3 (crossed+2), Scups 4 (crossed+3)
+        "fleechwurm__Shellbeat": 1,
+        "fleechwurm__Quarrister": 3,
+        "fleechwurm__Reedling": 3,
+        "fleechwurm__Spunge": 3,
+        "fleechwurm__Scups": 4
+      },
+      pinned: {
+        "pixolotl": true,
+        "bona-petite": true,
+        "maulch": true,
+        "fleechwurm": true
+      },
+      customMonsters: []
+    };
+
+    const STORAGE_KEY = "msm_zap_tracker_v1";
+    let currentTab = "wublins";
+    let state = loadState();
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(SCREENSHOT_INITIAL_STATE));
+          return JSON.parse(JSON.stringify(SCREENSHOT_INITIAL_STATE));
+        }
+        return JSON.parse(raw);
+      } catch (e) {
+        return JSON.parse(JSON.stringify(SCREENSHOT_INITIAL_STATE));
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      const pill = document.getElementById("saveIndicator");
+      pill.textContent = "✓ Saved just now";
+      setTimeout(() => { pill.textContent = "✓ Auto-saved locally"; }, 1200);
+    }
+
+    function getMonstersForTab(tab) {
+      const base = DEFAULT_DATA[tab] || [];
+      const custom = (state.customMonsters || []).filter(m => m.category === tab);
+      return [...base, ...custom];
+    }
+
+    function formatTalliesHTML(count, req) {
+      if (count <= 0) return `<span class="tally-fraction">0/${req}</span>`;
+      const fives = Math.floor(count / 5);
+      const ones = count % 5;
+      let html = "";
+      for (let i = 0; i < fives; i++) {
+        html += `<span class="tally-group-five">||||</span> `;
+      }
+      if (ones > 0) {
+        html += `<span>${"|".repeat(ones)}</span>`;
+      }
+      html += ` <span class="tally-fraction">(${count}/${req})</span>`;
+      return html;
+    }
+
+    function handleEggClick(event, monsterId, eggName, reqCount) {
+      event.preventDefault();
+      const key = `${monsterId}__${eggName}`;
+      const current = state.tallies[key] || 0;
+
+      if (event.shiftKey) {
+        // Shift+Click toggles full completion (cross out)
+        state.tallies[key] = current >= reqCount ? 0 : reqCount;
+      } else if (event.type === "contextmenu" || event.button === 2) {
+        // Right-Click subtracts 1
+        state.tallies[key] = Math.max(0, current - 1);
+      } else {
+        // Left-Click adds 1 (wraps back to 0 if clicked after already full)
+        state.tallies[key] = current >= reqCount ? 0 : current + 1;
+      }
+
+      saveState();
+      render();
+    }
+
+    function togglePin(monsterId) {
+      state.pinned[monsterId] = !state.pinned[monsterId];
+      saveState();
+      render();
+    }
+
+    function fillAllMonster(monster) {
+      monster.eggs.forEach(([eggName, req]) => {
+        state.tallies[`${monster.id}__${eggName}`] = req;
+      });
+      saveState();
+      render();
+    }
+
+    function clearMonster(monster) {
+      monster.eggs.forEach(([eggName]) => {
+        delete state.tallies[`${monster.id}__${eggName}`];
+      });
+      saveState();
+      render();
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.textContent.toLowerCase().includes(tab));
+      });
+      render();
+    }
+
+    function renderShoppingSummary(monsters) {
+      const neededMap = {};
+      let activeCount = 0;
+
+      monsters.forEach(m => {
+        let zapped = 0;
+        let total = 0;
+        m.eggs.forEach(([eggName, req]) => {
+          zapped += (state.tallies[`${m.id}__${eggName}`] || 0);
+          total += req;
+        });
+        const isInProgress = (zapped > 0 && zapped < total) || state.pinned[m.id];
+        if (isInProgress && zapped < total) {
+          activeCount++;
+          m.eggs.forEach(([eggName, req]) => {
+            const cur = state.tallies[`${m.id}__${eggName}`] || 0;
+            const rem = Math.max(0, req - cur);
+            if (rem > 0) {
+              neededMap[eggName] = (neededMap[eggName] || 0) + rem;
+            }
+          });
+        }
+      });
+
+      const container = document.getElementById("shoppingPills");
+      const entries = Object.entries(neededMap).sort((a, b) => b[1] - a[1]);
+
+      if (entries.length === 0) {
+        container.innerHTML = `<span style="font-size:0.8rem; color:#6e6459;">No remaining eggs on pinned/in-progress statues in this tab. Click any egg below to start tracking!</span>`;
+        return;
+      }
+
+      container.innerHTML = entries.map(([eggName, rem]) => {
+        const style = getEggStyle(eggName);
+        return `
+          <span class="shop-pill">
+            <span class="shop-dot" style="background:${style.bg}"></span>
+            ${eggName}: <strong style="color:var(--accent-red)">x${rem}</strong>
+          </span>
+        `;
+      }).join("");
+    }
+
+    function render() {
+      const monsters = getMonstersForTab(currentTab);
+      const search = document.getElementById("searchInput").value.trim().toLowerCase();
+      const activeOnly = document.getElementById("filterActiveOnly").checked;
+      const hideCompleted = document.getElementById("hideCompleted").checked;
+
+      renderShoppingSummary(monsters);
+
+      const tbody = document.getElementById("monsterTableBody");
+      tbody.innerHTML = "";
+
+      monsters.forEach(monster => {
+        let totalReq = 0;
+        let totalZapped = 0;
+        monster.eggs.forEach(([eggName, req]) => {
+          totalReq += req;
+          totalZapped += Math.min(req, state.tallies[`${monster.id}__${eggName}`] || 0);
+        });
+
+        const isCompleted = totalZapped >= totalReq;
+        const isPinned = !!state.pinned[monster.id];
+        const isActive = isPinned || (totalZapped > 0 && !isCompleted);
+
+        if (activeOnly && !isActive) return;
+        if (hideCompleted && isCompleted) return;
+        if (search) {
+          const matchName = monster.name.toLowerCase().includes(search);
+          const matchEgg = monster.eggs.some(([e]) => e.toLowerCase().includes(search));
+          if (!matchName && !matchEgg) return;
+        }
+
+        const tr = document.createElement("tr");
+        if (isCompleted) tr.className = "row-completed";
+
+        const eggsHTML = monster.eggs.map(([eggName, req]) => {
+          const cur = state.tallies[`${monster.id}__${eggName}`] || 0;
+          const done = cur >= req;
+          const style = getEggStyle(eggName);
+
+          return `
+            <div class="egg-item ${done ? 'egg-done' : ''}"
+                 onclick="handleEggClick(event, '${monster.id}', '${eggName}', ${req})"
+                 oncontextmenu="handleEggClick(event, '${monster.id}', '${eggName}', ${req})"
+                 title="${eggName}: ${cur}/${req} zapped (Left-click +1, Right-click -1, Shift+click Cross out)">
+              <div class="egg-visual">
+                <div class="egg-oval" style="background: ${style.bg}">
+                  ${style.badge}
+                  <svg class="egg-scribble" viewBox="0 0 40 44">
+                    <path d="M4,6 L36,38 M36,6 L4,38 M2,22 L38,18 M6,32 L34,10"
+                          stroke="#d11919" stroke-width="3.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <span class="egg-req">x${req}</span>
+              </div>
+              <div class="egg-label">${eggName}</div>
+              <div class="tally-box">${formatTalliesHTML(cur, req)}</div>
+            </div>
+          `;
+        }).join("");
+
+        tr.innerHTML = `
+          <td class="col-monster">
+            <div class="monster-name">${monster.name}</div>
+            <div class="monster-sub">${isCompleted ? '✅ Awakened!' : (totalReq - totalZapped) + ' eggs left'}</div>
+            <button class="pin-btn ${isPinned ? 'pinned' : ''}" onclick="togglePin('${monster.id}')">
+              ${isPinned ? '📌 Working On' : 'Pin to Active'}
+            </button>
+          </td>
+          <td class="col-grid">
+            <div class="grid-diamond"></div>
+            <div class="grid-text">${monster.size}</div>
+          </td>
+          <td class="col-eggs">
+            <div class="eggs-wrap">${eggsHTML}</div>
+            <div class="total-line">
+              <span>(${totalReq} Total)</span>
+              <span class="progress-pill ${isCompleted ? 'complete' : ''}">
+                ${totalZapped} / ${totalReq} Zapped (${Math.round((totalZapped/totalReq)*100)}%)
+              </span>
+            </div>
+          </td>
+          <td class="col-cost">${monster.cost}</td>
+          <td class="col-time">${monster.time}</td>
+          <td class="col-actions">
+            <button class="row-btn" onclick='fillAllMonster(${JSON.stringify(monster)})'>✓ Fill All</button>
+            <button class="row-btn" onclick='clearMonster(${JSON.stringify(monster)})'>↺ Clear Row</button>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    function toggleCustomBuilder() {
+      document.getElementById("customBuilder").classList.toggle("open");
+    }
+
+    function addCustomMonster() {
+      const category = document.getElementById("custCategory").value;
+      const name = document.getElementById("custName").value.trim();
+      const size = document.getElementById("custSize").value.trim() || "2x2";
+      const cost = document.getElementById("custCost").value.trim() || "-";
+      const time = document.getElementById("custTime").value.trim() || "14d";
+      const rawEggs = document.getElementById("custEggs").value.trim();
+
+      if (!name || !rawEggs) {
+        alert("Please enter both a Monster Name and its Egg list (e.g. Kayna:4, Stogg:2).");
+        return;
+      }
+
+      const eggs = rawEggs.split(",").map(pair => {
+        const [eName, countStr] = pair.split(":").map(s => s.trim());
+        return [eName, Math.max(1, parseInt(countStr, 10) || 1)];
+      }).filter(([eName]) => eName);
+
+      const id = "cust_" + Date.now();
+      state.customMonsters = state.customMonsters || [];
+      state.customMonsters.push({ id, category, name, size, cost, time, eggs });
+      state.pinned[id] = true;
+      saveState();
+
+      document.getElementById("custName").value = "";
+      document.getElementById("custEggs").value = "";
+      switchTab(category);
+    }
+
+    function resetCurrentTab() {
+      if (!confirm(`Clear all egg tallies for ${currentTab.toUpperCase()}?`)) return;
+      const monsters = getMonstersForTab(currentTab);
+      monsters.forEach(m => {
+        m.eggs.forEach(([eggName]) => {
+          delete state.tallies[`${m.id}__${eggName}`];
+        });
+      });
+      saveState();
+      render();
+    }
+
+    function exportProgress() {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `msm-zap-progress-${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importProgress(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed && parsed.tallies) {
+            state = parsed;
+            saveState();
+            render();
+          }
+        } catch (err) {
+          alert("Invalid JSON backup file.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>
