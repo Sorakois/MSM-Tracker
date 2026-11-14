@@ -472,8 +472,13 @@ def main():
         dest = os.path.join(EGGS_DIR, f"{safe_filename(e_name)}.png")
         local_egg_map[e_name] = download_image(url, dest)
 
+    payload = {"monsters": final_db, "eggs": local_egg_map}
+
+    with open("msm_recipes.json", "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2)
+
     with open("msm_recipes.js", "w", encoding="utf-8") as f:
-        f.write("window.MSM_SCRAPED_DATA = " + json.dumps({"monsters": final_db, "eggs": local_egg_map}, indent=2) + ";")
+        f.write("window.MSM_SCRAPED_DATA = " + json.dumps(payload, indent=2) + ";\n")
 
     print(f"\nSaved msm_recipes.json with {sum(len(v) for v in final_db.values())} monsters and {len(local_egg_map)} egg sprites!")
 
