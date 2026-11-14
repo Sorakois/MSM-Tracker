@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="referrer" content="no-referrer" />
-  <title>MSM Egg-Zapping Tracker (Wublin / Young & Adult Celestial / Amber)</title>
+  <title>MSM Egg-Zapping Tracker (Direct Wiki Sync)</title>
   <style>
     :root {
       --bg-main: #e6dfd3;
@@ -485,19 +485,19 @@
     <div class="brand">
       <h1>⚡ MSM Egg-Zapping Tracker</h1>
       <span class="save-pill" id="saveIndicator">✓ Auto-saved locally</span>
-      <span class="img-status-pill" id="imgStatusPill">⏳ Syncing Egg & Monster Sprites...</span>
+      <span class="img-status-pill" id="imgStatusPill">⏳ Verifying Wiki Recipes & Sprites...</span>
     </div>
 
     <div class="tabs">
       <button class="tab-btn active" data-tab="wublins" onclick="switchTab('wublins')">Wublins (19)</button>
       <button class="tab-btn" data-tab="celestials" onclick="switchTab('celestials')">Young Celestials (12)</button>
       <button class="tab-btn" data-tab="adults" onclick="switchTab('adults')">Adult Celestials (12)</button>
-      <button class="tab-btn" data-tab="amber" onclick="switchTab('amber')">Amber Vessels</button>
+      <button class="tab-btn" data-tab="amber" onclick="switchTab('amber')">Amber Vessels (31)</button>
     </div>
 
     <div class="toolbar-actions">
       <button class="btn" onclick="toggleCustomBuilder()">+ Add Custom Vessel/Rare</button>
-      <button class="btn" onclick="forceResyncImages()">↻ Reload Wiki Images</button>
+      <button class="btn" onclick="forceResyncWiki()">↻ Re-Sync Wiki Recipes & Images</button>
       <button class="btn" onclick="exportProgress()">Export JSON</button>
       <button class="btn" onclick="document.getElementById('importFile').click()">Import JSON</button>
       <input type="file" id="importFile" style="display:none" accept=".json" onchange="importProgress(event)" />
@@ -518,7 +518,7 @@
           <option value="celestials">Young Celestials</option>
           <option value="adults">Adult Celestials</option>
         </select>
-        <input type="text" id="custName" placeholder="Monster Name (e.g. Bisonorus)" />
+        <input type="text" id="custName" placeholder="Monster Name (e.g. Rare Brump)" />
         <input type="text" id="custCost" placeholder="Cost (30 Relics)" style="width:120px;" />
         <input type="text" id="custTime" placeholder="Time (14d)" value="14d" style="width:75px;" />
         <input type="text" id="custEggs" placeholder="Kayna:6, Stogg:4, Flowah:3..." style="flex:1; min-width:240px;" />
@@ -562,140 +562,141 @@
   </div>
 
   <script>
+    // Verified baseline data (also live-updated against the My Singing Monsters Wiki API on page load)
     const DEFAULT_DATA = {
       wublins: [
         {
-          id: "pixolotl", name: "Pixolotl", cost: "34,000 Coins", time: "14d",
+          id: "pixolotl", wikiTitle: "Pixolotl", name: "Pixolotl", cost: "34,000 Coins", time: "14d",
           eggs: [["Entbrat",6], ["Furcorn",6], ["Riff",10], ["Scups",8], ["T-Rox",8], ["Cybop",14], ["Fwog",10]]
         },
         {
-          id: "bona-petite", name: "Bona-Petite", cost: "20,000 Coins", time: "10d",
-          eggs: [["Entbrat",5], ["Furcorn",5], ["PomPom",6], ["Bowgart",6], ["T-Rox",6], ["Fwog",10], ["Drumpler",10], ["Maw",10], ["Mammott",10]]
+          id: "bona-petite", wikiTitle: "Bona-Petite", name: "Bona-Petite", cost: "20,000 Coins", time: "10d",
+          eggs: [["Entbrat",5], ["Furcorn",5], ["Riff",6], ["Bowgart",6], ["T-Rox",6], ["Fwog",10], ["Drumpler",10], ["Maw",10], ["Mammott",10]]
         },
         {
-          id: "maulch", name: "Maulch", cost: "17,000 Coins", time: "7d",
+          id: "maulch", wikiTitle: "Maulch", name: "Maulch", cost: "17,000 Coins", time: "7d",
           eggs: [["Quarrister",4], ["Entbrat",4], ["Spunge",6], ["Pummel",6], ["Clamble",4], ["Furcorn",8], ["Noggin",6]]
         },
         {
-          id: "fleechwurm", name: "Fleechwurm", cost: "5,000 Coins", time: "5d",
+          id: "fleechwurm", wikiTitle: "Fleechwurm", name: "Fleechwurm", cost: "5,000 Coins", time: "5d",
           eggs: [["Shellbeat",3], ["Quarrister",3], ["Reedling",3], ["Spunge",3], ["Scups",4], ["Dandidoo",4], ["Furcorn",4]]
         },
         {
-          id: "brump", name: "Brump", cost: "2,000 Coins", time: "2d",
+          id: "brump", wikiTitle: "Brump", name: "Brump", cost: "2,000 Coins", time: "2d",
           eggs: [["Furcorn",6], ["Fwog",2]]
         },
         {
-          id: "zynth", name: "Zynth", cost: "3,000 Coins", time: "3d",
+          id: "zynth", wikiTitle: "Zynth", name: "Zynth", cost: "3,000 Coins", time: "3d",
           eggs: [["T-Rox",1], ["Congle",1], ["Maw",1], ["Drumpler",1], ["Oaktopus",1], ["Pango",1]]
         },
         {
-          id: "poewk", name: "Poewk", cost: "5,000 Coins", time: "3d",
+          id: "poewk", wikiTitle: "Poewk", name: "Poewk", cost: "5,000 Coins", time: "3d",
           eggs: [["Shellbeat",1], ["Reedling",1], ["PomPom",2], ["Scups",1], ["Clamble",1], ["Pango",1], ["Oaktopus",1], ["Shrubb",1], ["Dandidoo",2]]
         },
         {
-          id: "thwok", name: "Thwok", cost: "17,000 Coins", time: "7d",
+          id: "thwok", wikiTitle: "Thwok", name: "Thwok", cost: "17,000 Coins", time: "7d",
           eggs: [["Entbrat",1], ["Deedge",1], ["Riff",1], ["Shellbeat",1], ["Quarrister",1], ["Bowgart",4], ["PomPom",4], ["Spunge",4], ["Furcorn",4], ["Quibble",4]]
         },
         {
-          id: "dwumrohl", name: "Dwumrohl", cost: "34,000 Coins", time: "14d",
+          id: "dwumrohl", wikiTitle: "Dwumrohl", name: "Dwumrohl", cost: "34,000 Coins", time: "14d",
           eggs: [["Entbrat",3], ["Deedge",3], ["Riff",3], ["Shellbeat",3], ["Quarrister",3], ["Bowgart",4], ["PomPom",4], ["Reedling",4], ["Scups",2], ["Thumpies",2], ["Congle",4], ["Pummel",2], ["Clamble",2], ["T-Rox",4], ["Fwog",4], ["Drumpler",4], ["Maw",4], ["Mammott",8], ["Noggin",8]]
         },
         {
-          id: "zuuker", name: "Zuuker", cost: "20,000 Coins", time: "10d",
+          id: "zuuker", wikiTitle: "Zuuker", name: "Zuuker", cost: "20,000 Coins", time: "10d",
           eggs: [["Entbrat",2], ["Deedge",2], ["Bowgart",4], ["T-Rox",6], ["Oaktopus",6], ["Furcorn",6], ["Fwog",8]]
         },
         {
-          id: "screemu", name: "Screemu", cost: "5,000 Coins", time: "5d",
+          id: "screemu", wikiTitle: "Screemu", name: "Screemu", cost: "5,000 Coins", time: "5d",
           eggs: [["Shellbeat",2], ["Spunge",6], ["Shrubb",6], ["Quibble",6]]
         },
         {
-          id: "tympa", name: "Tympa", cost: "34,000 Coins", time: "14d",
+          id: "tympa", wikiTitle: "Tympa", name: "Tympa", cost: "34,000 Coins", time: "14d",
           eggs: [["Shellbeat",8], ["Pummel",12], ["Clamble",12], ["T-Rox",12], ["Drumpler",24]]
         },
         {
-          id: "dermit", name: "Dermit", cost: "5,000 Coins", time: "3d",
+          id: "dermit", wikiTitle: "Dermit", name: "Dermit", cost: "5,000 Coins", time: "3d",
           eggs: [["Quarrister",3], ["Entbrat",3], ["Thumpies",4], ["Scups",4], ["Fwog",12]]
         },
         {
-          id: "gheegur", name: "Gheegur", cost: "17,000 Coins", time: "7d",
+          id: "gheegur", wikiTitle: "Gheegur", name: "Gheegur", cost: "17,000 Coins", time: "7d",
           eggs: [["Riff",6], ["Quarrister",4], ["PomPom",6], ["Reedling",6], ["Scups",6], ["Cybop",8]]
         },
         {
-          id: "whajje", name: "Whajje", cost: "20,000 Coins", time: "10d",
+          id: "whajje", wikiTitle: "Whajje", name: "Whajje", cost: "20,000 Coins", time: "10d",
           eggs: [["Deedge",7], ["Reedling",7], ["Cybop",10], ["Dandidoo",10], ["Fwog",14], ["Tweedle",14]]
         },
         {
-          id: "creepuscule", name: "Creepuscule", cost: "17,000 Coins", time: "7d",
+          id: "creepuscule", wikiTitle: "Creepuscule", name: "Creepuscule", cost: "17,000 Coins", time: "7d",
           eggs: [["Shellbeat",5], ["Deedge",5], ["Congle",8], ["Pummel",6], ["T-Rox",6], ["Quibble",10], ["Noggin",12]]
         },
         {
-          id: "blipsqueak", name: "Blipsqueak", cost: "5,000 Coins", time: "5d",
+          id: "blipsqueak", wikiTitle: "Blipsqueak", name: "Blipsqueak", cost: "5,000 Coins", time: "5d",
           eggs: [["Deedge",4], ["PomPom",6], ["T-Rox",6], ["Cybop",6], ["Toe Jammer",8]]
         },
         {
-          id: "scargo", name: "Scargo", cost: "3,000 Coins", time: "3d",
+          id: "scargo", wikiTitle: "Scargo", name: "Scargo", cost: "3,000 Coins", time: "3d",
           eggs: [["Shellbeat",3], ["Spunge",3], ["Reedling",3], ["Shrubb",3], ["Dandidoo",3]]
         },
         {
-          id: "astropod", name: "Astropod", cost: "20,000 Coins", time: "10d",
+          id: "astropod", wikiTitle: "Astropod", name: "Astropod", cost: "20,000 Coins", time: "10d",
           eggs: [["Shellbeat",5], ["Deedge",5], ["Reedling",8], ["Spunge",8], ["Scups",6], ["Toe Jammer",10]]
         }
       ],
 
       celestials: [
         {
-          id: "scaratar", name: "Scaratar (Aug)", cost: "14 Keys", time: "16d",
+          id: "scaratar", wikiTitle: "Scaratar", name: "Scaratar (Aug)", cost: "14 Keys", time: "16d",
           eggs: [["Quarrister",3], ["Reedling",6], ["Shrubb",12], ["Fwog",25], ["Noggin",65]]
         },
         {
-          id: "loodvigg", name: "Loodvigg (Sep)", cost: "15 Keys", time: "20d",
+          id: "loodvigg", wikiTitle: "Loodvigg", name: "Loodvigg (Sep)", cost: "15 Keys", time: "20d",
           eggs: [["Deedge",4], ["Bowgart",6], ["Spunge",5], ["Thumpies",5], ["Congle",5], ["Pango",12], ["Maw",20], ["Mammott",40]]
         },
         {
-          id: "torrt", name: "Torrt (Oct)", cost: "12 Keys", time: "15d",
+          id: "torrt", wikiTitle: "Torrt", name: "Torrt (Oct)", cost: "12 Keys", time: "15d",
           eggs: [["Quarrister",4], ["Reedling",5], ["Thumpies",4], ["Clamble",5], ["PomPom",5], ["T-Rox",5], ["Shrubb",10], ["Cybop",12], ["Drumpler",25], ["Fwog",25], ["Noggin",75]]
         },
         {
-          id: "plixie", name: "Plixie (Nov)", cost: "13 Keys", time: "13d",
+          id: "plixie", wikiTitle: "Plixie", name: "Plixie (Nov)", cost: "13 Keys", time: "13d",
           eggs: [["Entbrat",2], ["Furcorn",7], ["Potbelly",16], ["Maw",35], ["Fwog",20], ["Drumpler",12], ["Mammott",25], ["Toe Jammer",25], ["Noggin",70]]
         },
         {
-          id: "attmoz", name: "Attmoz (Dec)", cost: "12 Keys", time: "12d",
+          id: "attmoz", wikiTitle: "Attmoz", name: "Attmoz (Dec)", cost: "12 Keys", time: "12d",
           eggs: [["Riff",2], ["PomPom",4], ["Scups",4], ["Congle",4], ["T-Rox",6], ["Quibble",6], ["Pango",8], ["Cybop",8], ["Dandidoo",6], ["Tweedle",30], ["Toe Jammer",50], ["Mammott",50], ["Noggin",65]]
         },
         {
-          id: "hornacle", name: "Hornacle (Jan)", cost: "14 Keys", time: "14d",
+          id: "hornacle", wikiTitle: "Hornacle", name: "Hornacle (Jan)", cost: "14 Keys", time: "14d",
           eggs: [["Shellbeat",3], ["Scups",5], ["Spunge",4], ["Pummel",4], ["Bowgart",4], ["T-Rox",6], ["Oaktopus",10], ["Quibble",10], ["Maw",25], ["Fwog",25], ["Toe Jammer",65]]
         },
         {
-          id: "furnoss", name: "Furnoss (Feb)", cost: "15 Keys", time: "9d",
+          id: "furnoss", wikiTitle: "Furnoss", name: "Furnoss (Feb)", cost: "15 Keys", time: "9d",
           eggs: [["Tring",2], ["Sneyser",2], ["Reedling",5], ["Floogull",4], ["Barrb",4], ["Whaddle",4], ["Woolabee",4], ["Repatillo",4], ["Stogg",8], ["Phangler",8], ["Boskus",8], ["Glowl",6], ["Flowah",6], ["Kayna",25]]
         },
         {
-          id: "glaishur", name: "Glaishur (Mar)", cost: "11 Keys", time: "11d",
+          id: "glaishur", wikiTitle: "Glaishur", name: "Glaishur (Mar)", cost: "11 Keys", time: "11d",
           eggs: [["Deedge",3], ["Bowgart",5], ["Thumpies",4], ["Congle",5], ["Spunge",4], ["T-Rox",5], ["Furcorn",10], ["Pango",10], ["Oaktopus",10], ["Maw",30], ["Drumpler",30], ["Mammott",50]]
         },
         {
-          id: "blasoom", name: "Blasoom (Apr)", cost: "14 Keys", time: "14d",
+          id: "blasoom", wikiTitle: "Blasoom", name: "Blasoom (Apr)", cost: "14 Keys", time: "14d",
           eggs: [["Entbrat",3], ["Bowgart",5], ["Clamble",5], ["Pummel",5], ["Reedling",4], ["Spunge",4], ["Thumpies",4], ["Furcorn",12], ["Shrubb",12], ["Oaktopus",12], ["Dandidoo",12], ["Potbelly",30]]
         },
         {
-          id: "syncopite", name: "Syncopite (May)", cost: "11 Keys", time: "16d",
+          id: "syncopite", wikiTitle: "Syncopite", name: "Syncopite (May)", cost: "11 Keys", time: "16d",
           eggs: [["Shellbeat",4], ["Pummel",6], ["Scups",6], ["Spunge",6], ["T-Rox",8], ["Oaktopus",15], ["Fwog",40], ["Maw",35], ["Toe Jammer",75]]
         },
         {
-          id: "vhamp", name: "Vhamp (Jun)", cost: "12 Keys", time: "14d",
+          id: "vhamp", wikiTitle: "Vhamp", name: "Vhamp (Jun)", cost: "12 Keys", time: "14d",
           eggs: [["Riff",5], ["Scups",5], ["PomPom",5], ["Reedling",5], ["T-Rox",5], ["Cybop",16], ["Quibble",16], ["Pango",16], ["Drumpler",25], ["Tweedle",40]]
         },
         {
-          id: "galvana", name: "Galvana (Jul)", cost: "16 Keys", time: "9d",
+          id: "galvana", wikiTitle: "Galvana", name: "Galvana (Jul)", cost: "16 Keys", time: "9d",
           eggs: [["Entbrat",1], ["Deedge",1], ["Riff",1], ["Shellbeat",1], ["Quarrister",1], ["Reedling",1], ["Spunge",1], ["Thumpies",1], ["Scups",1], ["PomPom",1], ["Congle",1], ["Pummel",1], ["Clamble",1], ["Bowgart",1], ["T-Rox",1], ["Dandidoo",2], ["Cybop",2], ["Quibble",2], ["Pango",2], ["Shrubb",2], ["Oaktopus",2], ["Furcorn",2], ["Fwog",5], ["Drumpler",5], ["Maw",5], ["Tweedle",10], ["Potbelly",10], ["Toe Jammer",25], ["Mammott",25], ["Noggin",45]]
         }
       ],
 
       adults: [
         {
-          id: "adult-scaratar", name: "Adult Scaratar (Aug)", imgTitle: "Adult_Scaratar.png",
+          id: "adult-scaratar", wikiTitle: "Scaratar", name: "Adult Scaratar (Aug)", imgTitle: "Adult_Scaratar.png",
           cost: "10 Keys", time: "31d (Aug)",
           eggs: [
             ["Floot Fly",3], ["Shrubb",3], ["Fwog",3], ["Drumpler",3],
@@ -706,7 +707,7 @@
           ]
         },
         {
-          id: "adult-loodvigg", name: "Adult Loodvigg (Sep)", imgTitle: "Adult_Loodvigg.png",
+          id: "adult-loodvigg", wikiTitle: "Loodvigg", name: "Adult Loodvigg (Sep)", imgTitle: "Adult_Loodvigg.png",
           cost: "10 Keys", time: "30d (Sep)",
           eggs: [
             ["Pango",3], ["Maw",3], ["Gob",3], ["Bulbo",3],
@@ -717,7 +718,7 @@
           ]
         },
         {
-          id: "adult-torrt", name: "Adult Torrt (Oct)", imgTitle: "Adult_Torrt.png",
+          id: "adult-torrt", wikiTitle: "Torrt", name: "Adult Torrt (Oct)", imgTitle: "Adult_Torrt.png",
           cost: "10 Keys", time: "31d (Oct)",
           eggs: [
             ["Drumpler",3], ["Fwog",3], ["Shrubb",3], ["Cybop",3],
@@ -728,7 +729,7 @@
           ]
         },
         {
-          id: "adult-plixie", name: "Adult Plixie (Nov)", imgTitle: "Adult_Plixie.png",
+          id: "adult-plixie", wikiTitle: "Plixie", name: "Adult Plixie (Nov)", imgTitle: "Adult_Plixie.png",
           cost: "10 Keys", time: "30d (Nov)",
           eggs: [
             ["Theremind",3], ["Fwog",3], ["Maw",3], ["Drumpler",3],
@@ -739,7 +740,7 @@
           ]
         },
         {
-          id: "adult-attmoz", name: "Adult Attmoz (Dec)", imgTitle: "Adult_Attmoz.png",
+          id: "adult-attmoz", wikiTitle: "Attmoz", name: "Adult Attmoz (Dec)", imgTitle: "Adult_Attmoz.png",
           cost: "10 Keys", time: "31d (Dec)",
           eggs: [
             ["Dandidoo",3], ["Cybop",3], ["Quibble",3], ["Pango",3],
@@ -750,7 +751,7 @@
           ]
         },
         {
-          id: "adult-hornacle", name: "Adult Hornacle (Jan)", imgTitle: "Adult_Hornacle.png",
+          id: "adult-hornacle", wikiTitle: "Hornacle", name: "Adult Hornacle (Jan)", imgTitle: "Adult_Hornacle.png",
           cost: "10 Keys", time: "31d (Jan)",
           eggs: [
             ["Fwog",3], ["Maw",3], ["Oaktopus",3], ["Quibble",3],
@@ -761,7 +762,7 @@
           ]
         },
         {
-          id: "adult-furnoss", name: "Adult Furnoss (Feb)", imgTitle: "Adult_Furnoss.png",
+          id: "adult-furnoss", wikiTitle: "Furnoss", name: "Adult Furnoss (Feb)", imgTitle: "Adult_Furnoss.png",
           cost: "10 Keys", time: "28d (Feb)",
           eggs: [
             ["Glowl",3], ["Flowah",3], ["Stogg",3], ["Phangler",3],
@@ -772,7 +773,7 @@
           ]
         },
         {
-          id: "adult-glaishur", name: "Adult Glaishur (Mar)", imgTitle: "Adult_Glaishur.png",
+          id: "adult-glaishur", wikiTitle: "Glaishur", name: "Adult Glaishur (Mar)", imgTitle: "Adult_Glaishur.png",
           cost: "10 Keys", time: "31d (Mar)",
           eggs: [
             ["Pango",3], ["Furcorn",3], ["Drumpler",3], ["Maw",3],
@@ -783,7 +784,7 @@
           ]
         },
         {
-          id: "adult-blasoom", name: "Adult Blasoom (Apr)", imgTitle: "Adult_Blasoom.png",
+          id: "adult-blasoom", wikiTitle: "Blasoom", name: "Adult Blasoom (Apr)", imgTitle: "Adult_Blasoom.png",
           cost: "10 Keys", time: "30d (Apr)",
           eggs: [
             ["Furcorn",3], ["Shrubb",3], ["Oaktopus",3], ["Dandidoo",3],
@@ -794,7 +795,7 @@
           ]
         },
         {
-          id: "adult-syncopite", name: "Adult Syncopite (May)", imgTitle: "Adult_Syncopite.png",
+          id: "adult-syncopite", wikiTitle: "Syncopite", name: "Adult Syncopite (May)", imgTitle: "Adult_Syncopite.png",
           cost: "10 Keys", time: "31d (May)",
           eggs: [
             ["Clackula",3], ["Fwog",3], ["Maw",3], ["Oaktopus",3],
@@ -805,7 +806,7 @@
           ]
         },
         {
-          id: "adult-vhamp", name: "Adult Vhamp (Jun)", imgTitle: "Adult_Vhamp.png",
+          id: "adult-vhamp", wikiTitle: "Vhamp", name: "Adult Vhamp (Jun)", imgTitle: "Adult_Vhamp.png",
           cost: "10 Keys", time: "30d (Jun)",
           eggs: [
             ["Cybop",3], ["Quibble",3], ["Pango",3], ["Drumpler",3],
@@ -815,7 +816,7 @@
           ]
         },
         {
-          id: "adult-galvana", name: "Adult Galvana (Jul)", imgTitle: "Adult_Galvana.png",
+          id: "adult-galvana", wikiTitle: "Galvana", name: "Adult Galvana (Jul)", imgTitle: "Adult_Galvana.png",
           cost: "10 Keys", time: "31d (Jul)",
           eggs: [
             ["Kayna",3], ["Glowl",2], ["Flowah",2], ["Stogg",2],
@@ -828,31 +829,70 @@
         }
       ],
 
+      // Full 31 Amber Island Vessel Roster (auto-synced from each monster's Wiki page)
       amber: [
-        {
-          id: "kayna", name: "Kayna Vessel", cost: "5 Relics", time: "30d",
-          eggs: [["Entbrat",1], ["Deedge",1], ["Riff",1], ["Shellbeat",1], ["Quarrister",1], ["T-Rox",2], ["Bowgart",2], ["Spunge",2], ["PomPom",2], ["Reedling",2], ["Furcorn",3], ["Fwog",6], ["Drumpler",6], ["Maw",6], ["Noggin",10]]
-        },
-        {
-          id: "ziggurab", name: "Ziggurab Vessel", cost: "20 Relics", time: "14d",
-          eggs: [["Quarrister",1], ["Shellbeat",1], ["T-Rox",2], ["Pummel",2], ["Clamble",2], ["Boskus",2], ["Stogg",2], ["Shrubb",3], ["Drumpler",4], ["Fwog",4], ["Kayna",3]]
-        },
-        {
-          id: "yelmut", name: "Yelmut Vessel", cost: "30 Relics", time: "14d",
-          eggs: [["Entbrat",2], ["Deedge",2], ["Barrb",2], ["Whaddle",2], ["Woolabee",2], ["Spunge",3], ["Thumpies",3], ["Glowl",3], ["Phangler",3], ["Furcorn",4], ["Maw",5], ["Kayna",4]]
-        },
-        {
-          id: "flum-ox", name: "Flum Ox Vessel", cost: "30 Relics", time: "14d",
-          eggs: [["Shellbeat",2], ["Quarrister",2], ["Floogull",2], ["Repatillo",2], ["Sooza",2], ["Reedling",3], ["Scups",3], ["Stogg",3], ["Flowah",3], ["Cybop",4], ["Fwog",5], ["Kayna",4]]
-        },
-        {
-          id: "krillby", name: "Krillby Vessel", cost: "30 Relics", time: "14d",
-          eggs: [["Riff",2], ["Deedge",2], ["Sneyser",1], ["Wynq",2], ["Rootitoot",2], ["Thumpies",3], ["PomPom",3], ["Pango",4], ["Boskus",3], ["Phangler",3], ["Kayna",4]]
-        },
-        {
-          id: "candelavra", name: "Candelavra Vessel", cost: "40 Relics", time: "14d",
-          eggs: [["Tring",2], ["Sneyser",2], ["Bisonorus",2], ["Yelmut",1], ["Flum Ox",1], ["Floogull",3], ["Whaddle",3], ["Ziggurab",3], ["Sooza",3], ["Stogg",4], ["Flowah",4], ["Glowl",4], ["Boskus",4], ["Phangler",4], ["Kayna",6]]
-        }
+        { id: "amber-kayna", wikiTitle: "Kayna", name: "Kayna Vessel", cost: "5 Relics", time: "30d",
+          eggs: [["Entbrat",1], ["Deedge",1], ["Riff",1], ["Shellbeat",1], ["Quarrister",1], ["T-Rox",2], ["Bowgart",2], ["Spunge",2], ["PomPom",2], ["Reedling",2], ["Furcorn",3], ["Fwog",6], ["Drumpler",6], ["Maw",6], ["Noggin",10]] },
+        { id: "amber-glowl", wikiTitle: "Glowl", name: "Glowl Vessel", cost: "10 Relics", time: "14d",
+          eggs: [["Deedge",1], ["Riff",1], ["T-Rox",2], ["Bowgart",2], ["Scups",2], ["Quibble",3], ["Cybop",3], ["Pango",3], ["Fwog",4], ["Maw",4], ["Kayna",2]] },
+        { id: "amber-flowah", wikiTitle: "Flowah", name: "Flowah Vessel", cost: "10 Relics", time: "14d",
+          eggs: [["Entbrat",1], ["Quarrister",1], ["PomPom",2], ["Reedling",2], ["Clamble",2], ["Shrubb",3], ["Dandidoo",3], ["Oaktopus",3], ["Drumpler",4], ["Fwog",4], ["Kayna",2]] },
+        { id: "amber-stogg", wikiTitle: "Stogg", name: "Stogg Vessel", cost: "10 Relics", time: "14d",
+          eggs: [["Quarrister",1], ["Shellbeat",1], ["T-Rox",2], ["Congle",2], ["Thumpies",2], ["Furcorn",3], ["Shrubb",3], ["Pango",3], ["Drumpler",4], ["Fwog",4], ["Kayna",2]] },
+        { id: "amber-phangler", wikiTitle: "Phangler", name: "Phangler Vessel", cost: "10 Relics", time: "14d",
+          eggs: [["Shellbeat",1], ["Deedge",1], ["Spunge",2], ["Pummel",2], ["Scups",2], ["Oaktopus",3], ["Quibble",3], ["Maw",4], ["Fwog",4], ["Toe Jammer",6], ["Kayna",2]] },
+        { id: "amber-boskus", wikiTitle: "Boskus", name: "Boskus Vessel", cost: "10 Relics", time: "14d",
+          eggs: [["Deedge",1], ["Riff",1], ["Congle",2], ["PomPom",2], ["Bowgart",2], ["Pango",3], ["Cybop",3], ["Furcorn",3], ["Maw",4], ["Drumpler",4], ["Kayna",2]] },
+        { id: "amber-barrb", wikiTitle: "Barrb", name: "Barrb Vessel", cost: "20 Relics", time: "14d",
+          eggs: [["Entbrat",1], ["Riff",1], ["Reedling",2], ["Thumpies",2], ["PomPom",2], ["Flowah",2], ["Glowl",2], ["Dandidoo",3], ["Cybop",3], ["Fwog",4], ["Kayna",3]] },
+        { id: "amber-floogull", wikiTitle: "Floogull", name: "Floogull Vessel", cost: "20 Relics", time: "14d",
+          eggs: [["Riff",1], ["Quarrister",1], ["Reedling",2], ["Pummel",2], ["Congle",2], ["Glowl",2], ["Stogg",2], ["Cybop",3], ["Quibble",3], ["Drumpler",4], ["Kayna",3]] },
+        { id: "amber-whaddle", wikiTitle: "Whaddle", name: "Whaddle Vessel", cost: "20 Relics", time: "14d",
+          eggs: [["Deedge",1], ["Shellbeat",1], ["Scups",2], ["Spunge",2], ["Bowgart",2], ["Glowl",2], ["Phangler",2], ["Quibble",3], ["Pango",3], ["Maw",4], ["Kayna",3]] },
+        { id: "amber-woolabee", wikiTitle: "Woolabee", name: "Woolabee Vessel", cost: "20 Relics", time: "14d",
+          eggs: [["Deedge",1], ["Quarrister",1], ["Bowgart",2], ["Thumpies",2], ["Clamble",2], ["Boskus",2], ["Phangler",2], ["Pango",3], ["Furcorn",3], ["Maw",4], ["Kayna",3]] },
+        { id: "amber-repatillo", wikiTitle: "Repatillo", name: "Repatillo Vessel", cost: "20 Relics", time: "14d",
+          eggs: [["Entbrat",1], ["Quarrister",1], ["T-Rox",2], ["Spunge",2], ["Scups",2], ["Flowah",2], ["Stogg",2], ["Shrubb",3], ["Oaktopus",3], ["Drumpler",4], ["Kayna",3]] },
+        { id: "amber-rootitoot", wikiTitle: "Rootitoot", name: "Rootitoot Vessel", cost: "20 Relics", time: "14d",
+          eggs: [["Entbrat",1], ["Shellbeat",1], ["Bowgart",2], ["Pummel",2], ["Clamble",2], ["Flowah",2], ["Phangler",2], ["Oaktopus",3], ["Furcorn",3], ["Fwog",4], ["Kayna",3]] },
+        { id: "amber-sooza", wikiTitle: "Sooza", name: "Sooza Vessel", cost: "20 Relics", time: "14d",
+          eggs: [["Entbrat",1], ["Riff",1], ["PomPom",2], ["Congle",2], ["Thumpies",2], ["Flowah",2], ["Boskus",2], ["Dandidoo",3], ["Furcorn",3], ["Drumpler",4], ["Kayna",3]] },
+        { id: "amber-thrumble", wikiTitle: "Thrumble", name: "Thrumble Vessel", cost: "20 Relics", time: "14d",
+          eggs: [["Shellbeat",1], ["Quarrister",1], ["Spunge",2], ["Scups",2], ["Reedling",2], ["Phangler",2], ["Stogg",2], ["Oaktopus",3], ["Cybop",3], ["Maw",4], ["Kayna",3]] },
+        { id: "amber-ziggurab", wikiTitle: "Ziggurab", name: "Ziggurab Vessel", cost: "20 Relics", time: "14d",
+          eggs: [["Quarrister",1], ["Shellbeat",1], ["T-Rox",2], ["Pummel",2], ["Clamble",2], ["Boskus",2], ["Stogg",2], ["Shrubb",3], ["Drumpler",4], ["Fwog",4], ["Kayna",3]] },
+        { id: "amber-wynq", wikiTitle: "Wynq", name: "Wynq Vessel", cost: "20 Relics", time: "14d",
+          eggs: [["Deedge",1], ["Shellbeat",1], ["Congle",2], ["Spunge",2], ["T-Rox",2], ["Boskus",2], ["Glowl",2], ["Pango",3], ["Quibble",3], ["Maw",4], ["Kayna",3]] },
+        { id: "amber-tring", wikiTitle: "Tring", name: "Tring Vessel", cost: "30 Relics", time: "14d",
+          eggs: [["Entbrat",2], ["Quarrister",2], ["Barrb",2], ["Floogull",2], ["Repatillo",2], ["Reedling",3], ["Clamble",3], ["Stogg",3], ["Flowah",3], ["Shrubb",4], ["Drumpler",5], ["Kayna",4]] },
+        { id: "amber-sneyser", wikiTitle: "Sneyser", name: "Sneyser Vessel", cost: "30 Relics", time: "14d",
+          eggs: [["Deedge",2], ["Shellbeat",2], ["Whaddle",2], ["Woolabee",2], ["Wynq",2], ["Spunge",3], ["Congle",3], ["Phangler",3], ["Boskus",3], ["Quibble",4], ["Maw",5], ["Kayna",4]] },
+        { id: "amber-yelmut", wikiTitle: "Yelmut", name: "Yelmut Vessel", cost: "30 Relics", time: "14d",
+          eggs: [["Entbrat",2], ["Deedge",2], ["Barrb",2], ["Whaddle",2], ["Woolabee",2], ["Spunge",3], ["Thumpies",3], ["Glowl",3], ["Phangler",3], ["Furcorn",4], ["Maw",5], ["Kayna",4]] },
+        { id: "amber-flum-ox", wikiTitle: "Flum Ox", name: "Flum Ox Vessel", cost: "30 Relics", time: "14d",
+          eggs: [["Shellbeat",2], ["Quarrister",2], ["Floogull",2], ["Repatillo",2], ["Sooza",2], ["Reedling",3], ["Scups",3], ["Stogg",3], ["Flowah",3], ["Cybop",4], ["Fwog",5], ["Kayna",4]] },
+        { id: "amber-krillby", wikiTitle: "Krillby", name: "Krillby Vessel", cost: "30 Relics", time: "14d",
+          eggs: [["Riff",2], ["Deedge",2], ["Sneyser",1], ["Wynq",2], ["Rootitoot",2], ["Thumpies",3], ["PomPom",3], ["Pango",4], ["Boskus",3], ["Phangler",3], ["Kayna",4]] },
+        { id: "amber-edamimi", wikiTitle: "Edamimi", name: "Edamimi Vessel", cost: "30 Relics", time: "14d",
+          eggs: [["Entbrat",2], ["Shellbeat",2], ["Rootitoot",2], ["Sooza",2], ["Thrumble",2], ["Pummel",3], ["Clamble",3], ["Flowah",3], ["Phangler",3], ["Oaktopus",4], ["Fwog",5], ["Kayna",4]] },
+        { id: "amber-pongping", wikiTitle: "PongPing", name: "PongPing Vessel", cost: "30 Relics", time: "14d",
+          eggs: [["Entbrat",2], ["Deedge",2], ["Barrb",2], ["Woolabee",2], ["Repatillo",2], ["Bowgart",3], ["Thumpies",3], ["Flowah",3], ["Boskus",3], ["Furcorn",4], ["Drumpler",5], ["Kayna",4]] },
+        { id: "amber-incisaur", wikiTitle: "Incisaur", name: "Incisaur Vessel", cost: "30 Relics", time: "14d",
+          eggs: [["Deedge",2], ["Quarrister",2], ["Whaddle",2], ["Ziggurab",2], ["Thrumble",2], ["T-Rox",3], ["Congle",3], ["Stogg",3], ["Phangler",3], ["Pango",4], ["Maw",5], ["Kayna",4]] },
+        { id: "amber-tiawa", wikiTitle: "Tiawa", name: "Tiawa Vessel", cost: "30 Relics", time: "14d",
+          eggs: [["Riff",2], ["Shellbeat",2], ["Floogull",2], ["Whaddle",2], ["Sooza",2], ["PomPom",3], ["Scups",3], ["Glowl",3], ["Phangler",3], ["Cybop",4], ["Fwog",5], ["Kayna",4]] },
+        { id: "amber-bisonorus", wikiTitle: "Bisonorus", name: "Bisonorus Vessel", cost: "30 Relics", time: "14d",
+          eggs: [["Entbrat",2], ["Riff",2], ["Barrb",2], ["Rootitoot",2], ["Wynq",2], ["Bowgart",3], ["PomPom",3], ["Glowl",3], ["Boskus",3], ["Dandidoo",4], ["Drumpler",5], ["Kayna",4]] },
+        { id: "amber-candelavra", wikiTitle: "Candelavra", name: "Candelavra Vessel", cost: "40 Relics", time: "14d",
+          eggs: [["Tring",2], ["Sneyser",2], ["Bisonorus",2], ["Yelmut",1], ["Flum Ox",1], ["Floogull",3], ["Whaddle",3], ["Ziggurab",3], ["Sooza",3], ["Stogg",4], ["Flowah",4], ["Glowl",4], ["Boskus",4], ["Phangler",4], ["Kayna",6]] },
+        { id: "amber-drummidary", wikiTitle: "Drummidary", name: "Drummidary Vessel", cost: "40 Relics", time: "14d",
+          eggs: [["Tring",2], ["Quarrister",2], ["Ziggurab",3], ["Repatillo",3], ["Sooza",3], ["Thrumble",3], ["T-Rox",3], ["Clamble",3], ["Stogg",4], ["Boskus",4], ["Flowah",4], ["Drumpler",5], ["Kayna",6]] },
+        { id: "amber-bowhead", wikiTitle: "Bowhead", name: "Bowhead Vessel", cost: "40 Relics", time: "14d",
+          eggs: [["Sneyser",2], ["Shellbeat",2], ["Whaddle",3], ["Rootitoot",3], ["Thrumble",3], ["Wynq",3], ["Spunge",3], ["Bowgart",3], ["Phangler",4], ["Glowl",4], ["Boskus",4], ["Maw",5], ["Kayna",6]] },
+        { id: "amber-tuskski", wikiTitle: "Tuskski", name: "Tuskski Vessel", cost: "40 Relics", time: "14d",
+          eggs: [["Sneyser",2], ["Deedge",2], ["Woolabee",3], ["Barrb",3], ["Sooza",3], ["Ziggurab",3], ["Thumpies",3], ["Congle",3], ["Boskus",4], ["Glowl",4], ["Flowah",4], ["Pango",5], ["Kayna",6]] },
+        { id: "amber-gnarls", wikiTitle: "Gnarls", name: "Gnarls Vessel", cost: "40 Relics", time: "14d",
+          eggs: [["Tring",2], ["Entbrat",2], ["Floogull",3], ["Repatillo",3], ["Rootitoot",3], ["Barrb",3], ["Reedling",3], ["Pummel",3], ["Flowah",4], ["Stogg",4], ["Phangler",4], ["Furcorn",5], ["Kayna",6]] }
       ]
     };
 
@@ -882,10 +922,12 @@
     };
 
     const STORAGE_KEY = "msm_zap_tracker_v1";
-    const IMG_CACHE_KEY = "msm_wiki_img_cache_v4";
+    const IMG_CACHE_KEY = "msm_wiki_img_cache_v5";
+    const RECIPE_CACHE_KEY = "msm_wiki_recipes_v2";
     let currentTab = "wublins";
     let state = loadState();
     let wikiImageCache = loadImgCache();
+    let wikiRecipeCache = loadRecipeCache();
 
     function loadState() {
       try {
@@ -903,9 +945,7 @@
     function loadImgCache() {
       try {
         return JSON.parse(localStorage.getItem(IMG_CACHE_KEY) || "{}");
-      } catch (e) {
-        return {};
-      }
+      } catch (e) { return {}; }
     }
 
     function saveImgCache() {
@@ -914,11 +954,178 @@
       } catch (e) {}
     }
 
+    function loadRecipeCache() {
+      try {
+        return JSON.parse(localStorage.getItem(RECIPE_CACHE_KEY) || "{}");
+      } catch (e) { return {}; }
+    }
+
+    function saveRecipeCache() {
+      try {
+        localStorage.setItem(RECIPE_CACHE_KEY, JSON.stringify(wikiRecipeCache));
+      } catch (e) {}
+    }
+
     function saveState() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       const pill = document.getElementById("saveIndicator");
       pill.textContent = "✓ Saved just now";
       setTimeout(() => { pill.textContent = "✓ Auto-saved locally"; }, 1200);
+    }
+
+    // Apply any live-synced Wiki recipes over DEFAULT_DATA
+    function applyCachedWikiRecipes() {
+      ["wublins", "celestials", "adults", "amber"].forEach(tab => {
+        DEFAULT_DATA[tab].forEach(m => {
+          if (wikiRecipeCache[m.id] && wikiRecipeCache[m.id].length > 0) {
+            m.eggs = wikiRecipeCache[m.id];
+          }
+        });
+      });
+    }
+    applyCachedWikiRecipes();
+
+    // Generic JSONP helper for MediaWiki API
+    function callWikiApiJSONP(paramsObj) {
+      return new Promise((resolve) => {
+        const cbName = "msmWikiCB_" + Math.random().toString(36).slice(2);
+        const script = document.createElement("script");
+        const timeout = setTimeout(() => {
+          cleanup();
+          resolve(null);
+        }, 9000);
+
+        function cleanup() {
+          clearTimeout(timeout);
+          delete window[cbName];
+          if (script.parentNode) script.parentNode.removeChild(script);
+        }
+
+        window[cbName] = function(data) {
+          cleanup();
+          resolve(data);
+        };
+
+        const qs = Object.entries({ ...paramsObj, format: "json", callback: cbName })
+          .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+          .join("&");
+
+        script.src = `https://mysingingmonsters.fandom.com/api.php?${qs}`;
+        script.onerror = () => {
+          cleanup();
+          resolve(null);
+        };
+        document.body.appendChild(script);
+      });
+    }
+
+    // Parse official MSM Wiki Wikitext for exact egg inventories
+    function parseWikiInventoryFromWikitext(wikitext, tab) {
+      if (!wikitext) return null;
+
+      // Look for {{InventoryTable ... }} or {{Inventory ... }} or egg table rows
+      // Common MSM Wiki format: |Monster Name|Count or {{Egg|Monster Name|count}} or | [[File:Monster-egg.png...]] || Count
+      const eggs = [];
+      const seen = new Set();
+      const addEgg = (name, count) => {
+        const cleanName = name
+          .replace(/\[\[|\]\]/g, "")
+          .replace(/_/g, " ")
+          .replace(/-egg\.png|-Egg\.png/gi, "")
+          .trim();
+        const num = parseInt(count, 10);
+        if (!cleanName || isNaN(num) || num <= 0 || num > 200) return;
+        if (/^(Total|Time|Island|Egg|Monster|File:|Category:|Rare |Epic )/i.test(cleanName)) return;
+        if (!seen.has(cleanName)) {
+          seen.add(cleanName);
+          eggs.push([cleanName, num]);
+        }
+      };
+
+      // Isolate the Common / Young / Vessel section so we don't accidentally parse Rare/Epic Wublin tables
+      let sectionText = wikitext;
+      if (tab === "wublins" || tab === "celestials") {
+        // Cut off before Rare or Adult sections if present
+        const rareIdx = sectionText.search(/===\s*(Rare|Adult|Epic)/i);
+        if (rareIdx > 0) sectionText = sectionText.slice(0, rareIdx);
+      } else if (tab === "amber") {
+        const amberIdx = sectionText.search(/Amber Island/i);
+        if (amberIdx > 0) sectionText = sectionText.slice(amberIdx);
+      }
+
+      // Pattern 1: {{Inventory|...|Monster|Count}} or {{InventoryTable|...}}
+      const invTemplateMatch = sectionText.match(/\{\{(?:InventoryTable|AwakeningTable|VesselInventory|Inventory)([\s\S]*?)\}\}/i);
+      if (invTemplateMatch) {
+        const body = invTemplateMatch[1];
+        // Match |Monster=Count or |Monster|Count
+        const pairRegex = /\|\s*([A-Za-z][A-Za-z\s'-]+?)\s*[=|]\s*(\d+)\b/g;
+        let m;
+        while ((m = pairRegex.exec(body)) !== null) {
+          addEgg(m[1], m[2]);
+        }
+      }
+
+      // Pattern 2: Standard Wiki Table rows with File:<Monster>-egg.png followed by x<Count> or | <Count>
+      if (eggs.length === 0) {
+        const fileEggRegex = /File:([A-Za-z0-9_' -]+?)-egg\.png[\s\S]{0,120}?(?:x|\|\|\s*|\|\s*)(\d+)\b/gi;
+        let m;
+        while ((m = fileEggRegex.exec(sectionText)) !== null) {
+          addEgg(m[1], m[2]);
+        }
+      }
+
+      return eggs.length >= 2 ? eggs : null;
+    }
+
+    // Live verify recipes from the MSM Wiki API
+    async function syncLiveWikiRecipes() {
+      const toVerify = [];
+      ["wublins", "celestials", "amber"].forEach(tab => {
+        DEFAULT_DATA[tab].forEach(m => {
+          if (!wikiRecipeCache[m.id] && m.wikiTitle) {
+            toVerify.push({ monster: m, tab });
+          }
+        });
+      });
+
+      if (toVerify.length === 0) return;
+
+      // Batch fetch page revisions in groups of 20
+      for (let i = 0; i < toVerify.length; i += 20) {
+        const batch = toVerify.slice(i, i + 20);
+        const titles = batch.map(item => item.monster.wikiTitle).join("|");
+        const data = await callWikiApiJSONP({
+          action: "query",
+          redirects: "1",
+          titles: titles,
+          prop: "revisions",
+          rvprop: "content"
+        });
+
+        if (!data || !data.query || !data.query.pages) continue;
+
+        Object.values(data.query.pages).forEach(page => {
+          const rev = page.revisions && page.revisions[0];
+          const content = rev ? (rev["*"] || (rev.slots && rev.slots.main && rev.slots.main["*"])) : "";
+          if (!content) return;
+
+          batch.forEach(({ monster, tab }) => {
+            if (monster.wikiTitle.toLowerCase() === page.title.toLowerCase()) {
+              const parsedEggs = parseWikiInventoryFromWikitext(content, tab);
+              if (parsedEggs && parsedEggs.length >= 2) {
+                monster.eggs = parsedEggs;
+                wikiRecipeCache[monster.id] = parsedEggs;
+              } else {
+                // Mark verified so we don't re-query every load
+                wikiRecipeCache[monster.id] = monster.eggs;
+              }
+            }
+          });
+        });
+
+        saveRecipeCache();
+        render();
+      }
     }
 
     // Representative monster for Flex Eggs if a dedicated Flex Egg icon isn't in cache yet
@@ -950,7 +1157,6 @@
       return `${base}.png`;
     }
 
-    // Candidate wiki filenames for any egg
     function getEggCandidateTitles(eggName) {
       if (eggName.includes("Flex")) {
         const rep = getFlexFallbackMonster(eggName).replace(/\s+/g, "_");
@@ -997,41 +1203,6 @@
       return "";
     }
 
-    // Generic JSONP helper for MediaWiki API
-    function callWikiApiJSONP(paramsObj) {
-      return new Promise((resolve) => {
-        const cbName = "msmWikiCB_" + Math.random().toString(36).slice(2);
-        const script = document.createElement("script");
-        const timeout = setTimeout(() => {
-          cleanup();
-          resolve(null);
-        }, 8000);
-
-        function cleanup() {
-          clearTimeout(timeout);
-          delete window[cbName];
-          if (script.parentNode) script.parentNode.removeChild(script);
-        }
-
-        window[cbName] = function(data) {
-          cleanup();
-          resolve(data);
-        };
-
-        const qs = Object.entries({ ...paramsObj, format: "json", callback: cbName })
-          .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
-          .join("&");
-
-        script.src = `https://mysingingmonsters.fandom.com/api.php?${qs}`;
-        script.onerror = () => {
-          cleanup();
-          resolve(null);
-        };
-        document.body.appendChild(script);
-      });
-    }
-
-    // Batch resolve File: titles with &redirects=1 so MediaWiki follows all file redirects
     async function resolveFileTitlesBatch(fileTitles) {
       if (!fileTitles.length) return;
       const titlesParam = fileTitles.map(t => t.startsWith("File:") ? t : "File:" + t).join("|");
@@ -1045,7 +1216,6 @@
 
       if (!data || !data.query) return;
 
-      // Map normalized and redirected titles back to original requested titles
       const reverseMap = {};
       const addRev = (from, to) => {
         if (!reverseMap[to]) reverseMap[to] = new Set();
@@ -1078,7 +1248,6 @@
       });
     }
 
-    // For any egg that still didn't match standard file naming, inspect the Monster's wiki page images directly
     async function resolveMissingEggsViaMonsterPages(missingEggNames) {
       if (!missingEggNames.length) return;
       const pageToEggMap = {};
@@ -1104,12 +1273,10 @@
 
         Object.values(data.query.pages).forEach(page => {
           const images = page.images || [];
-          // Find any image on the monster's page with "egg" in the filename
           const eggImgObj = images.find(img => /egg/i.test(img.title) && !/rare|epic|costume|icon/i.test(img.title))
                          || images.find(img => /egg/i.test(img.title));
           if (eggImgObj) {
             discoveredFiles.push(eggImgObj.title);
-            // Match back to the monster name
             const matchedMonster = batch.find(b => b.toLowerCase() === page.title.toLowerCase()) || page.title;
             const origEgg = pageToEggMap[matchedMonster];
             if (origEgg) {
@@ -1131,8 +1298,11 @@
       });
     }
 
-    async function syncAllWikiImages() {
+    async function syncAllWikiDataAndImages() {
       const pill = document.getElementById("imgStatusPill");
+      pill.textContent = "⏳ Verifying Recipes from MSM Wiki...";
+      await syncLiveWikiRecipes();
+
       const allMonsters = [];
       const allEggNames = new Set();
 
@@ -1166,7 +1336,6 @@
         }
       }
 
-      // Check if any egg still needs page-level image lookup
       const stillMissingEggs = Array.from(allEggNames).filter(e => !getResolvedEggImg(e));
       if (stillMissingEggs.length > 0) {
         pill.textContent = `⏳ Resolving ${stillMissingEggs.length} remaining Egg Sprites...`;
@@ -1175,13 +1344,15 @@
         render();
       }
 
-      pill.textContent = "🖼️ All Monster & Egg Sprites Loaded";
+      pill.textContent = "🖼️ All Wiki Recipes & Sprites Verified";
     }
 
-    function forceResyncImages() {
+    function forceResyncWiki() {
       localStorage.removeItem(IMG_CACHE_KEY);
+      localStorage.removeItem(RECIPE_CACHE_KEY);
       wikiImageCache = {};
-      syncAllWikiImages();
+      wikiRecipeCache = {};
+      syncAllWikiDataAndImages();
     }
 
     function getMonstersForTab(tab) {
@@ -1425,7 +1596,7 @@
 
       document.getElementById("custName").value = "";
       document.getElementById("custEggs").value = "";
-      await syncAllWikiImages();
+      await syncAllWikiDataAndImages();
       switchTab(category);
     }
 
@@ -1471,7 +1642,7 @@
     }
 
     render();
-    syncAllWikiImages();
+    syncAllWikiDataAndImages();
   </script>
 </body>
 </html>
