@@ -61,6 +61,14 @@
       border-radius: 99px;
       border: 1px solid #527955;
     }
+    .img-pill {
+      font-size: 0.74rem;
+      background: #3b352f;
+      color: #f7d78a;
+      padding: 3px 9px;
+      border-radius: 99px;
+      border: 1px solid #6b5c47;
+    }
 
     .tabs {
       display: flex;
@@ -230,6 +238,14 @@
       align-items: center;
       gap: 4px;
     }
+    .monster-img-box {
+      width: 82px;
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
     .monster-img {
       width: 82px;
       height: 82px;
@@ -325,21 +341,11 @@
       z-index: 2;
     }
 
-    /* Instant SVG Egg Fallback (shown if online sprite is still loading or blocked) */
-    .egg-fallback-svg {
-      width: 34px;
-      height: 40px;
-      border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
-      box-shadow: inset -4px -5px 8px rgba(0,0,0,0.28), inset 3px 3px 6px rgba(255,255,255,0.45), 0 2px 3px rgba(0,0,0,0.18);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.6rem;
-      font-weight: 800;
-      color: #fff;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.9);
-      border: 1.5px solid rgba(0,0,0,0.28);
+    .egg-svg-fallback {
+      width: 38px;
+      height: 42px;
       position: absolute;
+      inset: 0;
       z-index: 1;
     }
 
@@ -469,6 +475,7 @@
     <div class="brand">
       <h1>⚡ MSM Egg-Zapping Tracker</h1>
       <span class="save-pill" id="saveIndicator">✓ Auto-saved locally</span>
+      <span class="img-pill" id="imgStatusPill">⏳ Loading Wiki Sprites...</span>
     </div>
 
     <div class="tabs">
@@ -479,6 +486,7 @@
     </div>
 
     <div class="toolbar-actions">
+      <button class="btn" onclick="resyncSprites()">↻ Reload Sprites</button>
       <button class="btn" onclick="exportProgress()">Export JSON</button>
       <button class="btn" onclick="document.getElementById('importFile').click()">Import JSON</button>
       <input type="file" id="importFile" style="display:none" accept=".json" onchange="importProgress(event)" />
@@ -521,24 +529,69 @@
   </div>
 
   <script>
-    // Color-coded fallback palette for instant visual rendering while online sprites load
-    const EGG_PALETTE = {
-      "Entbrat": "#c8641e", "Deedge": "#2b7de9", "Riff": "#9c35b5", "Shellbeat": "#d14b6a", "Quarrister": "#8c8a7e",
-      "T-Rox": "#6e665c", "Bowgart": "#4a6b9c", "Clamble": "#475c38", "Pummel": "#3e7a67", "Congle": "#b57856",
-      "PomPom": "#e83e8c", "Scups": "#4278b8", "Thumpies": "#7a8f3e", "Spunge": "#68ab24", "Reedling": "#b84330",
-      "Drumpler": "#b59674", "Fwog": "#28ad80", "Maw": "#d4427a", "Furcorn": "#44ab1b", "Oaktopus": "#4272b8",
-      "Shrubb": "#6e5230", "Pango": "#4f4f4f", "Quibble": "#e66c1c", "Cybop": "#477c96", "Dandidoo": "#8cad3b",
-      "Noggin": "#635d57", "Mammott": "#9e9e9e", "Toe Jammer": "#1b8cd4", "Potbelly": "#3b9617", "Tweedle": "#b04b90",
-      "Kayna": "#d9460f", "Glowl": "#d97706", "Flowah": "#b45309", "Stogg": "#7c2d12", "Phangler": "#0284c7", "Boskus": "#9333ea"
+    // Rich color palette for instant SVG Egg rendering while live Wiki PNGs resolve
+    const EGG_STYLE = {
+      "Entbrat": { c1: "#e07a24", c2: "#8f3f09", spot: "#5eb327" },
+      "Deedge": { c1: "#4da6ff", c2: "#154c91", spot: "#ffffff" },
+      "Riff": { c1: "#c852e0", c2: "#5d1873", spot: "#49b6ff" },
+      "Shellbeat": { c1: "#e05573", c2: "#2c7da6", spot: "#7be3f2" },
+      "Quarrister": { c1: "#b5b3a8", c2: "#5e5c54", spot: "#d9c27e" },
+      "T-Rox": { c1: "#8c8275", c2: "#4a433b", spot: "#b89f5d" },
+      "Bowgart": { c1: "#6385b5", c2: "#31445e", spot: "#a3c4f2" },
+      "Clamble": { c1: "#5c7548", c2: "#242b1f", spot: "#dbca60" },
+      "Pummel": { c1: "#4b8f7a", c2: "#8f3b56", spot: "#80e0c2" },
+      "Congle": { c1: "#d69878", c2: "#7a4b30", spot: "#ffffff" },
+      "PomPom": { c1: "#ff5ca8", c2: "#a8195b", spot: "#ffaae0" },
+      "Scups": { c1: "#6298d9", c2: "#264770", spot: "#a6d1ff" },
+      "Thumpies": { c1: "#96ab54", c2: "#4d5924", spot: "#d487b8" },
+      "Spunge": { c1: "#86cf38", c2: "#43730e", spot: "#c9f285" },
+      "Reedling": { c1: "#cf4e38", c2: "#3c8538", spot: "#f5d76e" },
+      "Drumpler": { c1: "#e67335", c2: "#94350c", spot: "#f5c87a" },
+      "Fwog": { c1: "#3cd19f", c2: "#166e50", spot: "#3785d9" },
+      "Maw": { c1: "#f05995", c2: "#8f1b49", spot: "#f5c449" },
+      "Furcorn": { c1: "#70db32", c2: "#2c7309", spot: "#b9f582" },
+      "Oaktopus": { c1: "#5c8fd6", c2: "#234473", spot: "#87bf47" },
+      "Shrubb": { c1: "#87633a", c2: "#3f6e20", spot: "#a3d95b" },
+      "Pango": { c1: "#525252", c2: "#1f1f1f", spot: "#e68a2e" },
+      "Quibble": { c1: "#ff8533", c2: "#9e4004", spot: "#ffd269" },
+      "Cybop": { c1: "#b87b4b", c2: "#366f87", spot: "#85d6f2" },
+      "Dandidoo": { c1: "#d8eba4", c2: "#6b8c29", spot: "#ffffff" },
+      "Noggin": { c1: "#857e76", c2: "#423d38", spot: "#aba39a" },
+      "Mammott": { c1: "#f7f7f7", c2: "#adadad", spot: "#ffffff" },
+      "Toe Jammer": { c1: "#33b5ff", c2: "#0b5885", spot: "#99dcff" },
+      "Potbelly": { c1: "#5cd12e", c2: "#226308", spot: "#eb8934" },
+      "Tweedle": { c1: "#d66db5", c2: "#73285b", spot: "#f5aee0" },
+      "Kayna": { c1: "#ff621f", c2: "#8f2400", spot: "#ffbe4f" }
     };
 
-    function getEggColor(name) {
-      if (name.includes("Flex")) return "linear-gradient(135deg, #f59e0b, #7c3aed)";
-      const hex = EGG_PALETTE[name] || "#786856";
-      return `linear-gradient(135deg, ${hex}, #2b2520)`;
+    function buildEggSVG(eggName) {
+      const isFlex = eggName.includes("Flex");
+      const st = isFlex
+        ? { c1: "#f59e0b", c2: "#6d28d9", spot: "#fde047" }
+        : (EGG_STYLE[eggName] || { c1: "#9c7a54", c2: "#4d3924", spot: "#dfc29f" });
+      const gradId = "eg_" + eggName.replace(/[^a-zA-Z0-9]/g, "");
+      const label = isFlex ? "FLEX" : eggName.slice(0, 3).toUpperCase();
+
+      return `
+        <svg class="egg-svg-fallback" viewBox="0 0 40 44">
+          <defs>
+            <radialGradient id="${gradId}" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="${st.c1}" />
+              <stop offset="100%" stop-color="${st.c2}" />
+            </radialGradient>
+          </defs>
+          <path d="M20,3 C30,3 36,16 36,27 C36,36 29,41 20,41 C11,41 4,36 4,27 C4,16 10,3 20,3 Z"
+                fill="url(#${gradId})" stroke="rgba(0,0,0,0.35)" stroke-width="1.5"/>
+          <circle cx="14" cy="15" r="3.2" fill="${st.spot}" opacity="0.65"/>
+          <circle cx="26" cy="19" r="2.5" fill="${st.spot}" opacity="0.6"/>
+          <circle cx="15" cy="28" r="2.8" fill="${st.spot}" opacity="0.55"/>
+          <text x="20" y="26" text-anchor="middle" fill="#fff" font-size="7.5" font-weight="800"
+                stroke="rgba(0,0,0,0.75)" stroke-width="2" paint-order="stroke">${label}</text>
+        </svg>
+      `;
     }
 
-    // Verified Recipes for all 74 Monsters (Wublins, Young Celestials, Adult Celestials, Amber Vessels)
+    // Complete 74-Monster Database
     const MONSTER_DB = {
       wublins: [
         {
@@ -547,7 +600,7 @@
         },
         {
           id: "bona-petite", name: "Bona-Petite", cost: "20,000 Coins", time: "10d",
-          eggs: [["Riff",5], ["Entbrat",5], ["PomPom",6], ["Bowgart",6], ["T-Rox",6], ["Fwog",10], ["Drumpler",10], ["Maw",10], ["Mammott",10]]
+          eggs: [["Entbrat",5], ["Furcorn",5], ["Riff",6], ["Bowgart",6], ["T-Rox",6], ["Fwog",10], ["Drumpler",10], ["Maw",10], ["Mammott",10]]
         },
         {
           id: "maulch", name: "Maulch", cost: "17,000 Coins", time: "7d",
@@ -873,7 +926,6 @@
 
     const INITIAL_USER_STATE = {
       tallies: {
-        "bona-petite__Riff": 5,
         "bona-petite__Entbrat": 5,
         "bona-petite__Drumpler": 6,
         "maulch__Quarrister": 1,
@@ -897,8 +949,10 @@
     };
 
     const STORAGE_KEY = "msm_zap_tracker_v2";
+    const IMG_MAP_KEY = "msm_direct_wikia_urls_v1";
     let currentTab = "wublins";
     let state = loadState();
+    let imgMap = loadImgMap();
 
     function loadState() {
       try {
@@ -920,47 +974,153 @@
       setTimeout(() => { pill.textContent = "✓ Auto-saved locally"; }, 1200);
     }
 
-    // Online image URL builder via wsrv.nl CDN (follows Fandom's Special:FilePath redirects server-side)
-    function getOnlineMonsterImg(monster) {
-      let file = monster.imgFile;
-      if (!file) {
-        const clean = monster.name
-          .replace(/\s*\([^)]*\)/g, "")
-          .replace(/\s+Vessel$/i, "")
-          .trim()
-          .replace(/\s+/g, "_");
-        file = `${clean}.png`;
-      }
-      const wikiPath = `https://mysingingmonsters.fandom.com/wiki/Special:FilePath/${encodeURIComponent(file)}`;
-      return `https://wsrv.nl/?url=${encodeURIComponent(wikiPath)}&w=140&output=png`;
+    function loadImgMap() {
+      try {
+        return JSON.parse(localStorage.getItem(IMG_MAP_KEY) || "{}");
+      } catch (e) { return {}; }
     }
 
-    function getOnlineEggImg(eggName, attempt = 0) {
-      let file = "";
-      if (eggName.includes("Mythical Flex")) {
-        file = "Spooktacle_Mythical_Flex-Egg.png";
-      } else if (eggName.includes("Flex")) {
-        file = "Rare_Double-Element_Fire_Flex-Egg.png";
-      } else {
-        const clean = eggName.trim().replace(/\s+/g, "_");
-        // Try lowercase -egg.png first, then uppercase -Egg.png, then monster sprite on fallback
-        if (attempt === 0) file = `${clean}-egg.png`;
-        else if (attempt === 1) file = `${clean}-Egg.png`;
-        else file = `${clean}.png`;
-      }
-      const wikiPath = `https://mysingingmonsters.fandom.com/wiki/Special:FilePath/${encodeURIComponent(file)}`;
-      return `https://wsrv.nl/?url=${encodeURIComponent(wikiPath)}&w=90&output=png`;
+    function saveImgMap() {
+      try {
+        localStorage.setItem(IMG_MAP_KEY, JSON.stringify(imgMap));
+      } catch (e) {}
     }
 
-    function handleEggImgError(imgEl, eggName) {
-      const step = parseInt(imgEl.getAttribute("data-step") || "0", 10);
-      if (step < 2) {
-        imgEl.setAttribute("data-step", String(step + 1));
-        imgEl.src = getOnlineEggImg(eggName, step + 1);
-      } else {
-        // Hide broken img tag so the clean color-coded SVG egg underneath shows clearly
-        imgEl.style.display = "none";
+    function getMonsterWikiFile(monster) {
+      if (monster.imgFile) return monster.imgFile;
+      const clean = monster.name
+        .replace(/\s*\([^)]*\)/g, "")
+        .replace(/\s+Vessel$/i, "")
+        .trim()
+        .replace(/\s+/g, "_");
+      return `${clean}.png`;
+    }
+
+    // Exact MSM Wiki Egg File naming: "<Monster>_Egg.png" (plus "<Monster>-egg.png" alias)
+    function getEggWikiFiles(eggName) {
+      if (eggName.includes("Mythical Flex")) return ["Spooktacle_Mythical_Flex-Egg.png"];
+      if (eggName.includes("Flex")) return ["Rare_Double-Element_Fire_Flex-Egg.png"];
+      const clean = eggName.trim().replace(/\s+/g, "_");
+      return [`${clean}_Egg.png`, `${clean}-egg.png`];
+    }
+
+    function getMonsterImgUrl(monster) {
+      const f = getMonsterWikiFile(monster);
+      return imgMap[f] || imgMap[f.replace(/_/g, " ")] || "";
+    }
+
+    function getEggImgUrl(eggName) {
+      const candidates = getEggWikiFiles(eggName);
+      for (const f of candidates) {
+        const hit = imgMap[f] || imgMap[f.replace(/_/g, " ")];
+        if (hit) return hit;
       }
+      return "";
+    }
+
+    // Exact JSONP batch method that loaded Monster images in Screenshot #2, now with &redirects=1 and _Egg.png
+    function fetchWikiImageBatchJSONP(fileList) {
+      return new Promise((resolve) => {
+        const cbName = "msmImgCB_" + Math.random().toString(36).slice(2);
+        const titlesParam = fileList.map(f => "File:" + f).join("|");
+        const script = document.createElement("script");
+
+        const timeout = setTimeout(() => {
+          cleanup();
+          resolve();
+        }, 8000);
+
+        function cleanup() {
+          clearTimeout(timeout);
+          delete window[cbName];
+          if (script.parentNode) script.parentNode.removeChild(script);
+        }
+
+        window[cbName] = function(data) {
+          cleanup();
+          try {
+            if (!data || !data.query) return resolve();
+
+            // Map redirected/normalized titles back to requested filenames
+            const rev = {};
+            const link = (from, to) => {
+              if (!rev[to]) rev[to] = new Set();
+              rev[to].add(from);
+            };
+            (data.query.normalized || []).forEach(n => link(n.from, n.to));
+            (data.query.redirects || []).forEach(r => {
+              link(r.from, r.to);
+              if (rev[r.from]) rev[r.from].forEach(o => link(o, r.to));
+            });
+
+            Object.values(data.query.pages || {}).forEach(page => {
+              if (page.imageinfo && page.imageinfo[0] && page.imageinfo[0].url) {
+                // Strip /revision/latest/scale-to-width-down/... so raw static.wikia PNG loads directly
+                const cleanUrl = page.imageinfo[0].url.split("/revision/")[0];
+                const allKeys = new Set([page.title]);
+                if (rev[page.title]) rev[page.title].forEach(k => allKeys.add(k));
+
+                allKeys.forEach(k => {
+                  const stripped = k.replace(/^File:/i, "");
+                  imgMap[stripped] = cleanUrl;
+                  imgMap[stripped.replace(/\s+/g, "_")] = cleanUrl;
+                  imgMap[stripped.replace(/_/g, " ")] = cleanUrl;
+                });
+              }
+            });
+          } catch (e) {}
+          resolve();
+        };
+
+        script.src = `https://mysingingmonsters.fandom.com/api.php?action=query&redirects=1&titles=${encodeURIComponent(titlesParam)}&prop=imageinfo&iiprop=url&format=json&callback=${cbName}`;
+        script.onerror = () => {
+          cleanup();
+          resolve();
+        };
+        document.body.appendChild(script);
+      });
+    }
+
+    async function syncAllSprites() {
+      const pill = document.getElementById("imgStatusPill");
+      const needed = new Set();
+
+      // Prioritize current tab's monsters & eggs first so visible images pop in immediately
+      const tabOrder = [currentTab, ...["wublins", "celestials", "adults", "amber"].filter(t => t !== currentTab)];
+
+      tabOrder.forEach(tab => {
+        (MONSTER_DB[tab] || []).forEach(m => {
+          if (!getMonsterImgUrl(m)) needed.add(getMonsterWikiFile(m));
+          m.eggs.forEach(([eggName]) => {
+            if (!getEggImgUrl(eggName)) {
+              getEggWikiFiles(eggName).forEach(f => needed.add(f));
+            }
+          });
+        });
+      });
+
+      const list = Array.from(needed);
+      if (list.length === 0) {
+        pill.textContent = "🖼️ All Wiki Sprites Ready";
+        return;
+      }
+
+      for (let i = 0; i < list.length; i += 40) {
+        const batch = list.slice(i, i + 40);
+        pill.textContent = `⏳ Syncing Wiki Sprites (${Math.min(list.length, i + 40)}/${list.length})...`;
+        await fetchWikiImageBatchJSONP(batch);
+        saveImgMap();
+        render();
+      }
+
+      pill.textContent = "🖼️ All Wiki Sprites Loaded";
+    }
+
+    function resyncSprites() {
+      localStorage.removeItem(IMG_MAP_KEY);
+      imgMap = {};
+      render();
+      syncAllSprites();
     }
 
     function formatTalliesHTML(count, req) {
@@ -1061,11 +1221,10 @@
       }
 
       container.innerHTML = entries.map(([eggName, rem]) => {
-        const eggUrl = getOnlineEggImg(eggName, 0);
-        const safeEgg = eggName.replace(/'/g, "\\'");
+        const eggUrl = getEggImgUrl(eggName);
         return `
           <span class="shop-pill">
-            <img class="shop-egg-img" src="${eggUrl}" alt="" onerror="handleEggImgError(this, '${safeEgg}')" />
+            ${eggUrl ? `<img class="shop-egg-img" src="${eggUrl}" alt="" onerror="this.style.display='none'" />` : ""}
             ${eggName}: <strong style="color:var(--accent-red)">x${rem}</strong>
           </span>
         `;
@@ -1105,15 +1264,13 @@
         const tr = document.createElement("tr");
         if (isCompleted) tr.className = "row-completed";
 
-        const monsterImgUrl = getOnlineMonsterImg(monster);
+        const monsterImgUrl = getMonsterImgUrl(monster);
 
         const eggsHTML = monster.eggs.map(([eggName, req]) => {
           const cur = Math.min(req, state.tallies[`${monster.id}__${eggName}`] || 0);
           const done = cur >= req;
-          const eggImgUrl = getOnlineEggImg(eggName, 0);
+          const eggImgUrl = getEggImgUrl(eggName);
           const safeEggName = eggName.replace(/'/g, "\\'");
-          const bgGrad = getEggColor(eggName);
-          const shortCode = eggName.includes("Flex") ? "FLEX" : eggName.slice(0, 3).toUpperCase();
 
           return `
             <div class="egg-item ${done ? 'egg-done' : ''}"
@@ -1122,10 +1279,8 @@
                  title="${eggName}: ${cur}/${req} zapped (Left-click +1, Right-click -1, Shift+click Cross out)">
               <div class="egg-visual">
                 <div class="egg-sprite-box">
-                  <div class="egg-fallback-svg" style="background:${bgGrad}">${shortCode}</div>
-                  <img class="egg-img" src="${eggImgUrl}" alt="" loading="lazy"
-                       onload="this.previousElementSibling.style.display='none'"
-                       onerror="handleEggImgError(this, '${safeEggName}')" />
+                  ${buildEggSVG(eggName)}
+                  ${eggImgUrl ? `<img class="egg-img" src="${eggImgUrl}" alt="" loading="lazy" onload="if(this.previousElementSibling)this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />` : ""}
                   <svg class="egg-scribble" viewBox="0 0 40 44">
                     <path d="M4,6 L36,38 M36,6 L4,38 M2,22 L38,18 M6,32 L34,10"
                           stroke="#d11919" stroke-width="3.8" stroke-linecap="round"/>
@@ -1142,8 +1297,7 @@
         tr.innerHTML = `
           <td class="col-monster">
             <div class="monster-portrait-wrap">
-              <img class="monster-img" src="${monsterImgUrl}" alt="${monster.name}" loading="lazy"
-                   onerror="this.style.display='none'" />
+              ${monsterImgUrl ? `<div class="monster-img-box"><img class="monster-img" src="${monsterImgUrl}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'" /></div>` : ""}
               <div class="monster-name">${monster.name}</div>
               <div class="monster-sub">${isCompleted ? '✅ Completed!' : (totalReq - totalZapped) + ' eggs left'}</div>
               <button class="pin-btn ${isPinned ? 'pinned' : ''}" onclick="togglePin('${monster.id}')">
@@ -1177,7 +1331,7 @@
       const monsters = MONSTER_DB[currentTab] || [];
       monsters.forEach(m => {
         m.eggs.forEach(([eggName]) => {
-          delete state.tallies[`${m.id}__${eggName}`];
+          delete state.tallies[`${monster.id}__${eggName}`];
         });
       });
       saveState();
@@ -1213,8 +1367,8 @@
       reader.readAsText(file);
     }
 
-    // Renders synchronously on load — zero network wait!
     render();
+    syncAllSprites();
   </script>
 </body>
 </html>
