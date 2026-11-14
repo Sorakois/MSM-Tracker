@@ -464,7 +464,7 @@
     <div class="brand">
       <h1>⚡ MSM Live Wiki Egg-Zapping Tracker</h1>
       <span class="save-pill" id="saveIndicator">✓ Auto-saved locally</span>
-      <span class="wiki-status-pill" id="wikiStatusPill">⏳ Pulling Live Recipes & Images from MSM Wiki...</span>
+      <span class="wiki-status-pill" id="wikiStatusPill">⏳ Connecting to MSM Wiki API...</span>
     </div>
 
     <div class="tabs">
@@ -514,17 +514,35 @@
   <div class="table-container">
     <table class="wiki-table">
       <tbody id="monsterTableBody">
-        <tr><td class="loading-banner">Fetching live egg inventories & sprites directly from mysingingmonsters.fandom.com...</td></tr>
+        <tr><td class="loading-banner" id="loadingBanner">⏳ Fetching live egg inventories & sprites from mysingingmonsters.fandom.com...</td></tr>
       </tbody>
     </table>
   </div>
 
   <script>
     const STORAGE_KEY = "msm_zap_tracker_v1";
-    const WIKI_DATA_CACHE_KEY = "msm_live_wiki_data_v1";
+    const WIKI_DATA_CACHE_KEY = "msm_live_wiki_data_v3";
 
-    // Put the 4 Wublins from the user's screenshot at the top of the Wublins tab once fetched
-    const PRIORITY_WUBLINS = ["pixolotl", "bona-petite", "maulch", "fleechwurm"];
+    // Official Roster Names to query directly from MSM Wiki
+    const ROSTERS = {
+      wublins: [
+        "Pixolotl", "Bona-Petite", "Maulch", "Fleechwurm",
+        "Brump", "Zynth", "Poewk", "Thwok", "Dwumrohl", "Zuuker",
+        "Screemu", "Tympa", "Dermit", "Gheegur", "Whajje",
+        "Creepuscule", "Blipsqueak", "Scargo", "Astropod"
+      ],
+      celestials: [
+        "Scaratar", "Loodvigg", "Torrt", "Plixie", "Attmoz", "Hornacle",
+        "Furnoss", "Glaishur", "Blasoom", "Syncopite", "Vhamp", "Galvana"
+      ],
+      amber: [
+        "Kayna", "Glowl", "Flowah", "Stogg", "Phangler", "Boskus",
+        "Barrb", "Floogull", "Whaddle", "Woolabee", "Repatillo", "Rootitoot",
+        "Sooza", "Thrumble", "Ziggurab", "Wynq", "Tring", "Sneyser",
+        "Yelmut", "Flum Ox", "Krillby", "Edamimi", "PongPing", "Incisaur",
+        "Tiawa", "Bisonorus", "Candelavra", "Drummidary", "Bowhead", "Tuskski", "Gnarls"
+      ]
+    };
 
     const INITIAL_USER_STATE = {
       tallies: {
@@ -552,7 +570,7 @@
 
     let currentTab = "wublins";
     let state = loadState();
-    let wikiData = loadWikiCache(); // { wublins: [], celestials: [], adults: [], amber: [], eggImages: {} }
+    let wikiData = loadWikiCache();
 
     function loadState() {
       try {
@@ -591,10 +609,22 @@
       } catch (e) {}
     }
 
-    // JSONP helper for MediaWiki API (action=parse returns rendered HTML of any Wiki page)
-    function callWikiApiJSONP(paramsObj) {
+    // Dual-transport MediaWiki API caller: tries native CORS fetch first, falls back to JSONP
+    async function callWikiApi(paramsObj) {
+      const qsCors = Object.entries({ ...paramsObj, format: "json", origin: "*" })
+        .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+        .join("&");
+
+      try {
+        const resp = await fetch(`https://mysingingmonsters.fandom.com/api.php?${qsCors}`);
+        if (resp.ok) {
+          return await resp.json();
+        }
+      } catch (e) {}
+
+      // Fallback to JSONP if file:// origin blocks fetch
       return new Promise((resolve) => {
-        const cbName = "msmWikiParseCB_" + Math.random().toString(36).slice(2);
+        const cbName = "msmWikiCB_" + Math.random().toString(36).slice(2);
         const script = document.createElement("script");
         const timeout = setTimeout(() => {
           cleanup();
@@ -612,11 +642,11 @@
           resolve(data);
         };
 
-        const qs = Object.entries({ ...paramsObj, format: "json", callback: cbName })
+        const qsJsonp = Object.entries({ ...paramsObj, format: "json", callback: cbName })
           .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
           .join("&");
 
-        script.src = `https://mysingingmonsters.fandom.com/api.php?${qs}`;
+        script.src = `https://mysingingmonsters.fandom.com/api.php?${qsJsonp}`;
         script.onerror = () => {
           cleanup();
           resolve(null);
@@ -625,7 +655,6 @@
       });
     }
 
-    // Clean Fandom static.wikia.nocookie.net image URL so full sharp PNG loads directly
     function cleanWikiaImgUrl(imgEl) {
       if (!imgEl) return "";
       let raw = imgEl.getAttribute("data-src") || imgEl.getAttribute("src") || "";
@@ -633,13 +662,12 @@
       return raw.split("/revision/")[0];
     }
 
-    // Extract Egg name from a Wiki egg <img> or <a> tag
     function extractEggNameFromImg(imgEl) {
       const dataName = imgEl.getAttribute("data-image-name") || imgEl.getAttribute("data-image-key") || imgEl.getAttribute("alt") || "";
       const parentLink = imgEl.closest("a");
       const linkTitle = parentLink ? (parentLink.getAttribute("title") || "") : "";
 
-      let name = dataName
+      let name = decodeURIComponent(dataName)
         .replace(/\.png|\.webp/gi, "")
         .replace(/_/g, " ")
         .replace(/-egg|-Egg| Egg/g, "")
@@ -651,230 +679,321 @@
       return name;
     }
 
-    // Parse any Wiki Inventory HTML table (works on Wublins, Celestials, and Amber_Island pages)
-    function parseWikiInventoryTablesFromHTML(htmlString, mode) {
+    // Extracts all [eggName, count] pairs from any DOM container (table cell, div, or infobox)
+    function extractEggsFromContainer(containerEl) {
+      const imgs = Array.from(containerEl.querySelectorAll("img")).filter(img => {
+        const key = decodeURIComponent(img.getAttribute("data-image-key") || img.getAttribute("data-image-name") || img.getAttribute("alt") || img.getAttribute("src") || "");
+        return /egg/i.test(key) && !/Statue|Vessel|Icon| Trophy/i.test(key);
+      });
+
+      const pairs = [];
+      imgs.forEach(img => {
+        const eggName = extractEggNameFromImg(img);
+        const eggUrl = cleanWikiaImgUrl(img);
+        if (eggName && eggUrl) {
+          wikiData.eggImages[eggName] = eggUrl;
+        }
+
+        // Find the count (handles "x6", "×6", "x 6", or adjacent text node)
+        let count = null;
+
+        // 1. Check inline wrapper span or parent text
+        const wrapper = img.closest("span") || img.parentElement;
+        if (wrapper) {
+          const m = (wrapper.textContent || "").match(/[x×]\s*(\d+)/i);
+          if (m) count = parseInt(m[1], 10);
+        }
+
+        // 2. Walk sibling nodes right after the image or its <a> link
+        if (!count) {
+          let anchor = img.closest("a") || img;
+          let node = anchor.nextSibling;
+          let acc = "";
+          let hops = 0;
+          while (node && hops < 6) {
+            acc += (node.textContent || "");
+            const m = acc.match(/[x×]\s*(\d+)/i) || acc.match(/^\s*(\d+)\b/);
+            if (m) {
+              count = parseInt(m[1], 10);
+              break;
+            }
+            node = node.nextSibling;
+            hops++;
+          }
+        }
+
+        if (eggName && count && count > 0 && count <= 150) {
+          pairs.push([eggName, count]);
+        }
+      });
+
+      return pairs;
+    }
+
+    // Parse an Island Wiki Page (e.g., Wublin_Island, Celestial_Island, Amber_Island)
+    function parseIslandPageHTML(htmlString, mode) {
       const parser = new DOMParser();
       const doc = parser.parseFromString(htmlString, "text/html");
-      const tables = Array.from(doc.querySelectorAll("table"));
       const results = [];
       const seenIds = new Set();
 
-      tables.forEach((table) => {
-        const rows = Array.from(table.querySelectorAll("tr"));
-        rows.forEach((tr) => {
-          const cells = Array.from(tr.querySelectorAll("td"));
-          if (cells.length < 3) return;
+      const rows = Array.from(doc.querySelectorAll("table tr"));
+      rows.forEach(tr => {
+        const cells = Array.from(tr.querySelectorAll("td"));
+        if (cells.length < 2) return;
 
-          // Find which cell contains the egg icons (looks for multiple images with "-egg" or "Flex-Egg" or "x<number>")
-          let eggCell = null;
-          let eggPairs = [];
+        let eggCell = null;
+        let eggPairs = [];
 
-          for (const td of cells) {
-            const imgs = Array.from(td.querySelectorAll("img")).filter(img => {
-              const key = (img.getAttribute("data-image-key") || img.getAttribute("data-image-name") || img.getAttribute("alt") || img.getAttribute("src") || "");
-              return /egg/i.test(key) && !/Statue|Vessel/i.test(key);
-            });
-
-            if (imgs.length >= 2) {
-              // Extract each egg and the "x<number>" immediately following it
-              const extracted = [];
-              imgs.forEach(img => {
-                const eggName = extractEggNameFromImg(img);
-                const eggImgUrl = cleanWikiaImgUrl(img);
-                if (eggName && eggImgUrl) {
-                  wikiData.eggImages[eggName] = eggImgUrl;
-                }
-
-                // Walk forward in DOM or text around this image to find the "x5", "x10", etc.
-                let count = null;
-                let container = img.closest("span, a") || img;
-                let walker = container.nextSibling;
-                let textLookahead = "";
-                let steps = 0;
-                while (walker && steps < 5) {
-                  textLookahead += (walker.textContent || "");
-                  const m = textLookahead.match(/x\s*(\d+)/i);
-                  if (m) {
-                    count = parseInt(m[1], 10);
-                    break;
-                  }
-                  walker = walker.nextSibling;
-                  steps++;
-                }
-
-                // Fallback: check parent text
-                if (!count && img.parentElement) {
-                  const pm = (img.parentElement.textContent || "").match(/x\s*(\d+)/i);
-                  if (pm) count = parseInt(pm[1], 10);
-                }
-
-                if (eggName && count && count > 0) {
-                  extracted.push([eggName, count]);
-                }
-              });
-
-              if (extracted.length >= 2) {
-                eggCell = td;
-                eggPairs = extracted;
-                break;
-              }
-            }
+        for (const td of cells) {
+          const extracted = extractEggsFromContainer(td);
+          if (extracted.length >= 2) {
+            eggCell = td;
+            eggPairs = extracted;
+            break;
           }
+        }
 
-          if (!eggCell || eggPairs.length < 2) return;
+        if (!eggCell || eggPairs.length < 2) return;
 
-          // Monster Name & Portrait are in the first cell (cells[0])
-          const firstCell = cells[0];
-          const monsterImgEl = firstCell.querySelector("img");
-          const monsterImgUrl = cleanWikiaImgUrl(monsterImgEl);
-          let monsterName = "";
-          const links = Array.from(firstCell.querySelectorAll("a")).filter(a => (a.textContent || "").trim().length > 0);
-          if (links.length > 0) {
+        // Identify monster name & portrait from the row's leading cells
+        let monsterName = "";
+        let monsterImgUrl = "";
+
+        for (const td of cells) {
+          if (td === eggCell) break;
+          const img = td.querySelector("img");
+          const url = cleanWikiaImgUrl(img);
+          const imgKey = img ? (img.getAttribute("data-image-key") || img.getAttribute("alt") || "") : "";
+          if (url && !/Statue|Vessel|Grid/i.test(imgKey) && !monsterImgUrl) {
+            monsterImgUrl = url;
+          }
+          const links = Array.from(td.querySelectorAll("a")).filter(a => (a.textContent || "").trim().length > 1);
+          if (links.length > 0 && !monsterName) {
             monsterName = links[links.length - 1].textContent.trim();
-          } else {
-            monsterName = firstCell.textContent.trim().split("\n")[0].trim();
           }
+        }
 
-          if (!monsterName) return;
+        if (!monsterName) return;
 
-          // Distinguish Rare / Epic / Adult vs Common / Young tables
-          const isRare = /^Rare\s+/i.test(monsterName) || /Rare_.*-egg/i.test(eggCell.innerHTML);
-          const isEpic = /^Epic\s+/i.test(monsterName) || /Epic_.*-egg/i.test(eggCell.innerHTML);
-          const hasFlex = /Flex/i.test(eggCell.innerHTML) || /^Adult\s+/i.test(monsterName);
+        const isRare = /\bRare\b/i.test(monsterName) || eggPairs.every(([e]) => /^Rare\s+/i.test(e));
+        const isEpic = /\bEpic\b/i.test(monsterName) || eggPairs.every(([e]) => /^Epic\s+/i.test(e));
+        const hasFlex = eggPairs.some(([e]) => /Flex/i.test(e)) || /\bAdult\b/i.test(monsterName);
 
-          if (mode === "wublins" && (isRare || isEpic)) return;
-          if (mode === "amber" && (isRare || isEpic)) return;
-          if (mode === "celestials" && (hasFlex || isRare || isEpic)) return;
-          if (mode === "adults" && !hasFlex) return;
+        if (mode === "wublins" && (isRare || isEpic)) return;
+        if (mode === "amber" && (isRare || isEpic)) return;
+        if (mode === "celestials" && (hasFlex || isRare || isEpic)) return;
+        if (mode === "adults" && !hasFlex) return;
 
-          if (mode === "adults" && !/^Adult\s+/i.test(monsterName)) {
-            monsterName = "Adult " + monsterName;
+        if (mode === "adults" && !/^Adult\s+/i.test(monsterName)) {
+          monsterName = "Adult " + monsterName;
+        }
+
+        let cost = "-";
+        let time = "-";
+        cells.forEach(td => {
+          if (td === eggCell) return;
+          const txt = td.textContent.replace(/\s+/g, " ").trim();
+          if (/^\d+\s*x\s*\d+$/i.test(txt)) return;
+          if (/^\d+\s*(d|days|h|hours)\b/i.test(txt) || /(January|February|March|April|May|June|July|August|September|October|November|December)/i.test(txt)) {
+            if (time === "-") time = txt;
+          } else if (/[\d,]+/.test(txt) && cost === "-" && txt !== monsterName) {
+            cost = txt;
           }
-
-          // Extract Cost & Time from remaining cells
-          let cost = "-";
-          let time = "-";
-          cells.forEach((td, idx) => {
-            if (idx === 0 || td === eggCell) return;
-            const txt = td.textContent.replace(/\s+/g, " ").trim();
-            if (/^\d+\s*x\s*\d+$/i.test(txt)) return; // Skip grid size (e.g., 2 x 2, 3 x 3)
-            if (/^\d+\s*(d|days|h|hours)\b/i.test(txt) || /(January|February|March|April|May|June|July|August|September|October|November|December)/i.test(txt)) {
-              if (time === "-") time = txt;
-            } else if (/[\d,]+/.test(txt) && cost === "-") {
-              cost = txt;
-            }
-          });
-
-          const id = monsterName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-          if (seenIds.has(id)) return;
-          seenIds.add(id);
-
-          results.push({
-            id,
-            name: monsterName,
-            imgUrl: monsterImgUrl,
-            cost,
-            time,
-            eggs: eggPairs
-          });
         });
+
+        const baseClean = monsterName.replace(/^Adult\s+/i, "").replace(/\s+Vessel$/i, "").trim();
+        const id = (mode === "adults" ? "adult-" : "") + baseClean.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+        if (seenIds.has(id)) return;
+        seenIds.add(id);
+
+        results.push({ id, name: monsterName, imgUrl: monsterImgUrl, cost, time, eggs: eggPairs });
       });
 
       return results;
     }
 
-    async function fetchAllRecipesFromWikiOnline() {
-      const pill = document.getElementById("wikiStatusPill");
+    // Parse an individual Monster's own Wiki page if the Island page didn't have its table
+    function parseSingleMonsterPageHTML(htmlString, monsterName, mode) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlString, "text/html");
 
-      // If already cached in localStorage, render immediately and show ready status
-      if (
-        wikiData.wublins.length > 0 &&
-        wikiData.celestials.length > 0 &&
-        wikiData.amber.length > 0
-      ) {
-        updateTabCounts();
-        pill.textContent = "🖼️ Live Wiki Recipes & Sprites Active";
-        render();
-        return;
+      // Grab main portrait image from infobox
+      let monsterImgUrl = "";
+      const infoboxImg = doc.querySelector(".portable-infobox img, .infobox img, figure.pi-item img");
+      if (infoboxImg) {
+        monsterImgUrl = cleanWikiaImgUrl(infoboxImg);
+      }
+      if (!monsterImgUrl) {
+        const firstMonsterImg = Array.from(doc.querySelectorAll("img")).find(img => {
+          const k = img.getAttribute("data-image-key") || img.getAttribute("alt") || "";
+          return k.toLowerCase().includes(monsterName.toLowerCase().split(" ")[0]);
+        });
+        if (firstMonsterImg) monsterImgUrl = cleanWikiaImgUrl(firstMonsterImg);
       }
 
-      try {
-        // 1. Fetch Wublins page
-        pill.textContent = "⏳ Fetching Wublins from MSM Wiki...";
-        const wublinResp = await callWikiApiJSONP({
-          action: "parse",
-          page: "Wublins",
-          prop: "text"
-        });
-        if (wublinResp && wublinResp.parse && wublinResp.parse.text) {
-          const parsedWublins = parseWikiInventoryTablesFromHTML(wublinResp.parse.text["*"], "wublins");
-          // Sort so user's 4 screenshot Wublins appear first
-          parsedWublins.sort((a, b) => {
-            const ia = PRIORITY_WUBLINS.indexOf(a.id);
-            const ib = PRIORITY_WUBLINS.indexOf(b.id);
-            if (ia !== -1 && ib !== -1) return ia - ib;
-            if (ia !== -1) return -1;
-            if (ib !== -1) return 1;
-            return 0;
+      // Scan all tables or inventory boxes on the monster's page
+      const candidates = [];
+      const containers = Array.from(doc.querySelectorAll("table, .pi-data-value, div"));
+      containers.forEach(el => {
+        // Avoid huge outer wrappers
+        if (el.tagName === "DIV" && el.querySelectorAll("table").length > 0) return;
+        const pairs = extractEggsFromContainer(el);
+        if (pairs.length >= 2) {
+          const isRareInv = pairs.every(([e]) => /^Rare\s+/i.test(e));
+          const isEpicInv = pairs.every(([e]) => /^Epic\s+/i.test(e));
+          const hasFlex = pairs.some(([e]) => /Flex/i.test(e));
+
+          if (mode === "adults" && hasFlex) {
+            candidates.push(pairs);
+          } else if (mode !== "adults" && !isRareInv && !isEpicInv && !hasFlex) {
+            candidates.push(pairs);
+          }
+        }
+      });
+
+      if (candidates.length === 0) return null;
+      // Pick the most specific container (smallest valid egg list >= 2)
+      candidates.sort((a, b) => a.length - b.length);
+      const bestEggs = candidates[0];
+
+      // Deduplicate in order
+      const deduped = [];
+      const seen = new Set();
+      bestEggs.forEach(([eName, cnt]) => {
+        if (!seen.has(eName)) {
+          seen.add(eName);
+          deduped.push([eName, cnt]);
+        }
+      });
+
+      const id = (mode === "adults" ? "adult-" : "") + monsterName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      const displayName = mode === "adults" ? `Adult ${monsterName}` : (mode === "amber" ? `${monsterName} Vessel` : monsterName);
+
+      return {
+        id,
+        name: displayName,
+        imgUrl: monsterImgUrl,
+        cost: mode === "adults" ? "10 Keys" : "-",
+        time: "-",
+        eggs: deduped
+      };
+    }
+
+    async function fetchTabFromWiki(tab) {
+      const pill = document.getElementById("wikiStatusPill");
+      const banner = document.getElementById("loadingBanner");
+
+      // Step 1: Try Island Page bulk table first (Wublin_Island, Celestial_Island, Amber_Island)
+      const islandPageMap = {
+        wublins: "Wublin_Island",
+        celestials: "Celestial_Island",
+        adults: "Celestial_Island",
+        amber: "Amber_Island"
+      };
+
+      const islandPage = islandPageMap[tab];
+      pill.textContent = `⏳ Fetching ${islandPage.replace("_", " ")} from MSM Wiki...`;
+      if (banner) banner.textContent = `⏳ Fetching live tables from mysingingmonsters.fandom.com/wiki/${islandPage}...`;
+
+      const islandResp = await callWikiApi({
+        action: "parse",
+        page: islandPage,
+        prop: "text",
+        redirects: "1"
+      });
+
+      let list = [];
+      if (islandResp && islandResp.parse && islandResp.parse.text) {
+        const html = islandResp.parse.text["*"];
+        list = parseIslandPageHTML(html, tab);
+      }
+
+      // Step 2: For any monster in the roster not found on the Island overview table, fetch its own Wiki page directly
+      const targetRoster = tab === "adults" ? ROSTERS.celestials : ROSTERS[tab];
+      const existingMap = {};
+      list.forEach(item => {
+        const cleanKey = item.name.replace(/^Adult\s+/i, "").replace(/\s+Vessel$/i, "").replace(/\s*\([^)]*\)/g, "").trim().toLowerCase();
+        existingMap[cleanKey] = item;
+      });
+
+      const missingNames = targetRoster.filter(name => !existingMap[name.toLowerCase()]);
+
+      if (missingNames.length > 0) {
+        // Fetch in parallel batches of 4
+        for (let i = 0; i < missingNames.length; i += 4) {
+          const batch = missingNames.slice(i, i + 4);
+          pill.textContent = `⏳ Fetching ${tab} pages (${Math.min(missingNames.length, i + 4)}/${missingNames.length})...`;
+          const promises = batch.map(async (mName) => {
+            const resp = await callWikiApi({
+              action: "parse",
+              page: mName,
+              prop: "text",
+              redirects: "1"
+            });
+            if (resp && resp.parse && resp.parse.text) {
+              const parsed = parseSingleMonsterPageHTML(resp.parse.text["*"], mName, tab);
+              if (parsed) {
+                existingMap[mName.toLowerCase()] = parsed;
+              }
+            }
           });
-          wikiData.wublins = parsedWublins;
+          await Promise.all(promises);
+
+          // Update ordered list progressively so the user sees rows appear live!
+          wikiData[tab] = targetRoster
+            .map(n => existingMap[n.toLowerCase()])
+            .filter(Boolean);
           saveWikiCache();
           updateTabCounts();
-          render();
+          if (currentTab === tab) render();
         }
-
-        // 2. Fetch Celestials page (contains both Young Celestials and Adult Celestials tables)
-        pill.textContent = "⏳ Fetching Young & Adult Celestials from MSM Wiki...";
-        const celestialResp = await callWikiApiJSONP({
-          action: "parse",
-          page: "Celestials",
-          prop: "text"
-        });
-        if (celestialResp && celestialResp.parse && celestialResp.parse.text) {
-          const rawHtml = celestialResp.parse.text["*"];
-          wikiData.celestials = parseWikiInventoryTablesFromHTML(rawHtml, "celestials");
-          wikiData.adults = parseWikiInventoryTablesFromHTML(rawHtml, "adults");
-          saveWikiCache();
-          updateTabCounts();
-          render();
+      } else {
+        // Sort according to targetRoster order (keeps Pixolotl, Bona-Petite, Maulch, Fleechwurm at the top)
+        wikiData[tab] = targetRoster
+          .map(n => existingMap[n.toLowerCase()])
+          .filter(Boolean);
+        if (wikiData[tab].length === 0 && list.length > 0) {
+          wikiData[tab] = list;
         }
-
-        // 3. Fetch Amber Island page
-        pill.textContent = "⏳ Fetching Amber Vessels from MSM Wiki...";
-        const amberResp = await callWikiApiJSONP({
-          action: "parse",
-          page: "Amber_Island",
-          prop: "text"
-        });
-        if (amberResp && amberResp.parse && amberResp.parse.text) {
-          wikiData.amber = parseWikiInventoryTablesFromHTML(amberResp.parse.text["*"], "amber");
-          saveWikiCache();
-          updateTabCounts();
-          render();
-        }
-
-        pill.textContent = "🖼️ All Recipes & Sprites Pulled Live From Wiki";
-      } catch (err) {
-        pill.textContent = "⚠️ Wiki Sync Error - Click Force Re-Fetch";
+        saveWikiCache();
+        updateTabCounts();
+        if (currentTab === tab) render();
       }
     }
 
+    async function syncAllTabsFromWiki() {
+      const pill = document.getElementById("wikiStatusPill");
+      updateTabCounts();
+
+      // Load current tab first if empty
+      if (!wikiData[currentTab] || wikiData[currentTab].length === 0) {
+        await fetchTabFromWiki(currentTab);
+      } else {
+        render();
+      }
+
+      // Then sync remaining tabs in background
+      for (const tab of ["wublins", "celestials", "adults", "amber"]) {
+        if (!wikiData[tab] || wikiData[tab].length === 0) {
+          await fetchTabFromWiki(tab);
+        }
+      }
+
+      pill.textContent = "🖼️ All Recipes & Sprites Pulled Live From Wiki";
+    }
+
     function updateTabCounts() {
-      const counts = {
-        wublins: wikiData.wublins.length,
-        celestials: wikiData.celestials.length,
-        adults: wikiData.adults.length,
-        amber: wikiData.amber.length
-      };
-      document.querySelectorAll(".tab-btn").forEach(btn => {
-        const tab = btn.getAttribute("data-tab");
-        const baseLabel = {
+      ["wublins", "celestials", "adults", "amber"].forEach(tab => {
+        const count = (wikiData[tab] || []).length;
+        const btn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+        const label = {
           wublins: "Wublins",
           celestials: "Young Celestials",
           adults: "Adult Celestials",
           amber: "Amber Vessels"
         }[tab];
-        btn.textContent = counts[tab] ? `${baseLabel} (${counts[tab]})` : baseLabel;
+        if (btn) btn.textContent = count > 0 ? `${label} (${count})` : label;
       });
     }
 
@@ -882,7 +1001,7 @@
       localStorage.removeItem(WIKI_DATA_CACHE_KEY);
       wikiData = { wublins: [], celestials: [], adults: [], amber: [], eggImages: {} };
       render();
-      fetchAllRecipesFromWikiOnline();
+      syncAllTabsFromWiki();
     }
 
     function getMonstersForTab(tab) {
@@ -949,12 +1068,15 @@
       render();
     }
 
-    function switchTab(tab) {
+    async function switchTab(tab) {
       currentTab = tab;
       document.querySelectorAll(".tab-btn").forEach(btn => {
         btn.classList.toggle("active", btn.getAttribute("data-tab") === tab);
       });
       render();
+      if (!wikiData[tab] || wikiData[tab].length === 0) {
+        await fetchTabFromWiki(tab);
+      }
     }
 
     function renderShoppingSummary(monsters) {
@@ -1003,7 +1125,7 @@
       const tbody = document.getElementById("monsterTableBody");
 
       if (!monsters || monsters.length === 0) {
-        tbody.innerHTML = `<tr><td class="loading-banner">⏳ Fetching live ${currentTab.toUpperCase()} recipes and images directly from mysingingmonsters.fandom.com...</td></tr>`;
+        tbody.innerHTML = `<tr><td class="loading-banner" id="loadingBanner">⏳ Fetching live ${currentTab.toUpperCase()} recipes and images directly from mysingingmonsters.fandom.com...</td></tr>`;
         return;
       }
 
@@ -1137,7 +1259,7 @@
       reader.readAsText(file);
     }
 
-    fetchAllRecipesFromWikiOnline();
+    syncAllTabsFromWiki();
   </script>
 </body>
 </html>
