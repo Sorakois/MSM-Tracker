@@ -377,11 +377,11 @@ def scrape_individual_monster(monster_name: str, category: str, egg_url_map: dic
     # Extract time limit from infobox if present
     time_str = "-"
     for item in soup.select(".pi-data"):
-        label = item.get_text(" ", strip=True)
-        if "time limit" in label.lower():
-            val = item.select_one(".pi-data-value")
-            if val:
-                time_str = val.get_text(" ", strip=True)
+        raw_txt = item.get_text(" ", strip=True)
+        m_time = re.search(r"Time\s*limit\s*:\s*([0-9]+\s*(?:days?|hours?|d|h)|No\s*limit)", raw_txt, re.I)
+        if m_time:
+            time_str = m_time.group(1).strip()
+            break
 
     return {
         "name": monster_name,

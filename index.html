@@ -4,53 +4,50 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <meta name="referrer" content="no-referrer" />
-  <title>My Singing Monsters — Egg Zap Tracker</title>
+  <title>MSM Zap Tracker</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Lilita+One&display=swap" rel="stylesheet">
-  <!-- Optional JS wrapper fallback for file:// protocol where browsers block fetch('msm_recipes.json') -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Lilita+One&display=swap" rel="stylesheet">
   <script src="msm_recipes.js" onerror=""></script>
 
   <style>
     :root {
-      /* Authentic MSM In-Game Dialog Palette */
-      --bg-cosmos-top: #142230;
-      --bg-cosmos-bot: #0b131c;
+      /* 70% DOMINANT: In-Game Twilight Purple Wood Planks */
+      --plank-dark: #181122;
+      --plank-base: #251c33;
+      --plank-light: #312642;
+      --plank-highlight: #3e3152;
 
-      --frame-wood-outer: #241409;
-      --frame-wood-mid: #4d2d18;
-      --frame-wood-inner: #6e4224;
-      --frame-gold-trim: #d99b26;
+      /* 20% SECONDARY: Carved Mahogany Wood Frames & Recessed Wells */
+      --wood-frame-top: #8f532a;
+      --wood-frame-mid: #6e3d1c;
+      --wood-frame-bot: #4a2610;
+      --wood-frame-edge: #241105;
+      --wood-bevel-hi: #b57141;
+      --wood-well-inner: #261309;
+      --wood-well-glow: #4d2a16;
 
-      --parchment-light: #f4ead5;
-      --parchment-main: #e6d7b9;
-      --parchment-slot: #d2c09d;
-      --parchment-slot-border: #ad9670;
+      /* Copper & Brass Banner Pipe */
+      --copper-light: #e0873e;
+      --copper-mid: #a85820;
+      --copper-dark: #5e2c0b;
+      --brass-ring: #f5b938;
 
-      /* Glossy 3D MSM Game Buttons */
-      --btn-green-top: #80f545;
-      --btn-green-bot: #2ca10c;
-      --btn-green-lip: #155703;
+      /* Chiseled Stone Block Buttons (In-Game EXIT Button Style) */
+      --stone-top: #948d88;
+      --stone-mid: #6e6763;
+      --stone-bot: #4f4946;
+      --stone-hi: #bfb8b2;
+      --stone-edge: #262220;
 
-      --btn-gold-top: #ffe552;
-      --btn-gold-bot: #e08b00;
-      --btn-gold-lip: #7a4600;
-
-      --btn-blue-top: #5ce1ff;
-      --btn-blue-bot: #0088cc;
-      --btn-blue-lip: #00466e;
-
-      --btn-red-top: #ff6b6b;
-      --btn-red-bot: #c91e1e;
-      --btn-red-lip: #690b0b;
-
-      --btn-stone-top: #8f7e68;
-      --btn-stone-bot: #5c4f3f;
-      --btn-stone-lip: #332b22;
-
-      --text-choc: #2e1c0e;
-      --text-muted: #66503a;
-      --tally-red: #d41c1c;
+      /* 10% ACCENT: Monster Green, Sale-Tag Crimson & Amber Gold */
+      --msm-green: #5ce619;
+      --msm-green-dark: #1f7a06;
+      --sale-red-top: #f22e2e;
+      --sale-red-bot: #9e0e0e;
+      --sale-rim: #e8d8c8;
+      --gold-top: #ffe047;
+      --gold-bot: #d97e00;
     }
 
     * {
@@ -62,35 +59,51 @@
 
     body {
       font-family: 'Fredoka', sans-serif;
-      background: radial-gradient(circle at 50% 0%, #1f354a 0%, var(--bg-cosmos-top) 45%, var(--bg-cosmos-bot) 100%);
+      background-color: var(--plank-base);
+      /* Horizontal Purple Wood Plank Texture matching the Market Screenshot */
+      background-image:
+        repeating-linear-gradient(
+          180deg,
+          var(--plank-base) 0px,
+          var(--plank-light) 4px,
+          var(--plank-base) 26px,
+          #1f172b 52px,
+          var(--plank-dark) 54px,
+          var(--plank-highlight) 56px,
+          var(--plank-base) 58px
+        ),
+        radial-gradient(circle at 50% 0%, rgba(92, 70, 128, 0.28), rgba(15, 10, 24, 0.65));
       background-attachment: fixed;
-      color: var(--text-choc);
+      color: #ffffff;
       min-height: 100vh;
       padding-bottom: 72px;
     }
 
-    /* Outlined Game Display Text */
-    .game-font {
+    /* Crisp White In-Game Label Typography (MONSTERS / STRUCTURES Style) */
+    .msm-label-text {
       font-family: 'Lilita One', cursive, sans-serif;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
       color: #ffffff;
       text-shadow:
-        0 2px 0 #1f1107,
-        -1.5px -1.5px 0 #1f1107,
-        1.5px -1.5px 0 #1f1107,
-        -1.5px 1.5px 0 #1f1107,
-        1.5px 1.5px 0 #1f1107;
+        0 2px 0 #1f0e05,
+        -1.5px -1.5px 0 #1f0e05,
+        1.5px -1.5px 0 #1f0e05,
+        -1.5px 1.5px 0 #1f0e05,
+        1.5px 1.5px 0 #1f0e05,
+        0 3px 5px rgba(0, 0, 0, 0.65);
     }
 
-    /* Top Wooden Game Header Bar */
+    /* Sticky Top Plank Header */
     header {
-      background: linear-gradient(180deg, #59351c 0%, #382010 85%, #241409 100%);
-      border-bottom: 4px solid var(--frame-gold-trim);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65);
+      background:
+        linear-gradient(180deg, rgba(49, 38, 66, 0.96) 0%, rgba(28, 21, 38, 0.98) 100%);
+      border-bottom: 3px solid #120c1a;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65), inset 0 -2px 0 var(--plank-highlight);
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 12px 16px;
+      padding: 8px 12px;
     }
 
     .header-inner {
@@ -100,33 +113,66 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .brand-group {
+    .header-top-bar {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
+      gap: 10px;
     }
 
-    .brand-title {
-      font-size: 1.5rem;
-      color: #ffe261;
-      line-height: 1.1;
-    }
-
-    .save-indicator {
-      font-size: 0.76rem;
-      font-weight: 700;
-      background: rgba(15, 23, 30, 0.65);
-      color: #9ef09e;
-      padding: 4px 11px;
+    /* Copper-Pipe Framed "MARKET" Banner Pill */
+    .market-banner-pill {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(180deg, #130d1c 0%, #231833 50%, #160f21 100%);
+      padding: 6px 22px;
       border-radius: 99px;
-      border: 1.5px solid #48b848;
+      border: 4px solid var(--copper-mid);
+      outline: 2px solid #291103;
+      box-shadow:
+        inset 0 3px 6px rgba(0, 0, 0, 0.85),
+        inset 0 0 0 1.5px var(--copper-light),
+        0 4px 8px rgba(0, 0, 0, 0.6);
     }
 
-    /* Island Switcher Tabs */
+    .banner-title {
+      font-family: 'Lilita One', cursive, sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--msm-green);
+      text-shadow:
+        0 2px 0 #0a2902,
+        -1.5px -1.5px 0 #0a2902,
+        1.5px -1.5px 0 #0a2902,
+        -1.5px 1.5px 0 #0a2902,
+        1.5px 1.5px 0 #0a2902,
+        0 0 10px rgba(92, 230, 25, 0.35);
+    }
+
+    .save-badge {
+      font-family: 'Lilita One', cursive, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #38b012 0%, #1d6b05 100%);
+      color: #ffffff;
+      padding: 2px 8px;
+      border-radius: 99px;
+      border: 1.5px solid #b8ff9e;
+      text-shadow: 0 1px 0 #0d3801;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+    }
+
+    /* Carved Wood Island Tabs */
     .island-tabs {
       display: flex;
       flex-wrap: wrap;
@@ -135,42 +181,49 @@
 
     .tab-btn {
       font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.95rem;
-      letter-spacing: 0.4px;
-      padding: 8px 15px;
-      border-radius: 12px;
+      font-size: 0.88rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      border-radius: 10px;
       cursor: pointer;
-      color: #e8dac3;
-      background: linear-gradient(180deg, #6e4527 0%, #422714 100%);
-      border: 2px solid #8f5d38;
-      box-shadow: 0 4px 0 #1f1107, inset 0 2px 0 rgba(255, 255, 255, 0.2);
-      text-shadow: 0 1.5px 0 #1f1107;
+      color: #f5e6d3;
+      background: linear-gradient(180deg, var(--wood-frame-top) 0%, var(--wood-frame-mid) 55%, var(--wood-frame-bot) 100%);
+      border: 2px solid var(--wood-bevel-hi);
+      outline: 2px solid var(--wood-frame-edge);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 220, 180, 0.35),
+        inset 0 -3px 0 #2e1608,
+        0 4px 6px rgba(0, 0, 0, 0.5);
+      text-shadow:
+        0 2px 0 #1f0e05,
+        -1px -1px 0 #1f0e05,
+        1px -1px 0 #1f0e05,
+        -1px 1px 0 #1f0e05,
+        1px 1px 0 #1f0e05;
       transition: transform 0.08s, filter 0.12s;
       display: inline-flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
+      gap: 4px;
       text-align: center;
     }
-    .tab-btn:hover { filter: brightness(1.08); }
-    .tab-btn:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 0 #1f1107;
-    }
+    .tab-btn:hover { filter: brightness(1.1); }
+    .tab-btn:active { transform: translateY(2px); }
+
     .tab-btn.active {
-      background: linear-gradient(180deg, var(--btn-gold-top) 0%, var(--btn-gold-bot) 100%);
-      color: #ffffff;
-      border-color: #fff5b8;
-      box-shadow: 0 4px 0 var(--btn-gold-lip), inset 0 2px 0 rgba(255, 255, 255, 0.65);
-      text-shadow:
-        0 2px 0 #593100,
-        -1px -1px 0 #593100,
-        1px -1px 0 #593100,
-        -1px 1px 0 #593100,
-        1px 1px 0 #593100;
+      background: linear-gradient(180deg, #1b1326 0%, #2d1f40 100%);
+      color: var(--msm-green);
+      border-color: var(--copper-light);
+      outline-color: #291103;
+      box-shadow:
+        inset 0 2px 5px rgba(0, 0, 0, 0.8),
+        0 0 0 1px var(--brass-ring),
+        0 4px 8px rgba(0, 0, 0, 0.6);
     }
 
-    /* 3D Glossy Game Buttons */
+    /* Chiseled Stone Game Buttons (Matches EXIT Button in Screenshot) */
     .toolbar-actions {
       display: flex;
       flex-wrap: wrap;
@@ -179,21 +232,26 @@
 
     .game-btn {
       font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.86rem;
-      letter-spacing: 0.4px;
-      padding: 8px 13px;
-      border-radius: 11px;
+      font-size: 0.82rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 7px 12px;
+      border-radius: 10px;
       cursor: pointer;
       color: #ffffff;
-      background: linear-gradient(180deg, var(--btn-stone-top) 0%, var(--btn-stone-bot) 100%);
-      border: 2px solid #b5a38b;
-      box-shadow: 0 4px 0 var(--btn-stone-lip), inset 0 2px 0 rgba(255, 255, 255, 0.35);
+      background: linear-gradient(180deg, var(--stone-top) 0%, var(--stone-mid) 55%, var(--stone-bot) 100%);
+      border: 2px solid var(--stone-hi);
+      outline: 2px solid var(--stone-edge);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -3px 0 #36312e,
+        0 4px 6px rgba(0, 0, 0, 0.55);
       text-shadow:
-        0 1.5px 0 #1f160e,
-        -1px -1px 0 #1f160e,
-        1px -1px 0 #1f160e,
-        -1px 1px 0 #1f160e,
-        1px 1px 0 #1f160e;
+        0 2px 0 #1c1817,
+        -1px -1px 0 #1c1817,
+        1px -1px 0 #1c1817,
+        -1px 1px 0 #1c1817,
+        1px 1px 0 #1c1817;
       transition: transform 0.08s, filter 0.12s;
       display: inline-flex;
       flex-wrap: wrap;
@@ -203,125 +261,141 @@
       line-height: 1.15;
     }
     .game-btn:hover { filter: brightness(1.08); }
-    .game-btn:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 0 var(--btn-stone-lip);
-    }
+    .game-btn:active { transform: translateY(2px); }
 
     .game-btn-green {
-      background: linear-gradient(180deg, var(--btn-green-top) 0%, var(--btn-green-bot) 100%);
-      border-color: #c4ff9e;
-      box-shadow: 0 4px 0 var(--btn-green-lip), inset 0 2px 0 rgba(255, 255, 255, 0.55);
+      background: linear-gradient(180deg, #6ef22c 0%, #329e0b 60%, #206e04 100%);
+      border-color: #bdff94;
+      outline-color: #0e3801;
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.55),
+        inset 0 -3px 0 #144a02,
+        0 4px 6px rgba(0, 0, 0, 0.55);
     }
-    .game-btn-green:active { box-shadow: 0 2px 0 var(--btn-green-lip); }
 
     .game-btn-gold {
-      background: linear-gradient(180deg, var(--btn-gold-top) 0%, var(--btn-gold-bot) 100%);
-      border-color: #fff2a6;
-      box-shadow: 0 4px 0 var(--btn-gold-lip), inset 0 2px 0 rgba(255, 255, 255, 0.55);
+      background: linear-gradient(180deg, var(--gold-top) 0%, var(--gold-bot) 65%, #9e5400 100%);
+      border-color: #fff3a1;
+      outline-color: #422100;
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.65),
+        inset 0 -3px 0 #6e3a00,
+        0 4px 6px rgba(0, 0, 0, 0.55);
     }
-    .game-btn-gold:active { box-shadow: 0 2px 0 var(--btn-gold-lip); }
 
-    .game-btn-blue {
-      background: linear-gradient(180deg, var(--btn-blue-top) 0%, var(--btn-blue-bot) 100%);
-      border-color: #b3f0ff;
-      box-shadow: 0 4px 0 var(--btn-blue-lip), inset 0 2px 0 rgba(255, 255, 255, 0.55);
+    .game-btn-wood {
+      background: linear-gradient(180deg, var(--wood-frame-top) 0%, var(--wood-frame-mid) 60%, var(--wood-frame-bot) 100%);
+      border-color: var(--wood-bevel-hi);
+      outline-color: var(--wood-frame-edge);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 220, 180, 0.4),
+        inset 0 -3px 0 #2e1608,
+        0 4px 6px rgba(0, 0, 0, 0.55);
     }
-    .game-btn-blue:active { box-shadow: 0 2px 0 var(--btn-blue-lip); }
 
     .game-btn-red {
-      background: linear-gradient(180deg, var(--btn-red-top) 0%, var(--btn-red-bot) 100%);
+      background: linear-gradient(180deg, var(--sale-red-top) 0%, var(--sale-red-bot) 70%, #6e0606 100%);
       border-color: #ffb3b3;
-      box-shadow: 0 4px 0 var(--btn-red-lip), inset 0 2px 0 rgba(255, 255, 255, 0.45);
+      outline-color: #380202;
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -3px 0 #4d0404,
+        0 4px 6px rgba(0, 0, 0, 0.55);
     }
-    .game-btn-red:active { box-shadow: 0 2px 0 var(--btn-red-lip); }
 
     /* Main Content Container */
     .main-container {
       max-width: 1320px;
-      margin: 18px auto 0;
+      margin: 16px auto 0;
       padding: 0 14px;
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
 
-    /* Carved Wood & Stone Filter Bar */
+    /* Carved Wooden Controls Bar */
     .controls-frame {
-      background: linear-gradient(180deg, #4f301a 0%, #362010 100%);
-      border: 3px solid var(--frame-wood-inner);
-      outline: 2px solid var(--frame-wood-outer);
-      border-radius: 16px;
-      padding: 12px 16px;
+      background: linear-gradient(180deg, var(--wood-frame-mid) 0%, var(--wood-frame-bot) 100%);
+      border: 3px solid var(--wood-bevel-hi);
+      outline: 2px solid var(--wood-frame-edge);
+      border-radius: 14px;
+      padding: 10px 14px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45), inset 0 2px 0 rgba(255, 255, 255, 0.12);
+      gap: 10px;
+      box-shadow:
+        inset 0 2px 0 rgba(255, 220, 180, 0.35),
+        inset 0 -3px 0 #291306,
+        0 6px 14px rgba(0, 0, 0, 0.6);
     }
 
     .filter-group {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      flex: 1;
     }
 
-    .search-box {
+    .search-box,
+    .sort-select {
       font-family: 'Fredoka', sans-serif;
-      font-size: 0.92rem;
-      font-weight: 600;
-      padding: 8px 14px;
-      border-radius: 10px;
-      border: 2px solid #241409;
-      background: var(--parchment-light);
-      color: var(--text-choc);
-      width: 250px;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 7px 12px;
+      border-radius: 9px;
+      border: 2px solid #1c0c04;
+      background: var(--wood-well-inner);
+      color: #fff5e6;
+      box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.75), 0 1px 0 var(--wood-bevel-hi);
       outline: none;
     }
-    .search-box:focus {
-      border-color: var(--frame-gold-trim);
+    .search-box {
+      min-width: 200px;
+      flex: 1;
+    }
+    .search-box::placeholder { color: #b08d74; }
+    .search-box:focus,
+    .sort-select:focus {
+      border-color: var(--brass-ring);
     }
 
     .check-pill {
       display: inline-flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 7px;
-      background: rgba(20, 10, 4, 0.45);
-      color: #f4ead5;
-      font-size: 0.86rem;
-      font-weight: 600;
-      padding: 7px 12px;
-      border-radius: 10px;
-      border: 1.5px solid #6e4224;
+      gap: 6px;
+      background: var(--wood-well-inner);
+      color: #ffebd6;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 6px 11px;
+      border-radius: 9px;
+      border: 2px solid #1c0c04;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.7), 0 1px 0 var(--wood-bevel-hi);
       cursor: pointer;
       user-select: none;
     }
     .check-pill input {
-      width: 16px;
-      height: 16px;
-      accent-color: #f59e0b;
+      width: 15px;
+      height: 15px;
+      accent-color: var(--msm-green);
       cursor: pointer;
     }
 
-    .controls-hint {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #e6d3b3;
-      line-height: 1.3;
-    }
-
-    /* Remaining Eggs Needed (In-Game Parchment Banner) */
+    /* Remaining Eggs Needed Queue (Copper-Trimmed Wooden Crate) */
     .breeding-queue-board {
-      background: linear-gradient(180deg, var(--parchment-light) 0%, var(--parchment-main) 100%);
-      border: 4px solid var(--frame-wood-mid);
-      outline: 2px solid var(--frame-wood-outer);
-      border-radius: 18px;
-      padding: 14px 18px;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5), inset 0 2px 0 #ffffff;
+      background: linear-gradient(180deg, var(--wood-frame-mid) 0%, var(--wood-frame-bot) 100%);
+      border: 3px solid var(--wood-bevel-hi);
+      outline: 2px solid var(--wood-frame-edge);
+      border-radius: 16px;
+      padding: 12px 16px;
+      box-shadow:
+        inset 0 2px 0 rgba(255, 220, 180, 0.35),
+        inset 0 -3px 0 #291306,
+        0 8px 18px rgba(0, 0, 0, 0.65);
     }
 
     .queue-header {
@@ -331,8 +405,6 @@
       justify-content: space-between;
       gap: 8px;
       margin-bottom: 10px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid var(--parchment-slot-border);
     }
 
     .queue-title-wrap {
@@ -343,23 +415,39 @@
     }
 
     .queue-title {
-      font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 1.12rem;
-      color: var(--text-choc);
-      letter-spacing: 0.3px;
+      font-size: 1.05rem;
     }
 
-    .active-count-badge {
-      background: #4d2d18;
-      color: #ffe261;
+    /* Glossy Crimson "SALE" Tag Badge */
+    .sale-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.8rem;
-      padding: 3px 10px;
+      font-size: 0.78rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #ffffff;
+      background: linear-gradient(180deg, var(--sale-red-top) 0%, var(--sale-red-bot) 100%);
+      border: 1.5px solid var(--sale-rim);
+      outline: 1.5px solid #2b0404;
+      padding: 1px 10px;
       border-radius: 99px;
-      letter-spacing: 0.4px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 2px 4px rgba(0, 0, 0, 0.5);
+      text-shadow:
+        0 1.5px 0 #3d0303,
+        -1px -1px 0 #3d0303,
+        1px -1px 0 #3d0303,
+        -1px 1px 0 #3d0303,
+        1px 1px 0 #3d0303;
     }
 
-    .queue-pills {
+    .queue-well {
+      background: radial-gradient(circle at 50% 40%, var(--wood-well-glow) 0%, var(--wood-well-inner) 90%);
+      border: 2px solid #1a0b03;
+      border-radius: 12px;
+      padding: 10px 12px;
+      box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.8), 0 1px 0 var(--wood-bevel-hi);
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
@@ -370,72 +458,72 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 7px;
-      background: var(--parchment-slot);
-      border: 2px solid var(--parchment-slot-border);
+      background: linear-gradient(180deg, var(--wood-frame-top) 0%, var(--wood-frame-bot) 100%);
+      border: 1.5px solid var(--wood-bevel-hi);
+      outline: 1.5px solid #1a0b03;
       padding: 4px 10px 4px 6px;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-choc);
-      box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.12), 0 1px 0 rgba(255, 255, 255, 0.6);
+      border-radius: 10px;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
     }
 
     .queue-egg-img {
       width: 26px;
       height: 28px;
       object-fit: contain;
-      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.25));
+      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.6));
     }
 
-    .queue-qty {
-      font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.92rem;
-      color: #ffffff;
-      background: var(--tally-red);
-      padding: 1px 8px;
-      border-radius: 8px;
-      text-shadow: 0 1px 0 #590000;
-    }
-
-    /* Monster Inventory Boards */
+    /* Monster Cards List */
     .monster-list {
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
 
+    /* Carved Wooden Monster Board */
     .monster-board {
-      background: linear-gradient(180deg, var(--parchment-light) 0%, var(--parchment-main) 100%);
-      border: 4px solid var(--frame-wood-mid);
-      outline: 2px solid var(--frame-wood-outer);
-      border-radius: 20px;
-      padding: 16px;
+      background: linear-gradient(180deg, var(--wood-frame-top) 0%, var(--wood-frame-mid) 50%, var(--wood-frame-bot) 100%);
+      border: 3px solid var(--wood-bevel-hi);
+      outline: 2.5px solid var(--wood-frame-edge);
+      border-radius: 18px;
+      padding: 14px 16px;
       display: grid;
-      grid-template-columns: 200px 1fr 165px;
-      gap: 16px;
+      grid-template-columns: 205px 1fr 160px;
+      gap: 14px;
       align-items: center;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.8);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 225, 190, 0.4),
+        inset 0 -4px 0 #2b1407,
+        0 10px 22px rgba(0, 0, 0, 0.65);
     }
 
     .monster-board.board-active {
-      border-color: var(--frame-gold-trim);
-      box-shadow: 0 0 0 2px rgba(255, 226, 97, 0.35), 0 8px 20px rgba(0, 0, 0, 0.55), inset 0 2px 0 #ffffff;
+      border-color: var(--brass-ring);
+      box-shadow:
+        0 0 0 2px var(--brass-ring),
+        inset 0 2px 0 rgba(255, 240, 180, 0.6),
+        inset 0 -4px 0 #2b1407,
+        0 10px 24px rgba(0, 0, 0, 0.75);
     }
 
     .monster-board.board-completed {
-      background: linear-gradient(180deg, #e5f5dc 0%, #c8e6b8 100%);
-      border-color: #2ca10c;
+      border-color: var(--msm-green);
+      box-shadow:
+        0 0 0 2px var(--msm-green-dark),
+        inset 0 2px 0 rgba(190, 255, 160, 0.5),
+        inset 0 -4px 0 #143604,
+        0 10px 22px rgba(0, 0, 0, 0.65);
     }
 
-    /* Left Column: Monster Medallion, Name, Time Limit & Copies Stepper */
+    /* Left Column: In-Game Market-Style Monster Frame + Nameplate + Red Badge */
     .monster-pedestal-col {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       gap: 8px;
-      padding-right: 14px;
-      border-right: 2px solid var(--parchment-slot-border);
+      padding-right: 12px;
+      border-right: 2px solid #361908;
     }
 
     .pedestal-left-wrap {
@@ -446,13 +534,18 @@
       width: 100%;
     }
 
-    .monster-medallion {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 50% 35%, #fff9eb 0%, var(--parchment-slot) 75%);
-      border: 3px solid var(--parchment-slot-border);
-      box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.2), 0 2px 0 rgba(255, 255, 255, 0.7);
+    /* Exact Market Item Frame for the Monster Portrait */
+    .market-portrait-frame {
+      width: 104px;
+      height: 104px;
+      background: radial-gradient(circle at 50% 42%, var(--wood-well-glow) 0%, var(--wood-well-inner) 85%);
+      border: 4px solid #8a4e26;
+      outline: 2px solid #1f0d04;
+      border-radius: 16px;
+      box-shadow:
+        inset 0 4px 10px rgba(0, 0, 0, 0.85),
+        0 2px 0 var(--wood-bevel-hi),
+        0 5px 10px rgba(0, 0, 0, 0.55);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -461,30 +554,31 @@
     }
 
     .monster-img {
-      width: 84px;
-      height: 84px;
+      width: 88px;
+      height: 88px;
       object-fit: contain;
-      filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.28));
+      filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.65));
     }
 
     .copy-number-tag {
       position: absolute;
-      top: -4px;
+      top: -6px;
       right: -6px;
-      background: linear-gradient(180deg, var(--btn-gold-top), var(--btn-gold-bot));
-      border: 2px solid #241409;
-      padding: 2px 8px;
-      border-radius: 99px;
-      font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.78rem;
-      color: #ffffff;
-      text-shadow: 0 1px 0 #4d2800;
+    }
+
+    /* Wooden Nameplate Bar under Portrait */
+    .wooden-nameplate {
+      background: linear-gradient(180deg, #754220 0%, #4f2a12 100%);
+      border: 2px solid #995c33;
+      outline: 1.5px solid #1f0d04;
+      border-radius: 8px;
+      padding: 3px 10px;
+      width: 100%;
+      box-shadow: inset 0 1px 0 rgba(255, 220, 180, 0.35), 0 3px 5px rgba(0, 0, 0, 0.5);
     }
 
     .monster-title {
-      font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 1.25rem;
-      color: #3b2310;
+      font-size: 1.05rem;
       line-height: 1.15;
       display: flex;
       flex-wrap: wrap;
@@ -493,17 +587,12 @@
       word-break: break-word;
     }
 
-    .time-badge {
-      display: inline-flex;
+    .meta-badges-stack {
+      display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      background: rgba(77, 45, 24, 0.14);
-      border: 1.5px solid var(--parchment-slot-border);
-      color: var(--text-choc);
-      font-size: 0.76rem;
-      font-weight: 700;
-      padding: 2px 10px;
-      border-radius: 99px;
+      gap: 5px;
+      margin-top: 2px;
     }
 
     /* Copies Stepper (e.g. 2 Zynths, 3 Poewks) */
@@ -513,52 +602,52 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      background: var(--parchment-slot);
-      border: 2px solid var(--parchment-slot-border);
-      padding: 4px 8px;
-      border-radius: 12px;
-      box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.12);
+      background: var(--wood-well-inner);
+      border: 2px solid #1c0c04;
+      padding: 4px 9px;
+      border-radius: 10px;
+      box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.75), 0 1px 0 var(--wood-bevel-hi);
     }
 
     .copies-label {
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 700;
-      color: var(--text-choc);
+      color: #f5dec9;
+      text-transform: uppercase;
     }
 
     .stepper-btn {
-      width: 26px;
-      height: 26px;
-      border-radius: 8px;
+      width: 25px;
+      height: 25px;
+      border-radius: 7px;
       font-family: 'Lilita One', cursive, sans-serif;
       font-size: 1rem;
       color: #ffffff;
-      background: linear-gradient(180deg, #785a3c 0%, #4d3822 100%);
-      border: 1.5px solid #2b1d10;
-      box-shadow: 0 2px 0 #241409;
+      background: linear-gradient(180deg, var(--stone-top) 0%, var(--stone-bot) 100%);
+      border: 1.5px solid var(--stone-hi);
+      outline: 1.5px solid #1a1615;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      text-shadow: 0 1px 0 #000;
     }
-    .stepper-btn:active {
-      transform: translateY(1px);
-      box-shadow: 0 1px 0 #241409;
-    }
+    .stepper-btn:active { transform: translateY(1px); }
 
     .copies-val {
       font-family: 'Lilita One', cursive, sans-serif;
       font-size: 0.95rem;
       min-width: 18px;
       text-align: center;
-      color: var(--text-choc);
+      color: var(--brass-ring);
+      text-shadow: 0 1px 0 #000;
     }
 
-    /* Center Column: Recessed MSM Inventory Egg Slots */
+    /* Center Column: Recessed Egg Slots Grid */
     .inventory-well-col {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .eggs-slot-grid {
@@ -569,14 +658,15 @@
       align-items: stretch;
     }
 
-    /* Authentic MSM Recessed Inventory Egg Slot */
+    /* Individual Egg Slot Styled Like Each Market Tile in Your Screenshot */
     .egg-slot {
       flex: 0 1 112px;
-      min-width: 104px;
-      background: var(--parchment-slot);
-      border: 2px solid var(--parchment-slot-border);
-      border-radius: 14px;
-      padding: 8px 6px 6px;
+      min-width: 100px;
+      background: linear-gradient(180deg, #7d4722 0%, #573015 100%);
+      border: 2.5px solid #a16237;
+      outline: 2px solid #1f0d04;
+      border-radius: 13px;
+      padding: 6px 5px 6px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -584,22 +674,21 @@
       position: relative;
       user-select: none;
       box-shadow:
-        inset 0 3px 5px rgba(0, 0, 0, 0.16),
-        0 2px 0 rgba(255, 255, 255, 0.65);
-      transition: transform 0.08s, border-color 0.12s, background 0.12s;
+        inset 0 1.5px 0 rgba(255, 225, 190, 0.35),
+        inset 0 -3px 0 #2b1407,
+        0 5px 10px rgba(0, 0, 0, 0.55);
+      transition: transform 0.08s, filter 0.12s;
     }
 
     .egg-slot:hover {
-      border-color: #785a3c;
-      background: #dfd0b2;
+      filter: brightness(1.07);
+      border-color: var(--brass-ring);
     }
 
     .egg-slot.slot-complete {
-      background: linear-gradient(180deg, #d7f7c6 0%, #b3e89b 100%);
-      border-color: #2ca10c;
-      box-shadow:
-        inset 0 2px 4px rgba(255, 255, 255, 0.6),
-        0 3px 0 rgba(21, 87, 3, 0.25);
+      background: linear-gradient(180deg, #357a14 0%, #1e4d08 100%);
+      border-color: var(--msm-green);
+      outline-color: #0b2602;
     }
 
     .egg-tap-area {
@@ -611,13 +700,23 @@
       flex: 1;
     }
 
+    /* Dark Recessed Wooden Well Behind Each Egg Sprite */
     .egg-stage {
       position: relative;
       width: 100%;
-      height: 48px;
+      height: 52px;
+      background: radial-gradient(circle at 50% 45%, var(--wood-well-glow) 0%, var(--wood-well-inner) 88%);
+      border: 2px solid #1c0c04;
+      border-radius: 9px;
+      box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.85), 0 1px 0 #995c33;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+    .egg-slot.slot-complete .egg-stage {
+      background: radial-gradient(circle at 50% 45%, #2b6e0d 0%, #113003 90%);
+      border-color: #0b2401;
+      box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.75), 0 1px 0 #6ef22c;
     }
 
     .egg-sprite-wrap {
@@ -633,26 +732,25 @@
       width: 44px;
       height: 46px;
       object-fit: contain;
-      filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.28));
+      filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.65));
       position: relative;
       z-index: 2;
     }
 
     .egg-svg-fallback {
-      width: 40px;
-      height: 44px;
+      width: 38px;
+      height: 42px;
       position: absolute;
       inset: 0;
       z-index: 1;
     }
 
-    /* Red Cross-Out Scribble When Slot is Complete */
     .egg-scribble {
       display: none;
       position: absolute;
       inset: -2px;
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
       pointer-events: none;
       z-index: 4;
     }
@@ -660,35 +758,36 @@
       display: block;
     }
 
-    /* Outlined Game Counter Badge in Corner of Slot */
+    /* Crimson SALE-Style Pill Badge for Egg Count (Turns Green When Done) */
     .egg-counter-badge {
-      position: absolute;
-      top: -4px;
-      right: 0px;
-      font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.82rem;
-      color: #ffffff;
-      background: rgba(36, 20, 9, 0.78);
-      padding: 1px 6px;
-      border-radius: 7px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      margin-top: -8px;
       z-index: 5;
-      text-shadow: 0 1px 0 #000;
+      font-family: 'Lilita One', cursive, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.4px;
+      color: #ffffff;
+      background: linear-gradient(180deg, var(--sale-red-top) 0%, var(--sale-red-bot) 100%);
+      border: 1.5px solid var(--sale-rim);
+      outline: 1.5px solid #2b0404;
+      padding: 0px 9px;
+      border-radius: 99px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 1px 0 #3d0303;
     }
     .egg-slot.slot-complete .egg-counter-badge {
-      background: #1f7a06;
-      border-color: #a8ff8a;
+      background: linear-gradient(180deg, #5ce619 0%, #207a05 100%);
+      border-color: #d8ffc4;
+      outline-color: #0b2901;
+      text-shadow: 0 1px 0 #0b2901;
     }
 
     /* Wrapping Egg Name (Flex-Wrap, Zero Ellipsis) */
     .egg-name-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--text-choc);
-      text-align: center;
-      line-height: 1.18;
-      margin-top: 5px;
+      font-size: 0.74rem;
+      margin-top: 4px;
       width: 100%;
+      text-align: center;
+      line-height: 1.15;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -697,13 +796,14 @@
       word-break: break-word;
     }
 
-    /* Red Tally Marks Row */
+    /* Gold/Red Tally Marks Row */
     .tally-row {
-      min-height: 18px;
-      margin: 3px 0 5px;
+      min-height: 15px;
+      margin: 2px 0 4px;
       font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.8rem;
-      color: var(--tally-red);
+      font-size: 0.76rem;
+      color: #ffcf40;
+      text-shadow: 0 1px 2px #000;
       letter-spacing: 1px;
       display: flex;
       align-items: center;
@@ -714,11 +814,11 @@
     .tally-five {
       text-decoration: line-through;
       text-decoration-thickness: 2.2px;
-      text-decoration-color: var(--tally-red);
+      text-decoration-color: #ff4d4d;
       margin-right: 2px;
     }
 
-    /* Tactile Micro Game Buttons inside Each Egg Slot (-, +, MAX) */
+    /* Chiseled Micro Buttons inside Each Egg Slot (-, +, MAX) */
     .slot-btn-row {
       display: flex;
       width: 100%;
@@ -728,110 +828,105 @@
 
     .slot-micro-btn {
       flex: 1;
-      min-height: 24px;
+      min-height: 23px;
       padding: 2px 3px;
-      border-radius: 7px;
+      border-radius: 6px;
       font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       letter-spacing: 0.3px;
       color: #ffffff;
       cursor: pointer;
-      border: 1.5px solid #2b1d10;
-      background: linear-gradient(180deg, #8c7355 0%, #5e4b35 100%);
-      box-shadow: 0 2px 0 #2b1d10;
-      text-shadow: 0 1px 0 #1f1208;
+      border: 1.5px solid var(--stone-hi);
+      outline: 1px solid #1a1615;
+      background: linear-gradient(180deg, var(--stone-top) 0%, var(--stone-bot) 100%);
+      box-shadow: 0 2px 0 #1f1b19;
+      text-shadow: 0 1px 0 #000;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .slot-micro-btn:active {
       transform: translateY(1px);
-      box-shadow: 0 1px 0 #2b1d10;
+      box-shadow: 0 1px 0 #1f1b19;
     }
     .slot-btn-plus {
-      background: linear-gradient(180deg, var(--btn-gold-top) 0%, var(--btn-gold-bot) 100%);
-      border-color: #693b00;
-      box-shadow: 0 2px 0 #4d2b00;
-      text-shadow: 0 1px 0 #4d2b00;
+      background: linear-gradient(180deg, var(--gold-top) 0%, var(--gold-bot) 100%);
+      border-color: #fff2a6;
     }
     .slot-btn-max {
-      background: linear-gradient(180deg, var(--btn-green-top) 0%, var(--btn-green-bot) 100%);
-      border-color: #164f05;
-      box-shadow: 0 2px 0 #0f3802;
-      text-shadow: 0 1px 0 #0f3802;
+      background: linear-gradient(180deg, #6ef22c 0%, #248206 100%);
+      border-color: #c2ff9e;
     }
 
-    /* Monster Total Progress Meter */
+    /* Monster Total Progress Meter (Copper/Wood Pipe Bar) */
     .meter-bar-wrap {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       gap: 10px;
-      background: var(--parchment-slot);
-      border: 2px solid var(--parchment-slot-border);
-      padding: 6px 12px;
-      border-radius: 12px;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+      background: var(--wood-well-inner);
+      border: 2px solid #1a0b03;
+      padding: 5px 12px;
+      border-radius: 10px;
+      box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.8), 0 1px 0 var(--wood-bevel-hi);
     }
 
     .meter-track {
       flex: 1;
       min-width: 120px;
-      height: 14px;
-      background: #422a17;
+      height: 13px;
+      background: #120803;
       border-radius: 99px;
       padding: 2px;
-      box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.5);
+      border: 1px solid #4a2610;
     }
 
     .meter-fill {
       height: 100%;
-      background: linear-gradient(180deg, #88ff4d 0%, #29a30b 100%);
+      background: linear-gradient(90deg, #ff9900 0%, var(--msm-green) 100%);
       border-radius: 99px;
       transition: width 0.2s ease;
     }
 
     .meter-label {
-      font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.88rem;
-      color: var(--text-choc);
+      font-size: 0.82rem;
       display: flex;
       flex-wrap: wrap;
     }
 
-    /* Right Column: Board Action Buttons */
+    /* Right Column: Chiseled Action Buttons */
     .board-actions-col {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      padding-left: 14px;
-      border-left: 2px solid var(--parchment-slot-border);
+      padding-left: 12px;
+      border-left: 2px solid #361908;
     }
 
     .empty-status-board {
-      background: linear-gradient(180deg, var(--parchment-light) 0%, var(--parchment-main) 100%);
-      border: 4px solid var(--frame-wood-mid);
-      outline: 2px solid var(--frame-wood-outer);
-      border-radius: 20px;
-      padding: 28px 20px;
+      background: linear-gradient(180deg, var(--wood-frame-mid) 0%, var(--wood-frame-bot) 100%);
+      border: 3px solid var(--wood-bevel-hi);
+      outline: 2px solid var(--wood-frame-edge);
+      border-radius: 18px;
+      padding: 26px 18px;
       text-align: center;
       font-weight: 700;
       font-size: 0.95rem;
-      color: var(--text-choc);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      color: #fff;
     }
 
-    /* Mobile & Tablet Responsive Breakpoints */
+    /* Tablet & Mobile Responsive Breakpoints */
     @media (max-width: 920px) {
       .monster-board {
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 10px;
+        padding: 12px;
       }
       .monster-pedestal-col {
         border-right: none;
-        border-bottom: 2px solid var(--parchment-slot-border);
+        border-bottom: 2px solid #361908;
         padding-right: 0;
-        padding-bottom: 12px;
+        padding-bottom: 10px;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -841,37 +936,89 @@
         flex-direction: row;
         width: auto;
         text-align: left;
-        gap: 12px;
+        gap: 10px;
       }
-      .monster-title {
+      .wooden-nameplate {
+        width: auto;
+      }
+      .monster-title, .meta-badges-stack {
         justify-content: flex-start;
       }
-      .monster-medallion {
-        width: 74px;
-        height: 74px;
+      .market-portrait-frame {
+        width: 72px;
+        height: 72px;
       }
       .monster-img {
-        width: 64px;
-        height: 64px;
+        width: 62px;
+        height: 62px;
       }
       .board-actions-col {
         border-left: none;
-        border-top: 2px solid var(--parchment-slot-border);
+        border-top: 2px solid #361908;
         padding-left: 0;
-        padding-top: 12px;
+        padding-top: 10px;
         flex-direction: row;
         flex-wrap: wrap;
+        gap: 6px;
       }
       .board-actions-col .game-btn {
-        flex: 1 1 130px;
+        flex: 1 1 auto;
+        padding: 6px 10px;
+        font-size: 0.78rem;
       }
     }
 
-    @media (max-width: 520px) {
-      .search-box { width: 100%; }
+    @media (max-width: 640px) {
+      header {
+        padding: 7px 10px;
+      }
+      .header-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .market-banner-pill {
+        padding: 4px 18px;
+      }
+      .banner-title {
+        font-size: 1.02rem;
+      }
+      .mobile-menu-btn {
+        display: inline-flex;
+        padding: 5px 10px;
+        font-size: 0.75rem;
+      }
+      .toolbar-actions {
+        display: none;
+        width: 100%;
+        padding-top: 6px;
+        border-top: 1.5px solid rgba(255, 255, 255, 0.15);
+        justify-content: stretch;
+      }
+      .toolbar-actions.menu-open {
+        display: flex;
+      }
+      .toolbar-actions .game-btn {
+        flex: 1;
+        padding: 6px 8px;
+        font-size: 0.74rem;
+      }
+      .island-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+      .tab-btn {
+        padding: 6px 8px;
+        font-size: 0.78rem;
+      }
+      .search-box, .sort-select {
+        width: 100%;
+      }
       .egg-slot {
-        flex: 1 1 calc(33.333% - 8px);
-        min-width: 96px;
+        flex: 1 1 calc(33.333% - 7px);
+        min-width: 90px;
+        padding: 5px 4px 5px;
       }
     }
   </style>
@@ -880,19 +1027,22 @@
 
   <header>
     <div class="header-inner">
-      <div class="brand-group">
-        <h1 class="brand-title game-font">My Singing Monsters Zap Tracker</h1>
-        <span class="save-indicator" id="saveIndicator">Saved Locally</span>
+      <div class="header-top-bar">
+        <div class="market-banner-pill">
+          <h1 class="banner-title">ZAP TRACKER</h1>
+          <span class="save-badge" id="saveIndicator">SAVED</span>
+        </div>
+        <button class="game-btn mobile-menu-btn" onclick="toggleMobileMenu()">Menu</button>
       </div>
 
       <nav class="island-tabs">
-        <button class="tab-btn active" data-tab="wublins" onclick="switchTab('wublins')">Wublin Island</button>
+        <button class="tab-btn active" data-tab="wublins" onclick="switchTab('wublins')">Wublins</button>
         <button class="tab-btn" data-tab="celestials" onclick="switchTab('celestials')">Young Celestials</button>
         <button class="tab-btn" data-tab="adults" onclick="switchTab('adults')">Adult Celestials</button>
         <button class="tab-btn" data-tab="amber" onclick="switchTab('amber')">Amber Island</button>
       </nav>
 
-      <div class="toolbar-actions">
+      <div class="toolbar-actions" id="toolbarActions">
         <button class="game-btn" onclick="exportProgress()">Export Backup</button>
         <button class="game-btn" onclick="document.getElementById('importFile').click()">Import Backup</button>
         <input type="file" id="importFile" style="display:none" accept=".json" onchange="importProgress(event)" />
@@ -902,21 +1052,23 @@
   </header>
 
   <main class="main-container">
-    <!-- Filter & Search Bar -->
+    <!-- Filter, Search & Sort Bar -->
     <section class="controls-frame">
       <div class="filter-group">
         <input type="text" class="search-box" id="searchInput" placeholder="Search monster or egg..." oninput="render()" />
+        <select class="sort-select" id="sortSelect" onchange="render()">
+          <option value="req_asc">Sort: Required Eggs (Low to High)</option>
+          <option value="pct_asc">Sort: Progress (0% to 100%)</option>
+          <option value="rem_asc">Sort: Remaining Eggs (Low to High)</option>
+        </select>
         <label class="check-pill">
           <input type="checkbox" id="filterActiveOnly" onchange="render()" />
-          <span>📌 Pinned / In-Progress Only</span>
+          <span>📌 Pinned / Active Only</span>
         </label>
         <label class="check-pill">
           <input type="checkbox" id="hideCompleted" onchange="render()" />
           <span>Hide Awakened (100%)</span>
         </label>
-      </div>
-      <div class="controls-hint">
-        Use <b>Copies [ - / + ]</b> on any monster to track multiple active statues at once (such as 2 Zynths or 3 Poewks).
       </div>
     </section>
 
@@ -924,24 +1076,23 @@
     <section class="breeding-queue-board">
       <div class="queue-header">
         <div class="queue-title-wrap">
-          <span class="queue-title">Remaining Eggs Needed (Active Statues)</span>
-          <span class="active-count-badge" id="activeStatuesBadge">0 Active</span>
+          <span class="queue-title msm-label-text">Remaining Eggs Needed</span>
+          <span class="sale-badge" id="activeStatuesBadge">0 Active</span>
         </div>
-        <span style="font-size:0.8rem; font-weight:600; color:var(--text-muted);">Tap any egg slot or pin a monster to add its remaining eggs to this list</span>
+        <span style="font-size:0.78rem; font-weight:600; color:#e6ccb2;">Tap any egg slot or pin a statue to add its remaining eggs here</span>
       </div>
-      <div class="queue-pills" id="shoppingPills"></div>
+      <div class="queue-well" id="shoppingPills"></div>
     </section>
 
     <!-- Monster Inventory Boards -->
     <section class="monster-list" id="monsterListContainer">
-      <div class="empty-status-board">Loading recipes from msm_recipes.json...</div>
+      <div class="empty-status-board msm-label-text">Loading recipes from msm_recipes.json...</div>
     </section>
   </main>
 
   <script>
     const STORAGE_KEY = "msm_tracker_clean_v1";
 
-    // Single source of truth populated strictly from msm_recipes.json (or msm_recipes.js on file://)
     let MONSTER_DB = { wublins: [], celestials: [], adults: [], amber: [] };
     let EGG_IMAGES = {};
 
@@ -956,6 +1107,22 @@
 
     function safeFilename(name) {
       return name.trim().replace(/[^a-zA-Z0-9_-]/g, "_");
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById("toolbarActions").classList.toggle("menu-open");
+    }
+
+    // Cleans bugged Wiki time strings like "x6 x6 x10 x8 x8 x14 x10 Time limit: 14 days" -> "14 days"
+    function cleanTimeLimit(rawTime) {
+      if (!rawTime || rawTime === "-") return "";
+      let s = String(rawTime);
+      if (/time\s*limit\s*:/i.test(s)) {
+        const parts = s.split(/time\s*limit\s*:/i);
+        s = parts[parts.length - 1];
+      }
+      s = s.replace(/\b[x×]\s*\d+\b/gi, "").trim();
+      return s;
     }
 
     function loadState() {
@@ -978,8 +1145,7 @@
     function saveState() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       const pill = document.getElementById("saveIndicator");
-      pill.textContent = "Saved Just Now";
-      setTimeout(() => { pill.textContent = "Saved Locally"; }, 1200);
+      pill.textContent = "SAVED";
     }
 
     // Color-coded SVG Egg Fallback if an egg image file is missing
@@ -1021,7 +1187,7 @@
       const isFlex = eggName.includes("Flex");
       const st = isFlex
         ? { c1: "#f59e0b", c2: "#6d28d9", spot: "#fde047" }
-        : (EGG_STYLE[eggName] || { c1: "#9c7a54", c2: "#4d3924", spot: "#dfc29f" });
+        : (EGG_STYLE[eggName] || { c1: "#c27838", c2: "#6e3814", spot: "#f5cba7" });
       const gradId = "eg_" + safeFilename(eggName) + "_" + uidSuffix;
       const label = isFlex ? "FLEX" : eggName.slice(0, 3).toUpperCase();
 
@@ -1034,17 +1200,16 @@
             </radialGradient>
           </defs>
           <path d="M20,3 C30,3 36,16 36,27 C36,36 29,41 20,41 C11,41 4,36 4,27 C4,16 10,3 20,3 Z"
-                fill="url(#${gradId})" stroke="rgba(0,0,0,0.4)" stroke-width="1.5"/>
+                fill="url(#${gradId})" stroke="rgba(0,0,0,0.45)" stroke-width="1.5"/>
           <circle cx="14" cy="15" r="3.2" fill="${st.spot}" opacity="0.65"/>
           <circle cx="26" cy="19" r="2.5" fill="${st.spot}" opacity="0.6"/>
           <circle cx="15" cy="28" r="2.8" fill="${st.spot}" opacity="0.55"/>
           <text x="20" y="26" text-anchor="middle" fill="#fff" font-size="7.5" font-weight="800"
-                stroke="rgba(0,0,0,0.8)" stroke-width="2" paint-order="stroke">${label}</text>
+                stroke="rgba(0,0,0,0.85)" stroke-width="2" paint-order="stroke">${label}</text>
         </svg>
       `;
     }
 
-    // Load recipes directly from msm_recipes.json (or window.MSM_SCRAPED_DATA if on file://)
     async function loadRecipesFromJson() {
       try {
         const resp = await fetch("./msm_recipes.json");
@@ -1058,9 +1223,7 @@
             return;
           }
         }
-      } catch (err) {
-        // If fetch('./msm_recipes.json') was blocked by browser file:// CORS policy, check window.MSM_SCRAPED_DATA
-      }
+      } catch (err) {}
 
       if (window.MSM_SCRAPED_DATA && window.MSM_SCRAPED_DATA.monsters) {
         MONSTER_DB = window.MSM_SCRAPED_DATA.monsters;
@@ -1071,16 +1234,15 @@
       }
 
       document.getElementById("monsterListContainer").innerHTML = `
-        <div class="empty-status-board">
-          Could not read <b>msm_recipes.json</b> directly because your browser blocks local <code>file://</code> fetch requests.<br><br>
-          Either open this folder with a local server (e.g. <code>python -m http.server 8000</code> or VS Code Live Server) or let <code>build_msm_tracker.py</code> also write <code>msm_recipes.js</code>.
+        <div class="empty-status-board msm-label-text">
+          Could not load msm_recipes.json. Ensure msm_recipes.json is in the same folder.
         </div>
       `;
     }
 
     function updateTabCounts() {
       const labels = {
-        wublins: "Wublin Island",
+        wublins: "Wublins",
         celestials: "Young Celestials",
         adults: "Adult Celestials",
         amber: "Amber Island"
@@ -1195,7 +1357,7 @@
     function fillAllInstance(monsterId, instKey) {
       const m = (MONSTER_DB[currentTab] || []).find(x => x.id === monsterId);
       if (!m) return;
-      m.eggs.forEach(([eggName, req]) => {
+      (m.eggs || []).forEach(([eggName, req]) => {
         state.tallies[`${instKey}__${eggName}`] = req;
       });
       saveState();
@@ -1205,7 +1367,7 @@
     function clearInstance(monsterId, instKey) {
       const m = (MONSTER_DB[currentTab] || []).find(x => x.id === monsterId);
       if (!m) return;
-      m.eggs.forEach(([eggName]) => {
+      (m.eggs || []).forEach(([eggName]) => {
         delete state.tallies[`${instKey}__${eggName}`];
       });
       saveState();
@@ -1225,12 +1387,13 @@
       let activeInstancesCount = 0;
 
       monsters.forEach(m => {
+        const eggsList = m.eggs || [];
         const instances = getInstancesForMonster(m.id);
         instances.forEach(instNum => {
           const instKey = `${m.id}#${instNum}`;
           let zapped = 0;
           let total = 0;
-          m.eggs.forEach(([eggName, req]) => {
+          eggsList.forEach(([eggName, req]) => {
             zapped += Math.min(req, state.tallies[`${instKey}__${eggName}`] || 0);
             total += req;
           });
@@ -1238,7 +1401,7 @@
           const isWorking = (zapped > 0 && zapped < total) || !!state.pinned[instKey];
           if (isWorking && zapped < total) {
             activeInstancesCount++;
-            m.eggs.forEach(([eggName, req]) => {
+            eggsList.forEach(([eggName, req]) => {
               const cur = Math.min(req, state.tallies[`${instKey}__${eggName}`] || 0);
               const rem = Math.max(0, req - cur);
               if (rem > 0) {
@@ -1255,7 +1418,7 @@
       const entries = Object.entries(neededMap).sort((a, b) => b[1] - a[1]);
 
       if (entries.length === 0) {
-        container.innerHTML = `<span style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">No active statues yet. Tap any egg slot below, click <b>"📌 Pin Statue"</b>, or increase <b>Copies [+]</b> to build your breeding list.</span>`;
+        container.innerHTML = `<span style="font-size:0.84rem; color:#d9b89c; font-weight:600;">No active statues yet. Tap any egg slot below, click <b>"📌 Pin Statue"</b>, or increase <b>Copies [+]</b> to build your breeding list.</span>`;
         return;
       }
 
@@ -1264,8 +1427,8 @@
         return `
           <span class="queue-pill">
             <img class="queue-egg-img" src="${eggUrl}" alt="" onerror="this.style.display='none'" />
-            <span>${eggName}</span>
-            <span class="queue-qty">x${rem}</span>
+            <span class="msm-label-text" style="font-size:0.8rem;">${eggName}</span>
+            <span class="sale-badge">x${rem}</span>
           </span>
         `;
       }).join("");
@@ -1275,6 +1438,7 @@
       const monsters = MONSTER_DB[currentTab] || [];
       const container = document.getElementById("monsterListContainer");
       const search = document.getElementById("searchInput").value.trim().toLowerCase();
+      const sortMode = document.getElementById("sortSelect").value;
       const activeOnly = document.getElementById("filterActiveOnly").checked;
       const hideCompleted = document.getElementById("hideCompleted").checked;
 
@@ -1282,9 +1446,11 @@
       container.innerHTML = "";
 
       if (monsters.length === 0) {
-        container.innerHTML = `<div class="empty-status-board">No monsters loaded for this tab yet.</div>`;
+        container.innerHTML = `<div class="empty-status-board msm-label-text">No monsters loaded for this tab yet.</div>`;
         return;
       }
+
+      const renderItems = [];
 
       monsters.forEach(monster => {
         const eggsList = monster.eggs || [];
@@ -1307,6 +1473,8 @@
             totalZapped += Math.min(req, state.tallies[`${instKey}__${eggName}`] || 0);
           });
 
+          const remaining = Math.max(0, totalReq - totalZapped);
+          const pct = totalReq > 0 ? (totalZapped / totalReq) * 100 : 0;
           const isCompleted = totalReq > 0 && totalZapped >= totalReq;
           const isPinned = !!state.pinned[instKey];
           const isActive = isPinned || (totalZapped > 0 && !isCompleted);
@@ -1314,113 +1482,160 @@
           if (activeOnly && !isActive) return;
           if (hideCompleted && isCompleted) return;
 
-          const pct = totalReq > 0 ? Math.round((totalZapped / totalReq) * 100) : 0;
-          const board = document.createElement("article");
-          board.className = `monster-board ${isCompleted ? "board-completed" : (isActive ? "board-active" : "")}`;
+          renderItems.push({
+            monster,
+            eggsList,
+            instNum,
+            idx,
+            totalCopies,
+            instKey,
+            totalReq,
+            totalZapped,
+            remaining,
+            pct,
+            isCompleted,
+            isPinned,
+            isActive
+          });
+        });
+      });
 
-          const monsterImgUrl = getMonsterImgUrl(monster);
-          const remoteFallback = monster.img_url || "";
-          const displayTitle = totalCopies > 1 ? `${monster.name} #${idx + 1}` : monster.name;
+      // Pinned statues float to the top; both pinned and unpinned groups share the same sort rules
+      renderItems.sort((a, b) => {
+        if (a.isPinned !== b.isPinned) {
+          return a.isPinned ? -1 : 1;
+        }
+        if (sortMode === "pct_asc") {
+          if (a.pct !== b.pct) return a.pct - b.pct;
+          return a.totalReq - b.totalReq;
+        }
+        if (sortMode === "rem_asc") {
+          if (a.remaining !== b.remaining) return a.remaining - b.remaining;
+          return a.totalReq - b.totalReq;
+        }
+        if (a.totalReq !== b.totalReq) return a.totalReq - b.totalReq;
+        if (a.pct !== b.pct) return a.pct - b.pct;
+        return a.instNum - b.instNum;
+      });
 
-          const eggsHTML = eggsList.map(([eggName, req], eggIdx) => {
-            const cur = Math.min(req, state.tallies[`${instKey}__${eggName}`] || 0);
-            const done = cur >= req;
-            const eggImgUrl = getEggImgUrl(eggName);
-            const safeEgg = eggName.replace(/'/g, "\\'");
-            const uid = `${monster.id}_${instNum}_${eggIdx}`;
+      renderItems.forEach(item => {
+        const {
+          monster, eggsList, instNum, idx, totalCopies, instKey,
+          totalReq, totalZapped, remaining, pct, isCompleted, isPinned, isActive
+        } = item;
 
-            return `
-              <div class="egg-slot ${done ? 'slot-complete' : ''}"
-                   oncontextmenu="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'minus', event)">
-                <div class="egg-tap-area"
-                     onclick="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'plus', event)"
-                     title="Tap to add +1 ${eggName}">
-                  <div class="egg-stage">
-                    <div class="egg-sprite-wrap">
-                      ${buildEggSVG(eggName, uid)}
-                      <img class="egg-img" src="${eggImgUrl}" alt="" loading="lazy"
-                           onload="if(this.previousElementSibling)this.previousElementSibling.style.display='none'"
-                           onerror="this.style.display='none'" />
-                      <svg class="egg-scribble" viewBox="0 0 40 44">
-                        <path d="M4,6 L36,38 M36,6 L4,38 M2,22 L38,18 M6,32 L34,10"
-                              stroke="#d41c1c" stroke-width="4" stroke-linecap="round"/>
-                      </svg>
-                    </div>
-                    <span class="egg-counter-badge">${cur}/${req}</span>
+        const pctRounded = Math.round(pct);
+        const board = document.createElement("article");
+        board.className = `monster-board ${isCompleted ? "board-completed" : (isActive ? "board-active" : "")}`;
+
+        const monsterImgUrl = getMonsterImgUrl(monster);
+        const remoteFallback = monster.img_url || "";
+        const displayTitle = totalCopies > 1 ? `${monster.name} #${idx + 1}` : monster.name;
+        const cleanedTime = cleanTimeLimit(monster.time);
+
+        const eggsHTML = eggsList.map(([eggName, req], eggIdx) => {
+          const cur = Math.min(req, state.tallies[`${instKey}__${eggName}`] || 0);
+          const done = cur >= req;
+          const eggImgUrl = getEggImgUrl(eggName);
+          const safeEgg = eggName.replace(/'/g, "\\'");
+          const uid = `${monster.id}_${instNum}_${eggIdx}`;
+
+          return `
+            <div class="egg-slot ${done ? 'slot-complete' : ''}"
+                 oncontextmenu="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'minus', event)">
+              <div class="egg-tap-area"
+                   onclick="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'plus', event)"
+                   title="Tap to add +1 ${eggName}">
+                <div class="egg-stage">
+                  <div class="egg-sprite-wrap">
+                    ${buildEggSVG(eggName, uid)}
+                    <img class="egg-img" src="${eggImgUrl}" alt="" loading="lazy"
+                         onload="if(this.previousElementSibling)this.previousElementSibling.style.display='none'"
+                         onerror="this.style.display='none'" />
+                    <svg class="egg-scribble" viewBox="0 0 40 44">
+                      <path d="M4,6 L36,38 M36,6 L4,38 M2,22 L38,18 M6,32 L34,10"
+                            stroke="#ff2b2b" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
                   </div>
-                  <div class="egg-name-label">${eggName}</div>
-                  <div class="tally-row">${formatTalliesHTML(cur)}</div>
                 </div>
-
-                <div class="slot-btn-row">
-                  <button class="slot-micro-btn" onclick="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'minus', event)" title="Subtract 1">-</button>
-                  <button class="slot-micro-btn slot-btn-plus" onclick="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'plus', event)" title="Add 1">+</button>
-                  <button class="slot-micro-btn slot-btn-max" onclick="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'max', event)" title="Max / Cross Out">MAX</button>
-                </div>
-              </div>
-            `;
-          }).join("");
-
-          board.innerHTML = `
-            <!-- Left Column: Monster Medallion, Name, Time Limit & Copies Stepper -->
-            <div class="monster-pedestal-col">
-              <div class="pedestal-left-wrap">
-                <div class="monster-medallion">
-                  <img class="monster-img" src="${monsterImgUrl}" alt="${monster.name}" loading="lazy"
-                       onerror="if('${remoteFallback}' && this.src !== '${remoteFallback}'){this.src='${remoteFallback}';}else{this.style.display='none';}" />
-                  ${totalCopies > 1 ? `<span class="copy-number-tag">#${idx + 1}</span>` : ""}
-                </div>
-                <div>
-                  <div class="monster-title">${displayTitle}</div>
-                  ${monster.time && monster.time !== "-" ? `<span class="time-badge">Time Limit: ${monster.time}</span>` : ""}
-                </div>
+                <span class="egg-counter-badge">${cur}/${req}</span>
+                <div class="egg-name-label msm-label-text">${eggName}</div>
+                <div class="tally-row">${formatTalliesHTML(cur)}</div>
               </div>
 
-              <div class="copies-stepper" title="Track multiple copies of ${monster.name}">
-                <span class="copies-label">Copies:</span>
-                <button class="stepper-btn" onclick="decrementMonsterCopy('${monster.id}')">-</button>
-                <span class="copies-val">${totalCopies}</span>
-                <button class="stepper-btn" onclick="addMonsterCopy('${monster.id}')">+</button>
+              <div class="slot-btn-row">
+                <button class="slot-micro-btn" onclick="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'minus', event)" title="Subtract 1">-</button>
+                <button class="slot-micro-btn slot-btn-plus" onclick="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'plus', event)" title="Add 1">+</button>
+                <button class="slot-micro-btn slot-btn-max" onclick="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'max', event)" title="Max / Cross Out">MAX</button>
               </div>
-            </div>
-
-            <!-- Middle Column: Recessed Egg Slots & Progress Meter -->
-            <div class="inventory-well-col">
-              <div class="eggs-slot-grid">${eggsHTML}</div>
-              <div class="meter-bar-wrap">
-                <div class="meter-track">
-                  <div class="meter-fill" style="width:${pct}%"></div>
-                </div>
-                <div class="meter-label">
-                  ${isCompleted ? "AWAKENED (100%)" : `${totalZapped} / ${totalReq} Eggs Zapped (${totalReq - totalZapped} Remaining)`}
-                </div>
-              </div>
-            </div>
-
-            <!-- Right Column: Statue Action Buttons -->
-            <div class="board-actions-col">
-              <button class="game-btn ${isPinned ? 'game-btn-gold' : ''}" onclick="togglePinInstance('${instKey}')">
-                ${isPinned ? "📌 Pinned" : "📌 Pin Statue"}
-              </button>
-              <button class="game-btn game-btn-blue" onclick="addMonsterCopy('${monster.id}')">
-                Add Copy
-              </button>
-              <button class="game-btn game-btn-green" onclick="fillAllInstance('${monster.id}', '${instKey}')">
-                Fill All
-              </button>
-              <button class="game-btn" onclick="clearInstance('${monster.id}', '${instKey}')">
-                Clear Eggs
-              </button>
-              ${totalCopies > 1 ? `
-                <button class="game-btn game-btn-red" onclick="removeMonsterCopy('${monster.id}', ${instNum})">
-                  Remove #${idx + 1}
-                </button>
-              ` : ""}
             </div>
           `;
+        }).join("");
 
-          container.appendChild(board);
-        });
+        board.innerHTML = `
+          <!-- Left Column: Market-Style Wooden Portrait Frame + Nameplate + Red Pill Badges -->
+          <div class="monster-pedestal-col">
+            <div class="pedestal-left-wrap">
+              <div class="market-portrait-frame">
+                <img class="monster-img" src="${monsterImgUrl}" alt="${monster.name}" loading="lazy"
+                     onerror="if('${remoteFallback}' && this.src !== '${remoteFallback}'){this.src='${remoteFallback}';}else{this.style.display='none';}" />
+                ${totalCopies > 1 ? `<span class="sale-badge copy-number-tag">#${idx + 1}</span>` : ""}
+              </div>
+              <div style="width:100%;">
+                <div class="wooden-nameplate">
+                  <div class="monster-title msm-label-text">${displayTitle}</div>
+                </div>
+                <div class="meta-badges-stack" style="margin-top:5px;">
+                  <span class="sale-badge">${totalReq} Eggs</span>
+                  ${cleanedTime ? `<span class="sale-badge">${cleanedTime}</span>` : ""}
+                </div>
+              </div>
+            </div>
+
+            <div class="copies-stepper" title="Track multiple copies of ${monster.name}">
+              <span class="copies-label">Copies:</span>
+              <button class="stepper-btn" onclick="decrementMonsterCopy('${monster.id}')">-</button>
+              <span class="copies-val">${totalCopies}</span>
+              <button class="stepper-btn" onclick="addMonsterCopy('${monster.id}')">+</button>
+            </div>
+          </div>
+
+          <!-- Middle Column: Recessed Egg Slots & Progress Meter -->
+          <div class="inventory-well-col">
+            <div class="eggs-slot-grid">${eggsHTML}</div>
+            <div class="meter-bar-wrap">
+              <div class="meter-track">
+                <div class="meter-fill" style="width:${pctRounded}%"></div>
+              </div>
+              <div class="meter-label msm-label-text">
+                ${isCompleted ? "AWAKENED (100%)" : `${totalZapped} / ${totalReq} Zapped (${remaining} Left)`}
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Chiseled Stone & Wood Action Buttons -->
+          <div class="board-actions-col">
+            <button class="game-btn ${isPinned ? 'game-btn-gold' : ''}" onclick="togglePinInstance('${instKey}')">
+              ${isPinned ? "📌 Pinned" : "📌 Pin Statue"}
+            </button>
+            <button class="game-btn game-btn-wood" onclick="addMonsterCopy('${monster.id}')">
+              Add Copy
+            </button>
+            <button class="game-btn game-btn-green" onclick="fillAllInstance('${monster.id}', '${instKey}')">
+              Fill All
+            </button>
+            <button class="game-btn" onclick="clearInstance('${monster.id}', '${instKey}')">
+              Clear Eggs
+            </button>
+            ${totalCopies > 1 ? `
+              <button class="game-btn game-btn-red" onclick="removeMonsterCopy('${monster.id}', ${instNum})">
+                Remove #${idx + 1}
+              </button>
+            ` : ""}
+          </div>
+        `;
+
+        container.appendChild(board);
       });
     }
 
