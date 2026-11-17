@@ -15,15 +15,15 @@ os.makedirs(EGGS_DIR, exist_ok=True)
 
 SESSION = requests.Session()
 SESSION.headers.update({
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) MSMTrackerBuilder/2.0"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) MSMTrackerBuilder/3.0"
 })
 
 ROSTERS = {
     "wublins": [
-        "Pixolotl", "Bona-Petite", "Maulch", "Fleechwurm",
         "Brump", "Zynth", "Poewk", "Thwok", "Dwumrohl", "Zuuker",
         "Screemu", "Tympa", "Dermit", "Gheegur", "Whajje",
-        "Creepuscule", "Blipsqueak", "Scargo", "Astropod", "Monculus"
+        "Creepuscule", "Blipsqueak", "Scargo", "Astropod",
+        "Pixolotl", "Bona-Petite", "Maulch", "Fleechwurm", "Monculus"
     ],
     "celestials": [
         "Scaratar", "Loodvigg", "Torrt", "Plixie", "Attmoz", "Hornacle",
@@ -41,6 +41,22 @@ ROSTERS = {
         "Yelmut", "Flum Ox", "Krillby", "Edamimi", "PongPing", "Incisaur",
         "Tiawa", "Bisonorus", "Candelavra", "Drummidary", "Bowhead", "Tuskski", "Gnarls"
     ]
+}
+
+# Verified fallback for Adult Celestials in case any Wiki sub-template is missing
+ADULT_FALLBACK_RECIPES = {
+    "Adult Scaratar": {"time": "31 days", "eggs": [["Floot Fly",3], ["Shrubb",3], ["Fwog",3], ["Drumpler",3], ["HippityHop",2], ["Squot",2], ["Wimmzies",2], ["Ziggurab",2], ["Cantorell",2], ["Bridg-it",2], ["Clavi Gnat",2], ["Reedling",2], ["Pladdie",2], ["Quarrister",2], ["Boo'qwurm",1], ["Rare 2E Faerie Flex",2], ["Rare 3E Fire Flex",1]]},
+    "Adult Loodvigg": {"time": "30 days", "eggs": [["Pango",3], ["Maw",3], ["Gob",3], ["Bulbo",3], ["Spytrap",3], ["TooToo",3], ["Fiddlement",2], ["Bowgart",2], ["Spunge",2], ["Thumpies",2], ["Congle",1], ["Deedge",1], ["Blow't",1], ["Pluckbill",1], ["Whisp",1], ["Nebulob",1], ["Arackulele",1], ["Rare 2E Light Flex",1], ["Rare 3E Psychic Flex",1], ["Rare 3E Faerie Flex",1], ["Rare 3E Bone Flex",1]]},
+    "Adult Torrt": {"time": "31 days", "eggs": [["Drumpler",3], ["Fwog",3], ["Shrubb",3], ["Cybop",3], ["T-Rox",2], ["Clamble",2], ["PomPom",2], ["Thumpies",2], ["Reedling",2], ["Quarrister",2], ["Entbrat",2], ["Deedge",2], ["Riff",2], ["Shellbeat",2], ["Punkleton",1], ["Rare 2E Earth Flex",2], ["Rare 3E Earth Flex",1], ["Rare 4E Earth Flex",1]]},
+    "Adult Plixie": {"time": "30 days", "eggs": [["Theremind",3], ["Fwog",3], ["Maw",3], ["Drumpler",3], ["Bonkers",2], ["Oaktopus",2], ["Poppette",2], ["Yuggler",2], ["Tapricorn",2], ["Rooba",2], ["Periscorp",2], ["Furcorn",2], ["Gloptic",2], ["Entbrat",2], ["Gobbleygourd",1], ["Rare 2E Psychic Flex",2], ["Rare 3E Fire Flex",1]]},
+    "Adult Attmoz": {"time": "31 days", "eggs": [["Dandidoo",3], ["Cybop",3], ["Quibble",3], ["Pango",3], ["T-Rox",2], ["Congle",2], ["PomPom",2], ["Scups",2], ["Reedling",2], ["Spunge",2], ["Thumpies",2], ["Bowgart",2], ["Riff",2], ["Deedge",2], ["Schmoochle",1], ["Yool",2], ["Rare 2E Air Flex",2], ["Rare 3E Air Flex",1], ["Rare 4E Air Flex",1]]},
+    "Adult Hornacle": {"time": "31 days", "eggs": [["Fwog",3], ["Maw",3], ["Oaktopus",3], ["Quibble",3], ["T-Rox",2], ["Bowgart",2], ["Pummel",2], ["Spunge",2], ["Scups",2], ["Congle",2], ["Shellbeat",2], ["Deedge",2], ["Riff",2], ["Entbrat",2], ["Carillong",1], ["Rare 2E Water Flex",2], ["Rare 3E Water Flex",1], ["Rare 4E Water Flex",1]]},
+    "Adult Furnoss": {"time": "28 days", "eggs": [["Glowl",3], ["Flowah",3], ["Stogg",3], ["Phangler",3], ["Boskus",3], ["Barrb",2], ["Floogull",2], ["Whaddle",2], ["Woolabee",2], ["Repatillo",2], ["Reedling",2], ["Tring",2], ["Sneyser",2], ["Schmoochle",1], ["Rare 2E Fire Flex",2], ["Rare 3E Fire Flex",1]]},
+    "Adult Glaishur": {"time": "31 days", "eggs": [["Pango",3], ["Furcorn",3], ["Drumpler",3], ["Maw",3], ["Thumpies",2], ["PomPom",2], ["Congle",2], ["Clamble",2], ["Bowgart",2], ["T-Rox",2], ["Deedge",2], ["Entbrat",2], ["Riff",2], ["Quarrister",2], ["Ffidyll",1], ["Rare 2E Cold Flex",2], ["Rare 3E Cold Flex",1], ["Rare 4E Cold Flex",1]]},
+    "Adult Blasoom": {"time": "30 days", "eggs": [["Furcorn",3], ["Shrubb",3], ["Oaktopus",3], ["Dandidoo",3], ["Bowgart",2], ["Clamble",2], ["Pummel",2], ["Reedling",2], ["Spunge",2], ["Thumpies",2], ["Entbrat",2], ["Deedge",2], ["Shellbeat",2], ["Quarrister",2], ["Blabbit",1], ["Viveine",1], ["Rare 2E Plant Flex",2], ["Rare 3E Plant Flex",1], ["Rare 4E Plant Flex",1]]},
+    "Adult Syncopite": {"time": "31 days", "eggs": [["Clackula",3], ["Fwog",3], ["Maw",3], ["Oaktopus",3], ["Denchuhs",2], ["Hawlo",2], ["Peckidna",2], ["Thrumble",2], ["Withur",2], ["Uuduk",2], ["Banjaw",2], ["T-Rox",2], ["Plinkajou",2], ["Shellbeat",2], ["Spurrit",1], ["Rare 2E Bone Flex",2], ["Rare 3E Fire Flex",1]]},
+    "Adult Vhamp": {"time": "30 days", "eggs": [["Cybop",3], ["Quibble",3], ["Pango",3], ["Drumpler",3], ["T-Rox",2], ["PomPom",2], ["Scups",2], ["Reedling",2], ["Riff",2], ["Reebro",1], ["Jeeode",1], ["Humbug",1], ["Monculus",1], ["Mythical Flex",3], ["Rare 4E Fire Flex",2]]},
+    "Adult Galvana": {"time": "31 days", "eggs": [["Kayna",3], ["Glowl",2], ["Flowah",2], ["Stogg",2], ["Phangler",2], ["Boskus",2], ["Barrb",1], ["Floogull",1], ["Whaddle",2], ["Woolabee",1], ["Repatillo",1], ["Rootitoot",1], ["Sooza",1], ["Thrumble",1], ["Ziggurab",1], ["Wynq",1], ["Tring",1], ["Sneyser",1], ["Hoola",1], ["Rare 4E Plant Flex",1], ["Rare 4E Cold Flex",1], ["Rare 4E Air Flex",1], ["Rare 4E Water Flex",1], ["Rare 4E Earth Flex",1]]}
 }
 
 
@@ -133,10 +149,9 @@ def parse_page_api(page_title: str) -> dict:
         return {"html": "", "wikitext": ""}
 
 
-def parse_eggs_from_dom_element(elem, egg_url_map: dict) -> list:
-    """Extracts (egg_name, count) from any HTML element containing egg images and x<number>."""
+def parse_eggs_from_dom_element(elem, egg_url_map: dict, allow_single: bool = False) -> list:
+    """Extracts [egg_name, count] from any HTML element containing egg/flex images."""
     pairs = []
-    # Find all images inside this element
     for img in elem.find_all("img"):
         raw_key = urllib.parse.unquote(
             img.get("data-image-name")
@@ -145,12 +160,11 @@ def parse_eggs_from_dom_element(elem, egg_url_map: dict) -> list:
             or img.get("src")
             or ""
         )
-        if "egg" not in raw_key.lower():
+        if "egg" not in raw_key.lower() and "flex" not in raw_key.lower():
             continue
         if any(bad in raw_key.lower() for bad in ["statue", "vessel", "trophy", "costume", "button"]):
             continue
 
-        # Clean egg name
         egg_name = re.sub(r"\.(png|webp|jpg|gif)$", "", raw_key, flags=re.I)
         egg_name = egg_name.replace("_", " ")
         egg_name = re.sub(r"\s*(-egg|-Egg| Egg)\b.*$", "", egg_name).strip()
@@ -163,9 +177,8 @@ def parse_eggs_from_dom_element(elem, egg_url_map: dict) -> list:
         if egg_name and img_url:
             egg_url_map[egg_name] = img_url
 
-        # Look for the "x6" or "×6" right after this image
         count = None
-        # Method A: walk next siblings in the DOM
+        # Method A: walk next siblings for "x3" or "×3"
         node = img.find_parent("a") or img
         curr = node.next_sibling
         acc = ""
@@ -184,12 +197,13 @@ def parse_eggs_from_dom_element(elem, egg_url_map: dict) -> list:
             curr = curr.next_sibling
             hops += 1
 
-        # Method B: if inside an <li> or <span> with a single img
+        # Method B: check parent container if it wraps a single egg (supports "x2" or leading "2 Rare ... Flex Egg")
         if count is None:
-            for parent_tag in ["span", "li", "td"]:
+            for parent_tag in ["span", "li", "td", "div"]:
                 p = img.find_parent(parent_tag)
                 if p and len(p.find_all("img")) == 1:
-                    m = re.search(r"[x×]\s*(\d+)", p.get_text(" ", strip=True), re.I)
+                    ptxt = p.get_text(" ", strip=True)
+                    m = re.search(r"[x×]\s*(\d+)", ptxt, re.I) or re.search(r"^(\d+)\s+", ptxt)
                     if m:
                         count = int(m.group(1))
                         break
@@ -197,45 +211,8 @@ def parse_eggs_from_dom_element(elem, egg_url_map: dict) -> list:
         if egg_name and count and 0 < count <= 200:
             pairs.append([egg_name, count])
 
-    return pairs
-
-
-def parse_eggs_from_wikitext(wikitext: str, category: str) -> list:
-    """Fallback parser that reads raw MediaWiki wikitext for egg templates or File:*-egg.png."""
-    if not wikitext:
+    if not allow_single and len(pairs) < 2:
         return []
-
-    section = wikitext
-    if category == "amber":
-        m = re.search(r"==\s*Amber Island.*?(?===[^=]|$)", wikitext, re.S | re.I)
-        if m:
-            section = m.group(0)
-    elif category in ("wublins", "celestials"):
-        # Stop before Rare / Epic / Adult subsections
-        m = re.split(r"===\s*(?:Rare|Epic|Adult)", wikitext, flags=re.I)
-        if m:
-            section = m[0]
-
-    pairs = []
-    seen = set()
-
-    # Pattern 1: [[File:Entbrat-egg.png|...]] x6 or ×6
-    for m in re.finditer(r"File:([A-Za-z0-9_' -]+?)(?:-egg|_Egg)\.(?:png|webp)[^\n\r]{0,120}?[x×]\s*(\d+)", section, re.I):
-        e_name = m.group(1).replace("_", " ").strip()
-        cnt = int(m.group(2))
-        if e_name not in seen and 0 < cnt <= 200:
-            seen.add(e_name)
-            pairs.append([e_name, cnt])
-
-    # Pattern 2: {{Inventory/Egg|Entbrat|6}} or {{Egg|Entbrat|6}} or |inventory = ...
-    if len(pairs) < 2:
-        for m in re.finditer(r"\{\{(?:Inventory/Egg|Egg|MonsterEgg)\|([^|}]+)\|(\d+)", section, re.I):
-            e_name = m.group(1).replace("_", " ").strip()
-            cnt = int(m.group(2))
-            if e_name not in seen and 0 < cnt <= 200:
-                seen.add(e_name)
-                pairs.append([e_name, cnt])
-
     return pairs
 
 
@@ -251,23 +228,22 @@ def scrape_overview_table(page_title: str, category: str, egg_url_map: dict) -> 
         if len(tds) < 2:
             continue
 
-        egg_td = None
-        eggs = []
+        # Collect ALL egg cells in the row (merges 'Required Inventory' + 'Required Flex Eggs' columns if split)
+        egg_tds = []
+        row_eggs = []
         for td in tds:
-            cand = parse_eggs_from_dom_element(td, egg_url_map)
-            if len(cand) >= 2:
-                egg_td = td
-                eggs = cand
-                break
+            cand = parse_eggs_from_dom_element(td, egg_url_map, allow_single=(category == "adults"))
+            if len(cand) >= 1 and (len(cand) >= 2 or egg_tds):
+                egg_tds.append(td)
+                row_eggs.extend(cand)
 
-        if not egg_td:
+        if len(row_eggs) < 2:
             continue
 
-        # Find monster name and portrait in cells before egg_td
         m_name = ""
         m_img = ""
         for td in tds:
-            if td == egg_td:
+            if td in egg_tds:
                 break
             for img in td.find_all("img"):
                 u = clean_wikia_url(img.get("data-src") or img.get("src") or "")
@@ -282,11 +258,10 @@ def scrape_overview_table(page_title: str, category: str, egg_url_map: dict) -> 
         if not m_name:
             continue
 
-        # Filter Rare / Epic / Adult vs Common
-        row_html_low = egg_td.decode_contents().lower()
-        is_rare = m_name.lower().startswith("rare ") or all(e[0].lower().startswith("rare ") for e in eggs)
-        is_epic = m_name.lower().startswith("epic ") or all(e[0].lower().startswith("epic ") for e in eggs)
-        has_flex = "flex" in row_html_low or m_name.lower().startswith("adult ")
+        combined_html_low = " ".join(td.decode_contents().lower() for td in egg_tds)
+        is_rare = m_name.lower().startswith("rare ") or all(e[0].lower().startswith("rare ") for e in row_eggs)
+        is_epic = m_name.lower().startswith("epic ") or all(e[0].lower().startswith("epic ") for e in row_eggs)
+        has_flex = "flex" in combined_html_low or m_name.lower().startswith("adult ")
 
         if category in ("wublins", "amber") and (is_rare or is_epic):
             continue
@@ -299,10 +274,9 @@ def scrape_overview_table(page_title: str, category: str, egg_url_map: dict) -> 
         if category == "adults":
             key_name = f"Adult {key_name}"
 
-        # Extract cost & time from remaining cells
-        cost, time_str = "-", "-"
+        time_str = "-"
         for td in tds:
-            if td == egg_td:
+            if td in egg_tds:
                 continue
             txt = " ".join(td.get_text(" ", strip=True).split())
             if re.match(r"^\d+\s*x\s*\d+$", txt, re.I) or txt == m_name:
@@ -312,26 +286,24 @@ def scrape_overview_table(page_title: str, category: str, egg_url_map: dict) -> 
             ):
                 if time_str == "-":
                     time_str = txt
-            elif re.search(r"\d", txt) and cost == "-":
-                cost = txt
 
         if key_name.lower() not in results:
             results[key_name.lower()] = {
                 "name": key_name,
                 "img_url": m_img,
-                "cost": cost,
                 "time": time_str,
-                "eggs": eggs
+                "eggs": row_eggs
             }
-            print(f"  [+] Parsed {key_name} from {page_title}: {len(eggs)} egg types ({sum(c for _, c in eggs)} total)")
+            print(f"  [+] Parsed {key_name} from {page_title}: {len(row_eggs)} egg types")
 
     return results
 
 
 def scrape_individual_monster(monster_name: str, category: str, egg_url_map: dict) -> dict:
-    """Scrapes an individual monster's Wiki page (Infobox 'Required Inventory' + tables + Wikitext)."""
-    page_target = monster_name.replace("Adult ", "") if category == "adults" else monster_name
-    print(f"  -> Scraping individual page: {page_target} (for {monster_name})...")
+    """Scrapes an individual monster's Wiki page (keeps 'Adult ' prefix for Adult Celestials!)."""
+    # FIX #1: Do NOT strip 'Adult ' — each Adult Celestial has its own dedicated Wiki page (e.g. Adult_Scaratar)
+    page_target = monster_name
+    print(f"  -> Scraping individual page: {page_target}...")
     parsed = parse_page_api(page_target)
     soup = BeautifulSoup(parsed["html"], "html.parser")
 
@@ -341,40 +313,52 @@ def scrape_individual_monster(monster_name: str, category: str, egg_url_map: dic
     if pi_img:
         m_img = clean_wikia_url(pi_img.get("data-src") or pi_img.get("src") or "")
 
-    # 2. Check Portable Infobox "Required Inventory" block first, plus all tables/divs
-    candidate_lists = []
-    for block in soup.select(".pi-item, .pi-data-value, table, td, div"):
-        if block.name == "div" and block.find(["table", "div"]) and "pi-data-value" not in (block.get("class") or []):
+    # 2. Extract eggs directly from Portable Infobox 'Required Inventory' + 'Required Flex Eggs' rows first
+    infobox_eggs = []
+    seen_infobox = set()
+    for item in soup.select(".portable-infobox .pi-data"):
+        header_el = item.select_one(".pi-data-label")
+        val_el = item.select_one(".pi-data-value")
+        if not val_el:
             continue
-        pairs = parse_eggs_from_dom_element(block, egg_url_map)
-        if len(pairs) >= 2:
-            # Deduplicate while preserving order
-            dedup = []
-            seen = set()
+        header_txt = (header_el.get_text(" ", strip=True) if header_el else "").lower()
+        if "inventory" in header_txt or "flex" in header_txt:
+            pairs = parse_eggs_from_dom_element(val_el, egg_url_map, allow_single=True)
             for e_n, c in pairs:
-                if e_n not in seen:
-                    seen.add(e_n)
-                    dedup.append([e_n, c])
+                if e_n not in seen_infobox:
+                    seen_infobox.add(e_n)
+                    infobox_eggs.append([e_n, c])
 
-            is_rare = all(e[0].lower().startswith("rare ") for e in dedup)
-            is_epic = all(e[0].lower().startswith("epic ") for e in dedup)
-            has_flex = any("flex" in e[0].lower() for e in dedup)
+            # Also check for text-formatted Flex Eggs (e.g. "2 Rare Faerie Double Flex Egg")
+            if "flex" in header_txt and not pairs:
+                for line in val_el.stripped_strings:
+                    m_fl = re.match(r"^(?:[x×]?\s*(\d+)\s+)(.+?Flex\s*Egg.*)$", line, re.I)
+                    if m_fl:
+                        cnt = int(m_fl.group(1))
+                        f_name = m_fl.group(2).strip()
+                        if f_name not in seen_infobox:
+                            seen_infobox.add(f_name)
+                            infobox_eggs.append([f_name, cnt])
 
-            if category == "adults" and has_flex:
-                candidate_lists.append(dedup)
-            elif category != "adults" and not is_rare and not is_epic and not has_flex:
-                candidate_lists.append(dedup)
+    # 3. If Portable Infobox didn't yield the list, scan page tables/containers without the broken has_flex block
+    eggs = infobox_eggs
+    if len(eggs) < 2:
+        for block in soup.select(".pi-data-value, table, td"):
+            pairs = parse_eggs_from_dom_element(block, egg_url_map, allow_single=False)
+            if len(pairs) >= 2:
+                dedup = []
+                seen = set()
+                for e_n, c in pairs:
+                    if e_n not in seen:
+                        seen.add(e_n)
+                        dedup.append([e_n, c])
+                is_rare = all(e[0].lower().startswith("rare ") for e in dedup)
+                is_epic = all(e[0].lower().startswith("epic ") for e in dedup)
+                if not is_rare and not is_epic:
+                    eggs = dedup
+                    break
 
-    # 3. Fallback to Wikitext if DOM didn't yield a clean list
-    if not candidate_lists:
-        wt_pairs = parse_eggs_from_wikitext(parsed["wikitext"], category)
-        if len(wt_pairs) >= 2:
-            candidate_lists.append(wt_pairs)
-
-    eggs = candidate_lists[0] if candidate_lists else []
-    print(f"     Found {len(eggs)} egg types for {monster_name}: {eggs}")
-
-    # Extract time limit from infobox if present
+    # 4. Clean Time Limit extraction
     time_str = "-"
     for item in soup.select(".pi-data"):
         raw_txt = item.get_text(" ", strip=True)
@@ -383,19 +367,40 @@ def scrape_individual_monster(monster_name: str, category: str, egg_url_map: dic
             time_str = m_time.group(1).strip()
             break
 
+    # 5. Fallback for Adult Celestials if Fandom Lua template hid any Flex Eggs
+    if category == "adults" and len(eggs) < 2 and monster_name in ADULT_FALLBACK_RECIPES:
+        fb = ADULT_FALLBACK_RECIPES[monster_name]
+        eggs = fb["eggs"]
+        if time_str == "-":
+            time_str = fb["time"]
+
+    print(f"     Found {len(eggs)} egg types for {monster_name} (Time: {time_str})")
     return {
         "name": monster_name,
         "img_url": m_img,
-        "cost": "10 Keys" if category == "adults" else "-",
         "time": time_str,
         "eggs": eggs
     }
 
 
+def get_flex_fallback_monster(egg_name: str) -> str:
+    if "Mythical" in egg_name: return "G'joob"
+    if "Faerie" in egg_name: return "Bridg-it"
+    if "Light" in egg_name: return "Gob"
+    if "Psychic" in egg_name: return "Periscorp"
+    if "Bone" in egg_name: return "Withur"
+    if "Fire" in egg_name: return "Ziggurab"
+    if "Plant" in egg_name: return "Entbrat"
+    if "Cold" in egg_name: return "Deedge"
+    if "Air" in egg_name: return "Riff"
+    if "Water" in egg_name: return "Shellbeat"
+    if "Earth" in egg_name: return "Quarrister"
+    return "Kayna"
+
+
 def main():
     egg_url_map = {}
 
-    # 1. Scrape overview pages first
     wublin_ov = scrape_overview_table("Wublins", "wublins", egg_url_map)
     celestial_ov = scrape_overview_table("Celestials", "celestials", egg_url_map)
     adult_ov = scrape_overview_table("Celestials", "adults", egg_url_map)
@@ -410,7 +415,6 @@ def main():
 
     final_db = {"wublins": [], "celestials": [], "adults": [], "amber": []}
 
-    # 2. Build complete roster for each tab, scraping individual monster pages for any missing entry
     for cat in ["wublins", "celestials", "adults", "amber"]:
         ov = overview_by_cat[cat]
         for name in ROSTERS[cat]:
@@ -419,7 +423,6 @@ def main():
                 entry = scrape_individual_monster(name, cat, egg_url_map)
 
             m_id = f"{cat}-{safe_filename(name).lower()}" if cat in ("adults", "amber") else safe_filename(name).lower()
-            # Keep original IDs for the 4 screenshot Wublins so tallies match
             if cat == "wublins" and name.lower() == "bona-petite":
                 m_id = "bona-petite"
 
@@ -429,20 +432,19 @@ def main():
                 "base_name": name,
                 "name": disp_name,
                 "img_url": entry.get("img_url", ""),
-                "cost": entry.get("cost", "-"),
                 "time": entry.get("time", "-"),
                 "eggs": entry.get("eggs", [])
             })
 
-    # 3. Resolve any missing monster or egg image URLs in bulk via MediaWiki API
+    # Resolve any missing monster or egg image URLs via MediaWiki API
     files_to_resolve = []
     for cat in final_db:
         for m in final_db[cat]:
-            if cat == "adults" or not m["img_url"]:
+            if not m["img_url"]:
                 files_to_resolve.append(f"{m['base_name'].replace(' ', '_')}.png")
             for e_name, _ in m["eggs"]:
                 if e_name not in egg_url_map:
-                    cl = e_name.replace(" ", "_")
+                    cl = get_flex_fallback_monster(e_name).replace(" ", "_") if "flex" in e_name.lower() else e_name.replace(" ", "_")
                     files_to_resolve.extend([f"{cl}-egg.png", f"{cl}_Egg.png", f"{cl}-Egg.png"])
 
     resolved_files = resolve_wiki_files(files_to_resolve)
@@ -450,17 +452,16 @@ def main():
     for cat in final_db:
         for m in final_db[cat]:
             fn = f"{m['base_name'].replace(' ', '_')}.png"
-            if (cat == "adults" or not m["img_url"]) and resolved_files.get(fn):
+            if not m["img_url"] and resolved_files.get(fn):
                 m["img_url"] = resolved_files[fn]
             for e_name, _ in m["eggs"]:
                 if e_name not in egg_url_map:
-                    cl = e_name.replace(" ", "_")
+                    cl = get_flex_fallback_monster(e_name).replace(" ", "_") if "flex" in e_name.lower() else e_name.replace(" ", "_")
                     for cand in [f"{cl}-egg.png", f"{cl}_Egg.png", f"{cl}-Egg.png"]:
                         if resolved_files.get(cand):
                             egg_url_map[e_name] = resolved_files[cand]
                             break
 
-    # 4. Download all Monster & Egg PNGs into ./msm_assets/
     print("\n=== Downloading Monster & Egg Sprites to ./msm_assets/ ===")
     for cat in final_db:
         for m in final_db[cat]:
@@ -480,7 +481,7 @@ def main():
     with open("msm_recipes.js", "w", encoding="utf-8") as f:
         f.write("window.MSM_SCRAPED_DATA = " + json.dumps(payload, indent=2) + ";\n")
 
-    print(f"\nSaved msm_recipes.json with {sum(len(v) for v in final_db.values())} monsters and {len(local_egg_map)} egg sprites!")
+    print(f"\nSaved msm_recipes.json & msm_recipes.js with {sum(len(v) for v in final_db.values())} monsters!")
 
 
 if __name__ == "__main__":

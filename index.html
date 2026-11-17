@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <meta name="referrer" content="no-referrer" />
-  <title>MSM Zap Tracker</title>
+  <title>My Singing Monsters — Egg Zap Tracker</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Lilita+One&display=swap" rel="stylesheet">
@@ -60,7 +60,6 @@
     body {
       font-family: 'Fredoka', sans-serif;
       background-color: var(--plank-base);
-      /* Horizontal Purple Wood Plank Texture matching the Market Screenshot */
       background-image:
         repeating-linear-gradient(
           180deg,
@@ -79,7 +78,6 @@
       padding-bottom: 72px;
     }
 
-    /* Crisp White In-Game Label Typography (MONSTERS / STRUCTURES Style) */
     .msm-label-text {
       font-family: 'Lilita One', cursive, sans-serif;
       letter-spacing: 0.6px;
@@ -94,7 +92,6 @@
         0 3px 5px rgba(0, 0, 0, 0.65);
     }
 
-    /* Sticky Top Plank Header */
     header {
       background:
         linear-gradient(180deg, rgba(49, 38, 66, 0.96) 0%, rgba(28, 21, 38, 0.98) 100%);
@@ -123,7 +120,6 @@
       gap: 10px;
     }
 
-    /* Copper-Pipe Framed "MARKET" Banner Pill */
     .market-banner-pill {
       position: relative;
       display: inline-flex;
@@ -139,6 +135,20 @@
         inset 0 0 0 1.5px var(--copper-light),
         0 4px 8px rgba(0, 0, 0, 0.6);
     }
+    .market-banner-pill::before,
+    .market-banner-pill::after {
+      content: "";
+      position: absolute;
+      top: -5px;
+      bottom: -5px;
+      width: 8px;
+      /* background: linear-gradient(180deg, #fff099 0%, var(--brass-ring) 50%, #9e6308 100%);
+      border: 1.5px solid #361904;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); */
+    }
+    .market-banner-pill::before { left: 10px; }
+    .market-banner-pill::after { right: 10px; }
 
     .banner-title {
       font-family: 'Lilita One', cursive, sans-serif;
@@ -172,7 +182,6 @@
       display: none;
     }
 
-    /* Carved Wood Island Tabs */
     .island-tabs {
       display: flex;
       flex-wrap: wrap;
@@ -223,7 +232,6 @@
         0 4px 8px rgba(0, 0, 0, 0.6);
     }
 
-    /* Chiseled Stone Game Buttons (Matches EXIT Button in Screenshot) */
     .toolbar-actions {
       display: flex;
       flex-wrap: wrap;
@@ -303,7 +311,6 @@
         0 4px 6px rgba(0, 0, 0, 0.55);
     }
 
-    /* Main Content Container */
     .main-container {
       max-width: 1320px;
       margin: 16px auto 0;
@@ -313,7 +320,6 @@
       gap: 16px;
     }
 
-    /* Carved Wooden Controls Bar */
     .controls-frame {
       background: linear-gradient(180deg, var(--wood-frame-mid) 0%, var(--wood-frame-bot) 100%);
       border: 3px solid var(--wood-bevel-hi);
@@ -385,7 +391,6 @@
       cursor: pointer;
     }
 
-    /* Remaining Eggs Needed Queue (Copper-Trimmed Wooden Crate) */
     .breeding-queue-board {
       background: linear-gradient(180deg, var(--wood-frame-mid) 0%, var(--wood-frame-bot) 100%);
       border: 3px solid var(--wood-bevel-hi);
@@ -418,7 +423,6 @@
       font-size: 1.05rem;
     }
 
-    /* Glossy Crimson "SALE" Tag Badge */
     .sale-badge {
       display: inline-flex;
       align-items: center;
@@ -473,14 +477,12 @@
       filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.6));
     }
 
-    /* Monster Cards List */
     .monster-list {
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
 
-    /* Carved Wooden Monster Board */
     .monster-board {
       background: linear-gradient(180deg, var(--wood-frame-top) 0%, var(--wood-frame-mid) 50%, var(--wood-frame-bot) 100%);
       border: 3px solid var(--wood-bevel-hi);
@@ -515,7 +517,6 @@
         0 10px 22px rgba(0, 0, 0, 0.65);
     }
 
-    /* Left Column: In-Game Market-Style Monster Frame + Nameplate + Red Badge */
     .monster-pedestal-col {
       display: flex;
       flex-direction: column;
@@ -534,7 +535,6 @@
       width: 100%;
     }
 
-    /* Exact Market Item Frame for the Monster Portrait */
     .market-portrait-frame {
       width: 104px;
       height: 104px;
@@ -566,7 +566,6 @@
       right: -6px;
     }
 
-    /* Wooden Nameplate Bar under Portrait */
     .wooden-nameplate {
       background: linear-gradient(180deg, #754220 0%, #4f2a12 100%);
       border: 2px solid #995c33;
@@ -595,7 +594,6 @@
       margin-top: 2px;
     }
 
-    /* Copies Stepper (e.g. 2 Zynths, 3 Poewks) */
     .copies-stepper {
       display: inline-flex;
       flex-wrap: wrap;
@@ -643,7 +641,6 @@
       text-shadow: 0 1px 0 #000;
     }
 
-    /* Center Column: Recessed Egg Slots Grid */
     .inventory-well-col {
       display: flex;
       flex-direction: column;
@@ -658,7 +655,6 @@
       align-items: stretch;
     }
 
-    /* Individual Egg Slot Styled Like Each Market Tile in Your Screenshot */
     .egg-slot {
       flex: 0 1 112px;
       min-width: 100px;
@@ -700,7 +696,6 @@
       flex: 1;
     }
 
-    /* Dark Recessed Wooden Well Behind Each Egg Sprite */
     .egg-stage {
       position: relative;
       width: 100%;
@@ -758,7 +753,6 @@
       display: block;
     }
 
-    /* Crimson SALE-Style Pill Badge for Egg Count (Turns Green When Done) */
     .egg-counter-badge {
       margin-top: -8px;
       z-index: 5;
@@ -781,7 +775,6 @@
       text-shadow: 0 1px 0 #0b2901;
     }
 
-    /* Wrapping Egg Name (Flex-Wrap, Zero Ellipsis) */
     .egg-name-label {
       font-size: 0.74rem;
       margin-top: 4px;
@@ -796,7 +789,6 @@
       word-break: break-word;
     }
 
-    /* Gold/Red Tally Marks Row */
     .tally-row {
       min-height: 15px;
       margin: 2px 0 4px;
@@ -818,7 +810,6 @@
       margin-right: 2px;
     }
 
-    /* Chiseled Micro Buttons inside Each Egg Slot (-, +, MAX) */
     .slot-btn-row {
       display: flex;
       width: 100%;
@@ -858,7 +849,6 @@
       border-color: #c2ff9e;
     }
 
-    /* Monster Total Progress Meter (Copper/Wood Pipe Bar) */
     .meter-bar-wrap {
       display: flex;
       flex-wrap: wrap;
@@ -894,7 +884,6 @@
       flex-wrap: wrap;
     }
 
-    /* Right Column: Chiseled Action Buttons */
     .board-actions-col {
       display: flex;
       flex-direction: column;
@@ -915,7 +904,6 @@
       color: #fff;
     }
 
-    /* Tablet & Mobile Responsive Breakpoints */
     @media (max-width: 920px) {
       .monster-board {
         grid-template-columns: 1fr;
@@ -1092,9 +1080,27 @@
 
   <script>
     const STORAGE_KEY = "msm_tracker_clean_v1";
+    const IMG_MAP_KEY = "msm_direct_wikia_urls_v3";
 
     let MONSTER_DB = { wublins: [], celestials: [], adults: [], amber: [] };
     let EGG_IMAGES = {};
+    let imgMap = JSON.parse(localStorage.getItem(IMG_MAP_KEY) || "{}");
+
+    // Verified Adult Celestial recipes used to auto-repair msm_recipes.json if the old scraper saved "eggs": []
+    const ADULT_CELESTIALS_REPAIR = [
+      { id: "adults-adult_scaratar", name: "Adult Scaratar", time: "31 days (Aug)", eggs: [["Floot Fly",3], ["Shrubb",3], ["Fwog",3], ["Drumpler",3], ["HippityHop",2], ["Squot",2], ["Wimmzies",2], ["Ziggurab",2], ["Cantorell",2], ["Bridg-it",2], ["Clavi Gnat",2], ["Reedling",2], ["Pladdie",2], ["Quarrister",2], ["Boo'qwurm",1], ["Rare 2E Faerie Flex",2], ["Rare 3E Fire Flex",1]] },
+      { id: "adults-adult_loodvigg", name: "Adult Loodvigg", time: "30 days (Sep)", eggs: [["Pango",3], ["Maw",3], ["Gob",3], ["Bulbo",3], ["Spytrap",3], ["TooToo",3], ["Fiddlement",2], ["Bowgart",2], ["Spunge",2], ["Thumpies",2], ["Congle",1], ["Deedge",1], ["Blow't",1], ["Pluckbill",1], ["Whisp",1], ["Nebulob",1], ["Arackulele",1], ["Rare 2E Light Flex",1], ["Rare 3E Psychic Flex",1], ["Rare 3E Faerie Flex",1], ["Rare 3E Bone Flex",1]] },
+      { id: "adults-adult_torrt", name: "Adult Torrt", time: "31 days (Oct)", eggs: [["Drumpler",3], ["Fwog",3], ["Shrubb",3], ["Cybop",3], ["T-Rox",2], ["Clamble",2], ["PomPom",2], ["Thumpies",2], ["Reedling",2], ["Quarrister",2], ["Entbrat",2], ["Deedge",2], ["Riff",2], ["Shellbeat",2], ["Punkleton",1], ["Rare 2E Earth Flex",2], ["Rare 3E Earth Flex",1], ["Rare 4E Earth Flex",1]] },
+      { id: "adults-adult_plixie", name: "Adult Plixie", time: "30 days (Nov)", eggs: [["Theremind",3], ["Fwog",3], ["Maw",3], ["Drumpler",3], ["Bonkers",2], ["Oaktopus",2], ["Poppette",2], ["Yuggler",2], ["Tapricorn",2], ["Rooba",2], ["Periscorp",2], ["Furcorn",2], ["Gloptic",2], ["Entbrat",2], ["Gobbleygourd",1], ["Rare 2E Psychic Flex",2], ["Rare 3E Fire Flex",1]] },
+      { id: "adults-adult_attmoz", name: "Adult Attmoz", time: "31 days (Dec)", eggs: [["Dandidoo",3], ["Cybop",3], ["Quibble",3], ["Pango",3], ["T-Rox",2], ["Congle",2], ["PomPom",2], ["Scups",2], ["Reedling",2], ["Spunge",2], ["Thumpies",2], ["Bowgart",2], ["Riff",2], ["Deedge",2], ["Schmoochle",1], ["Yool",2], ["Rare 2E Air Flex",2], ["Rare 3E Air Flex",1], ["Rare 4E Air Flex",1]] },
+      { id: "adults-adult_hornacle", name: "Adult Hornacle", time: "31 days (Jan)", eggs: [["Fwog",3], ["Maw",3], ["Oaktopus",3], ["Quibble",3], ["T-Rox",2], ["Bowgart",2], ["Pummel",2], ["Spunge",2], ["Scups",2], ["Congle",2], ["Shellbeat",2], ["Deedge",2], ["Riff",2], ["Entbrat",2], ["Carillong",1], ["Rare 2E Water Flex",2], ["Rare 3E Water Flex",1], ["Rare 4E Water Flex",1]] },
+      { id: "adults-adult_furnoss", name: "Adult Furnoss", time: "28 days (Feb)", eggs: [["Glowl",3], ["Flowah",3], ["Stogg",3], ["Phangler",3], ["Boskus",3], ["Barrb",2], ["Floogull",2], ["Whaddle",2], ["Woolabee",2], ["Repatillo",2], ["Reedling",2], ["Tring",2], ["Sneyser",2], ["Schmoochle",1], ["Rare 2E Fire Flex",2], ["Rare 3E Fire Flex",1]] },
+      { id: "adults-adult_glaishur", name: "Adult Glaishur", time: "31 days (Mar)", eggs: [["Pango",3], ["Furcorn",3], ["Drumpler",3], ["Maw",3], ["Thumpies",2], ["PomPom",2], ["Congle",2], ["Clamble",2], ["Bowgart",2], ["T-Rox",2], ["Deedge",2], ["Entbrat",2], ["Riff",2], ["Quarrister",2], ["Ffidyll",1], ["Rare 2E Cold Flex",2], ["Rare 3E Cold Flex",1], ["Rare 4E Cold Flex",1]] },
+      { id: "adults-adult_blasoom", name: "Adult Blasoom", time: "30 days (Apr)", eggs: [["Furcorn",3], ["Shrubb",3], ["Oaktopus",3], ["Dandidoo",3], ["Bowgart",2], ["Clamble",2], ["Pummel",2], ["Reedling",2], ["Spunge",2], ["Thumpies",2], ["Entbrat",2], ["Deedge",2], ["Shellbeat",2], ["Quarrister",2], ["Blabbit",1], ["Viveine",1], ["Rare 2E Plant Flex",2], ["Rare 3E Plant Flex",1], ["Rare 4E Plant Flex",1]] },
+      { id: "adults-adult_syncopite", name: "Adult Syncopite", time: "31 days (May)", eggs: [["Clackula",3], ["Fwog",3], ["Maw",3], ["Oaktopus",3], ["Denchuhs",2], ["Hawlo",2], ["Peckidna",2], ["Thrumble",2], ["Withur",2], ["Uuduk",2], ["Banjaw",2], ["T-Rox",2], ["Plinkajou",2], ["Shellbeat",2], ["Spurrit",1], ["Rare 2E Bone Flex",2], ["Rare 3E Fire Flex",1]] },
+      { id: "adults-adult_vhamp", name: "Adult Vhamp", time: "30 days (Jun)", eggs: [["Cybop",3], ["Quibble",3], ["Pango",3], ["Drumpler",3], ["T-Rox",2], ["PomPom",2], ["Scups",2], ["Reedling",2], ["Riff",2], ["Reebro",1], ["Jeeode",1], ["Humbug",1], ["Monculus",1], ["Mythical Flex",3], ["Rare 4E Fire Flex",2]] },
+      { id: "adults-adult_galvana", name: "Adult Galvana", time: "31 days (Jul)", eggs: [["Kayna",3], ["Glowl",2], ["Flowah",2], ["Stogg",2], ["Phangler",2], ["Boskus",2], ["Barrb",1], ["Floogull",1], ["Whaddle",2], ["Woolabee",1], ["Repatillo",1], ["Rootitoot",1], ["Sooza",1], ["Thrumble",1], ["Ziggurab",1], ["Wynq",1], ["Tring",1], ["Sneyser",1], ["Hoola",1], ["Rare 4E Plant Flex",1], ["Rare 4E Cold Flex",1], ["Rare 4E Air Flex",1], ["Rare 4E Water Flex",1], ["Rare 4E Earth Flex",1]] }
+    ];
 
     const CLEAN_INITIAL_STATE = {
       tallies: {},
@@ -1113,7 +1119,6 @@
       document.getElementById("toolbarActions").classList.toggle("menu-open");
     }
 
-    // Cleans bugged Wiki time strings like "x6 x6 x10 x8 x8 x14 x10 Time limit: 14 days" -> "14 days"
     function cleanTimeLimit(rawTime) {
       if (!rawTime || rawTime === "-") return "";
       let s = String(rawTime);
@@ -1148,7 +1153,6 @@
       pill.textContent = "SAVED";
     }
 
-    // Color-coded SVG Egg Fallback if an egg image file is missing
     const EGG_STYLE = {
       "Entbrat": { c1: "#e07a24", c2: "#8f3f09", spot: "#5eb327" },
       "Deedge": { c1: "#4da6ff", c2: "#154c91", spot: "#ffffff" },
@@ -1210,6 +1214,102 @@
       `;
     }
 
+    // Repairs MONSTER_DB.adults if msm_recipes.json had empty "eggs": [] from the previous scraper bug
+    function ensureAdultCelestialsPopulated() {
+      if (!MONSTER_DB.adults || MONSTER_DB.adults.length === 0) {
+        MONSTER_DB.adults = JSON.parse(JSON.stringify(ADULT_CELESTIALS_REPAIR));
+        return;
+      }
+      MONSTER_DB.adults.forEach(adult => {
+        if (!adult.eggs || adult.eggs.length < 2) {
+          const cleanName = adult.name.replace(/\s*\([^)]*\)/g, "").trim().toLowerCase();
+          const match = ADULT_CELESTIALS_REPAIR.find(r => r.name.toLowerCase() === cleanName);
+          if (match) {
+            adult.eggs = JSON.parse(JSON.stringify(match.eggs));
+            if (!adult.time || adult.time === "-") {
+              adult.time = match.time;
+            }
+          }
+        }
+      });
+    }
+
+    // Background JSONP resolver for any Adult Celestial or Magical/Seasonal egg not yet downloaded to ./msm_assets/
+    function fetchWikiImageBatchJSONP(fileList) {
+      return new Promise((resolve) => {
+        const cbName = "msmAdultCB_" + Math.random().toString(36).slice(2);
+        const titlesParam = fileList.map(f => "File:" + f).join("|");
+        const script = document.createElement("script");
+        const timeout = setTimeout(() => { cleanup(); resolve(); }, 7000);
+
+        function cleanup() {
+          clearTimeout(timeout);
+          delete window[cbName];
+          if (script.parentNode) script.parentNode.removeChild(script);
+        }
+
+        window[cbName] = function(data) {
+          cleanup();
+          try {
+            if (!data || !data.query) return resolve();
+            const rev = {};
+            const link = (from, to) => {
+              if (!rev[to]) rev[to] = new Set();
+              rev[to].add(from);
+            };
+            (data.query.normalized || []).forEach(n => link(n.from, n.to));
+            (data.query.redirects || []).forEach(r => {
+              link(r.from, r.to);
+              if (rev[r.from]) rev[r.from].forEach(o => link(o, r.to));
+            });
+
+            Object.values(data.query.pages || {}).forEach(page => {
+              if (page.imageinfo && page.imageinfo[0] && page.imageinfo[0].url) {
+                const cleanUrl = page.imageinfo[0].url.split("/revision/")[0];
+                const allKeys = new Set([page.title]);
+                if (rev[page.title]) rev[page.title].forEach(k => allKeys.add(k));
+                allKeys.forEach(k => {
+                  const stripped = k.replace(/^File:/i, "");
+                  imgMap[stripped] = cleanUrl;
+                  imgMap[stripped.replace(/\s+/g, "_")] = cleanUrl;
+                  imgMap[stripped.replace(/_/g, " ")] = cleanUrl;
+                });
+              }
+            });
+          } catch (e) {}
+          resolve();
+        };
+
+        script.src = `https://mysingingmonsters.fandom.com/api.php?action=query&redirects=1&titles=${encodeURIComponent(titlesParam)}&prop=imageinfo&iiprop=url&format=json&callback=${cbName}`;
+        script.onerror = () => { cleanup(); resolve(); };
+        document.body.appendChild(script);
+      });
+    }
+
+    async function resolveMissingAdultSpritesOnline() {
+      const needed = new Set();
+      (MONSTER_DB.adults || []).forEach(m => {
+        const cleanMonster = m.name.replace(/\s*\([^)]*\)/g, "").trim().replace(/\s+/g, "_");
+        if (!imgMap[`${cleanMonster}.png`]) needed.add(`${cleanMonster}.png`);
+        (m.eggs || []).forEach(([eggName]) => {
+          if (!EGG_IMAGES[eggName]) {
+            const cleanEgg = eggName.includes("Flex") ? "Rare_Double-Element_Fire_Flex-Egg.png" : `${eggName.replace(/\s+/g, "_")}-egg.png`;
+            const cleanEgg2 = eggName.includes("Flex") ? "Spooktacle_Mythical_Flex-Egg.png" : `${eggName.replace(/\s+/g, "_")}_Egg.png`;
+            if (!imgMap[cleanEgg]) needed.add(cleanEgg);
+            if (!imgMap[cleanEgg2]) needed.add(cleanEgg2);
+          }
+        });
+      });
+
+      const list = Array.from(needed);
+      if (list.length === 0) return;
+      for (let i = 0; i < list.length; i += 40) {
+        await fetchWikiImageBatchJSONP(list.slice(i, i + 40));
+      }
+      try { localStorage.setItem(IMG_MAP_KEY, JSON.stringify(imgMap)); } catch (e) {}
+      if (currentTab === "adults") render();
+    }
+
     async function loadRecipesFromJson() {
       try {
         const resp = await fetch("./msm_recipes.json");
@@ -1218,8 +1318,10 @@
           if (data && data.monsters) {
             MONSTER_DB = data.monsters;
             EGG_IMAGES = data.eggs || {};
+            ensureAdultCelestialsPopulated();
             updateTabCounts();
             render();
+            resolveMissingAdultSpritesOnline();
             return;
           }
         }
@@ -1228,16 +1330,18 @@
       if (window.MSM_SCRAPED_DATA && window.MSM_SCRAPED_DATA.monsters) {
         MONSTER_DB = window.MSM_SCRAPED_DATA.monsters;
         EGG_IMAGES = window.MSM_SCRAPED_DATA.eggs || {};
+        ensureAdultCelestialsPopulated();
         updateTabCounts();
         render();
+        resolveMissingAdultSpritesOnline();
         return;
       }
 
-      document.getElementById("monsterListContainer").innerHTML = `
-        <div class="empty-status-board msm-label-text">
-          Could not load msm_recipes.json. Ensure msm_recipes.json is in the same folder.
-        </div>
-      `;
+      // Even if msm_recipes.json couldn't be fetched on file://, populate Adult Celestials so the tab works
+      ensureAdultCelestialsPopulated();
+      updateTabCounts();
+      render();
+      resolveMissingAdultSpritesOnline();
     }
 
     function updateTabCounts() {
@@ -1306,11 +1410,17 @@
     function getMonsterImgUrl(monster) {
       if (monster.local_img) return monster.local_img;
       if (monster.img_url) return monster.img_url;
+      const clean = monster.name.replace(/\s*\([^)]*\)/g, "").trim().replace(/\s+/g, "_");
+      if (imgMap[`${clean}.png`]) return imgMap[`${clean}.png`];
       return `msm_assets/monsters/${monster.id}.png`;
     }
 
     function getEggImgUrl(eggName) {
       if (EGG_IMAGES[eggName]) return EGG_IMAGES[eggName];
+      const c1 = eggName.includes("Flex") ? "Rare_Double-Element_Fire_Flex-Egg.png" : `${eggName.replace(/\s+/g, "_")}-egg.png`;
+      const c2 = eggName.includes("Flex") ? "Spooktacle_Mythical_Flex-Egg.png" : `${eggName.replace(/\s+/g, "_")}_Egg.png`;
+      if (imgMap[c1]) return imgMap[c1];
+      if (imgMap[c2]) return imgMap[c2];
       return `msm_assets/eggs/${safeFilename(eggName)}.png`;
     }
 
@@ -1529,7 +1639,8 @@
         board.className = `monster-board ${isCompleted ? "board-completed" : (isActive ? "board-active" : "")}`;
 
         const monsterImgUrl = getMonsterImgUrl(monster);
-        const remoteFallback = monster.img_url || "";
+        const cleanMonsterFile = monster.name.replace(/\s*\([^)]*\)/g, "").trim().replace(/\s+/g, "_") + ".png";
+        const remoteFallback = monster.img_url || imgMap[cleanMonsterFile] || "";
         const displayTitle = totalCopies > 1 ? `${monster.name} #${idx + 1}` : monster.name;
         const cleanedTime = cleanTimeLimit(monster.time);
 
