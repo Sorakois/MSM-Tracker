@@ -2,176 +2,11 @@ window.MSM_SCRAPED_DATA = {
   "monsters": {
     "wublins": [
       {
-        "id": "pixolotl",
-        "base_name": "Pixolotl",
-        "name": "Pixolotl",
-        "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/0/09/Pixolotl.png",
-        "cost": "-",
-        "time": "x6 x6 x10 x8 x8 x14 x10 Time limit: 14 days",
-        "eggs": [
-          [
-            "Riff",
-            6
-          ],
-          [
-            "Entbrat",
-            6
-          ],
-          [
-            "Scups",
-            10
-          ],
-          [
-            "Pummel",
-            8
-          ],
-          [
-            "T-Rox",
-            8
-          ],
-          [
-            "Cybop",
-            14
-          ],
-          [
-            "Fwog",
-            10
-          ]
-        ],
-        "local_img": "msm_assets/monsters/pixolotl.png"
-      },
-      {
-        "id": "bona-petite",
-        "base_name": "Bona-Petite",
-        "name": "Bona-Petite",
-        "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/3/39/Bona-Petite.png",
-        "cost": "-",
-        "time": "x5 x5 x6 x6 x6 x10 x10 x10 x10 Time limit: 10 days",
-        "eggs": [
-          [
-            "Riff",
-            5
-          ],
-          [
-            "Entbrat",
-            5
-          ],
-          [
-            "PomPom",
-            6
-          ],
-          [
-            "Bowgart",
-            6
-          ],
-          [
-            "T-Rox",
-            6
-          ],
-          [
-            "Fwog",
-            10
-          ],
-          [
-            "Drumpler",
-            10
-          ],
-          [
-            "Maw",
-            10
-          ],
-          [
-            "Mammott",
-            10
-          ]
-        ],
-        "local_img": "msm_assets/monsters/bona-petite.png"
-      },
-      {
-        "id": "maulch",
-        "base_name": "Maulch",
-        "name": "Maulch",
-        "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/8/82/Maulch.png",
-        "cost": "-",
-        "time": "x4 x4 x6 x6 x4 x8 x6 Time limit: 7 days",
-        "eggs": [
-          [
-            "Quarrister",
-            4
-          ],
-          [
-            "Entbrat",
-            4
-          ],
-          [
-            "Spunge",
-            6
-          ],
-          [
-            "Pummel",
-            6
-          ],
-          [
-            "Clamble",
-            4
-          ],
-          [
-            "Furcorn",
-            8
-          ],
-          [
-            "Noggin",
-            6
-          ]
-        ],
-        "local_img": "msm_assets/monsters/maulch.png"
-      },
-      {
-        "id": "fleechwurm",
-        "base_name": "Fleechwurm",
-        "name": "Fleechwurm",
-        "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/4/4a/Fleechwurm.png",
-        "cost": "-",
-        "time": "x3 x3 x3 x3 x4 x4 x4 Time limit: 5 days",
-        "eggs": [
-          [
-            "Shellbeat",
-            3
-          ],
-          [
-            "Quarrister",
-            3
-          ],
-          [
-            "Reedling",
-            3
-          ],
-          [
-            "Spunge",
-            3
-          ],
-          [
-            "Pummel",
-            4
-          ],
-          [
-            "Dandidoo",
-            4
-          ],
-          [
-            "Furcorn",
-            4
-          ]
-        ],
-        "local_img": "msm_assets/monsters/fleechwurm.png"
-      },
-      {
         "id": "brump",
         "base_name": "Brump",
         "name": "Brump",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/8/8a/Brump.png",
-        "cost": "-",
-        "time": "x6 x2 Time limit: 2 days",
+        "time": "2 days",
         "eggs": [
           [
             "Furcorn",
@@ -189,8 +24,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Zynth",
         "name": "Zynth",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/4/45/Zynth.png",
-        "cost": "-",
-        "time": "x1 x1 x1 x1 x1 x1 Time limit: 3 days",
+        "time": "3 days",
         "eggs": [
           [
             "Congle",
@@ -224,8 +58,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Poewk",
         "name": "Poewk",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/7/7c/Poewk.png",
-        "cost": "-",
-        "time": "x1 x1 x1 x1 x2 x2 x1 x1 x1 Time limit: 5 days",
+        "time": "5 days",
         "eggs": [
           [
             "Shellbeat",
@@ -271,8 +104,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Thwok",
         "name": "Thwok",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/7/7a/Thwok.png",
-        "cost": "-",
-        "time": "x1 x1 x1 x1 x1 x4 x4 x4 x4 x4 Time limit: 7 days",
+        "time": "7 days",
         "eggs": [
           [
             "Shellbeat",
@@ -322,8 +154,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Dwumrohl",
         "name": "Dwumrohl",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/e/ef/Dwumrohl.png",
-        "cost": "-",
-        "time": "x3 x3 x3 x3 x3 x4 x2 x2 x4 x4 x4 x4 x4 x4 x8 x8 x8 Time limit: 14 days",
+        "time": "14 days",
         "eggs": [
           [
             "Shellbeat",
@@ -401,8 +232,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Zuuker",
         "name": "Zuuker",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/b/b2/Zuuker.png",
-        "cost": "-",
-        "time": "x2 x2 x4 x6 x6 x6 x4 Time limit: 10 days",
+        "time": "10 days",
         "eggs": [
           [
             "Deedge",
@@ -440,8 +270,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Screemu",
         "name": "Screemu",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/b/bd/Screemu.png",
-        "cost": "-",
-        "time": "x2 x6 x6 x6 Time limit: 5 days",
+        "time": "5 days",
         "eggs": [
           [
             "Shellbeat",
@@ -467,8 +296,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Tympa",
         "name": "Tympa",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/6/67/Tympa.png",
-        "cost": "-",
-        "time": "x8 x12 x12 x12 x24 Time limit: 14 days",
+        "time": "14 days",
         "eggs": [
           [
             "Shellbeat",
@@ -498,8 +326,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Dermit",
         "name": "Dermit",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/a/a8/Dermit.png",
-        "cost": "-",
-        "time": "x3 x3 x4 x4 x12 Time limit: 3 days",
+        "time": "3 days",
         "eggs": [
           [
             "Quarrister",
@@ -529,8 +356,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Gheegur",
         "name": "Gheegur",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/1/1c/Gheegur.png",
-        "cost": "-",
-        "time": "x6 x6 x4 x4 x6 Time limit: 7 days",
+        "time": "7 days",
         "eggs": [
           [
             "Riff",
@@ -560,8 +386,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Whajje",
         "name": "Whajje",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/1/19/Whajje.png",
-        "cost": "-",
-        "time": "x7 x10 x10 x10 x6 Time limit: 10 days",
+        "time": "10 days",
         "eggs": [
           [
             "Deedge",
@@ -591,8 +416,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Creepuscule",
         "name": "Creepuscule",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/f/fa/Creepuscule.png",
-        "cost": "-",
-        "time": "x5 x5 x8 x6 x6 x10 x12 Time limit: 7 days",
+        "time": "7 days",
         "eggs": [
           [
             "Shellbeat",
@@ -630,8 +454,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Blipsqueak",
         "name": "Blipsqueak",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/a/ad/Blipsqueak.png",
-        "cost": "-",
-        "time": "x4 x4 x6 x6 x4 Time limit: 5 days",
+        "time": "5 days",
         "eggs": [
           [
             "Deedge",
@@ -661,8 +484,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Scargo",
         "name": "Scargo",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/e/ed/Scargo.png",
-        "cost": "-",
-        "time": "x3 x2 x2 x3 x3 x3 Time limit: 3 days",
+        "time": "3 days",
         "eggs": [
           [
             "Shellbeat",
@@ -696,8 +518,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Astropod",
         "name": "Astropod",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/1/13/Astropod.png",
-        "cost": "-",
-        "time": "x5 x5 x8 x6 x8 x10 Time limit: 10 days",
+        "time": "10 days",
         "eggs": [
           [
             "Shellbeat",
@@ -727,12 +548,171 @@ window.MSM_SCRAPED_DATA = {
         "local_img": "msm_assets/monsters/astropod.png"
       },
       {
+        "id": "pixolotl",
+        "base_name": "Pixolotl",
+        "name": "Pixolotl",
+        "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/0/09/Pixolotl.png",
+        "time": "14 days",
+        "eggs": [
+          [
+            "Riff",
+            6
+          ],
+          [
+            "Entbrat",
+            6
+          ],
+          [
+            "Scups",
+            10
+          ],
+          [
+            "Pummel",
+            8
+          ],
+          [
+            "T-Rox",
+            8
+          ],
+          [
+            "Cybop",
+            14
+          ],
+          [
+            "Fwog",
+            10
+          ]
+        ],
+        "local_img": "msm_assets/monsters/pixolotl.png"
+      },
+      {
+        "id": "bona-petite",
+        "base_name": "Bona-Petite",
+        "name": "Bona-Petite",
+        "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/3/39/Bona-Petite.png",
+        "time": "10 days",
+        "eggs": [
+          [
+            "Riff",
+            5
+          ],
+          [
+            "Entbrat",
+            5
+          ],
+          [
+            "PomPom",
+            6
+          ],
+          [
+            "Bowgart",
+            6
+          ],
+          [
+            "T-Rox",
+            6
+          ],
+          [
+            "Fwog",
+            10
+          ],
+          [
+            "Drumpler",
+            10
+          ],
+          [
+            "Maw",
+            10
+          ],
+          [
+            "Mammott",
+            10
+          ]
+        ],
+        "local_img": "msm_assets/monsters/bona-petite.png"
+      },
+      {
+        "id": "maulch",
+        "base_name": "Maulch",
+        "name": "Maulch",
+        "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/8/82/Maulch.png",
+        "time": "7 days",
+        "eggs": [
+          [
+            "Quarrister",
+            4
+          ],
+          [
+            "Entbrat",
+            4
+          ],
+          [
+            "Spunge",
+            6
+          ],
+          [
+            "Pummel",
+            6
+          ],
+          [
+            "Clamble",
+            4
+          ],
+          [
+            "Furcorn",
+            8
+          ],
+          [
+            "Noggin",
+            6
+          ]
+        ],
+        "local_img": "msm_assets/monsters/maulch.png"
+      },
+      {
+        "id": "fleechwurm",
+        "base_name": "Fleechwurm",
+        "name": "Fleechwurm",
+        "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/4/4a/Fleechwurm.png",
+        "time": "5 days",
+        "eggs": [
+          [
+            "Shellbeat",
+            3
+          ],
+          [
+            "Quarrister",
+            3
+          ],
+          [
+            "Reedling",
+            3
+          ],
+          [
+            "Spunge",
+            3
+          ],
+          [
+            "Pummel",
+            4
+          ],
+          [
+            "Dandidoo",
+            4
+          ],
+          [
+            "Furcorn",
+            4
+          ]
+        ],
+        "local_img": "msm_assets/monsters/fleechwurm.png"
+      },
+      {
         "id": "monculus",
         "base_name": "Monculus",
         "name": "Monculus",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/4/47/Monculus.png",
-        "cost": "-",
-        "time": "x1 x1 x1 x1 x1 x1 x1 x1 x1 x1 Time limit: 10 days",
+        "time": "10 days",
         "eggs": [
           [
             "Shellbeat",
@@ -784,8 +764,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Scaratar",
         "name": "Scaratar",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/5/55/Scaratar.png",
-        "cost": "-",
-        "time": "x2 x4 x3 x2 x1 x5 x7 x6 x3 x3 x4 x6 x16 x25 x36 Time limit: 9 days",
+        "time": "9 days",
         "eggs": [
           [
             "Quarrister",
@@ -855,8 +834,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Loodvigg",
         "name": "Loodvigg",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/9/98/Loodvigg.png",
-        "cost": "-",
-        "time": "x2 x5 x2 x2 x1 x8 x6 x5 x4 x2 x8 x6 x15 x25 x30 Time limit: 8 days",
+        "time": "8 days",
         "eggs": [
           [
             "Deedge",
@@ -926,8 +904,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Torrt",
         "name": "Torrt",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/f/fd/Torrt.png",
-        "cost": "-",
-        "time": "x1 x3 x2 x2 x2 x1 x6 x4 x6 x6 x4 x50 Time limit: 7 days",
+        "time": "7 days",
         "eggs": [
           [
             "Quarrister",
@@ -985,8 +962,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Plixie",
         "name": "Plixie",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/d/db/Plixie.png",
-        "cost": "-",
-        "time": "x5 x3 x2 x2 x4 x15 x8 x7 x16 x35 x20 x12 x25 x25 x70 Time limit: 13 days",
+        "time": "13 days",
         "eggs": [
           [
             "Entbrat",
@@ -1056,8 +1032,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Attmoz",
         "name": "Attmoz",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/5/53/Attmoz.png",
-        "cost": "-",
-        "time": "x3 x3 x2 x2 x2 x2 x1 x8 x6 x6 x5 x25 Time limit: 12 days",
+        "time": "12 days",
         "eggs": [
           [
             "Riff",
@@ -1115,8 +1090,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Hornacle",
         "name": "Hornacle",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/3/3a/Hornacle.png",
-        "cost": "-",
-        "time": "x3 x5 x4 x4 x3 x3 x12 x8 x2 x15 x9 x50 Time limit: 12 days",
+        "time": "12 days",
         "eggs": [
           [
             "Shellbeat",
@@ -1174,8 +1148,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Furnoss",
         "name": "Furnoss",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/e/ec/Furnoss.png",
-        "cost": "-",
-        "time": "x2 x4 x3 x3 x3 x7 x5 x5 x3 x2 x2 x15 x5 x10 x25 Time limit: 25 days",
+        "time": "25 days",
         "eggs": [
           [
             "Tweedle",
@@ -1245,8 +1218,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Glaishur",
         "name": "Glaishur",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/c/c7/Glaishur.png",
-        "cost": "-",
-        "time": "x4 x3 x3 x2 x2 x1 x2 x8 x10 x7 x5 x40 Time limit: 10 days",
+        "time": "10 days",
         "eggs": [
           [
             "Deedge",
@@ -1304,8 +1276,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Blasoom",
         "name": "Blasoom",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/5/55/Blasoom.png",
-        "cost": "-",
-        "time": "x3 x5 x4 x4 x3 x3 x3 x9 x8 x5 x5 x20 Time limit: 14 days",
+        "time": "14 days",
         "eggs": [
           [
             "Entbrat",
@@ -1363,8 +1334,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Syncopite",
         "name": "Syncopite",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/4/44/Syncopite.png",
-        "cost": "-",
-        "time": "x2 x4 x6 x4 x3 x6 x6 x3 x5 x2 x10 x6 x12 x30 x75 Time limit: 11 days",
+        "time": "11 days",
         "eggs": [
           [
             "Shellbeat",
@@ -1434,8 +1404,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Vhamp",
         "name": "Vhamp",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/9/99/Vhamp.png",
-        "cost": "-",
-        "time": "x1 x3 x3 x1 x4 x15 x5 x5 x9 x12 x7 x5 x35 x50 x40 Time limit: 8 days",
+        "time": "8 days",
         "eggs": [
           [
             "Riff",
@@ -1505,8 +1474,7 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Galvana",
         "name": "Galvana",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/e/e9/Galvana.png",
-        "cost": "-",
-        "time": "x1 x1 x1 x1 x1 x1 x2 x2 x2 x3 x3 x3 x3 x3 x3 x3 x3 x3 x3 x3 x3 x3 x4 x4 x4 x4 x4 x4 x4 x6 x10 x10 x5 x5 x5 Time limit: 28 days",
+        "time": "28 days",
         "eggs": [
           [
             "Tweedle",
@@ -1670,9 +1638,89 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Adult Scaratar",
         "name": "Adult Scaratar",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/4/46/Adult_Scaratar.png",
-        "cost": "10 Keys",
-        "time": "x2 x4 x3 x2 x1 x5 x7 x6 x3 x3 x4 x6 x16 x25 x36 Time limit: 9 days",
-        "eggs": [],
+        "time": "31 days",
+        "eggs": [
+          [
+            "Dandidoo",
+            3
+          ],
+          [
+            "Cybop",
+            3
+          ],
+          [
+            "Pango",
+            3
+          ],
+          [
+            "Shrubb",
+            3
+          ],
+          [
+            "Furcorn",
+            3
+          ],
+          [
+            "Drumpler",
+            3
+          ],
+          [
+            "Reedling",
+            2
+          ],
+          [
+            "Thumpies",
+            2
+          ],
+          [
+            "PomPom",
+            2
+          ],
+          [
+            "Clamble",
+            2
+          ],
+          [
+            "Quarrister",
+            1
+          ],
+          [
+            "Floot Fly",
+            5
+          ],
+          [
+            "HippityHop",
+            3
+          ],
+          [
+            "Squot",
+            3
+          ],
+          [
+            "Wimmzies",
+            3
+          ],
+          [
+            "Cantorell",
+            2
+          ],
+          [
+            "Bridg-it",
+            2
+          ],
+          [
+            "Clavi Gnat",
+            2
+          ],
+          [
+            "Pladdie",
+            1
+          ],
+          [
+            "Boo'qwurm",
+            1
+          ]
+        ],
         "local_img": "msm_assets/monsters/adults-adult_scaratar.png"
       },
       {
@@ -1680,9 +1728,81 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Adult Loodvigg",
         "name": "Adult Loodvigg",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/f/fb/Adult_Loodvigg.png",
-        "cost": "10 Keys",
-        "time": "x2 x5 x2 x2 x1 x8 x6 x5 x4 x2 x8 x6 x15 x25 x30 Time limit: 8 days",
-        "eggs": [],
+        "time": "30 days",
+        "eggs": [
+          [
+            "Dandidoo",
+            3
+          ],
+          [
+            "Quibble",
+            3
+          ],
+          [
+            "Pango",
+            3
+          ],
+          [
+            "Oaktopus",
+            3
+          ],
+          [
+            "Furcorn",
+            3
+          ],
+          [
+            "Maw",
+            3
+          ],
+          [
+            "Spunge",
+            2
+          ],
+          [
+            "Thumpies",
+            2
+          ],
+          [
+            "Congle",
+            2
+          ],
+          [
+            "Bowgart",
+            2
+          ],
+          [
+            "Deedge",
+            1
+          ],
+          [
+            "Gloptic",
+            1
+          ],
+          [
+            "Pladdie",
+            1
+          ],
+          [
+            "Plinkajou",
+            1
+          ],
+          [
+            "Blow't",
+            1
+          ],
+          [
+            "Viveine",
+            1
+          ],
+          [
+            "Clavavera",
+            1
+          ],
+          [
+            "Whiz-bang",
+            1
+          ]
+        ],
         "local_img": "msm_assets/monsters/adults-adult_loodvigg.png"
       },
       {
@@ -1690,9 +1810,69 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Adult Torrt",
         "name": "Adult Torrt",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/f/f6/Adult_Torrt.png",
-        "cost": "10 Keys",
-        "time": "x1 x3 x2 x2 x2 x1 x6 x4 x6 x6 x4 x50 Time limit: 7 days",
-        "eggs": [],
+        "time": "31 days",
+        "eggs": [
+          [
+            "Cybop",
+            3
+          ],
+          [
+            "Shrubb",
+            3
+          ],
+          [
+            "Fwog",
+            3
+          ],
+          [
+            "Drumpler",
+            3
+          ],
+          [
+            "Reedling",
+            2
+          ],
+          [
+            "Scups",
+            2
+          ],
+          [
+            "PomPom",
+            2
+          ],
+          [
+            "Pummel",
+            2
+          ],
+          [
+            "Clamble",
+            2
+          ],
+          [
+            "T-Rox",
+            2
+          ],
+          [
+            "Quarrister",
+            2
+          ],
+          [
+            "Entbrat",
+            2
+          ],
+          [
+            "Riff",
+            2
+          ],
+          [
+            "Shellbeat",
+            2
+          ],
+          [
+            "Punkleton",
+            1
+          ]
+        ],
         "local_img": "msm_assets/monsters/adults-adult_torrt.png"
       },
       {
@@ -1700,9 +1880,89 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Adult Plixie",
         "name": "Adult Plixie",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/a/a0/Adult_Plixie.png",
-        "cost": "10 Keys",
-        "time": "x5 x3 x2 x2 x4 x15 x8 x7 x16 x35 x20 x12 x25 x25 x70 Time limit: 13 days",
-        "eggs": [],
+        "time": "30 days",
+        "eggs": [
+          [
+            "Shrubb",
+            3
+          ],
+          [
+            "Oaktopus",
+            3
+          ],
+          [
+            "Furcorn",
+            3
+          ],
+          [
+            "Fwog",
+            3
+          ],
+          [
+            "Drumpler",
+            3
+          ],
+          [
+            "Maw",
+            3
+          ],
+          [
+            "Pummel",
+            2
+          ],
+          [
+            "Clamble",
+            2
+          ],
+          [
+            "Bowgart",
+            2
+          ],
+          [
+            "T-Rox",
+            2
+          ],
+          [
+            "Entbrat",
+            1
+          ],
+          [
+            "Theremind",
+            5
+          ],
+          [
+            "Bonkers",
+            3
+          ],
+          [
+            "Poppette",
+            3
+          ],
+          [
+            "Yuggler",
+            3
+          ],
+          [
+            "Tapricorn",
+            2
+          ],
+          [
+            "Rooba",
+            2
+          ],
+          [
+            "Periscorp",
+            2
+          ],
+          [
+            "Gloptic",
+            1
+          ],
+          [
+            "Gobbleygourd",
+            1
+          ]
+        ],
         "local_img": "msm_assets/monsters/adults-adult_plixie.png"
       },
       {
@@ -1710,9 +1970,69 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Adult Attmoz",
         "name": "Adult Attmoz",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/b/bb/Adult_Attmoz.png",
-        "cost": "10 Keys",
-        "time": "x3 x3 x2 x2 x2 x2 x1 x8 x6 x6 x5 x25 Time limit: 12 days",
-        "eggs": [],
+        "time": "31 days",
+        "eggs": [
+          [
+            "Cybop",
+            3
+          ],
+          [
+            "Dandidoo",
+            3
+          ],
+          [
+            "Pango",
+            3
+          ],
+          [
+            "Quibble",
+            3
+          ],
+          [
+            "Reedling",
+            2
+          ],
+          [
+            "Spunge",
+            2
+          ],
+          [
+            "Thumpies",
+            2
+          ],
+          [
+            "Scups",
+            2
+          ],
+          [
+            "PomPom",
+            2
+          ],
+          [
+            "Congle",
+            2
+          ],
+          [
+            "Shellbeat",
+            2
+          ],
+          [
+            "Quarrister",
+            2
+          ],
+          [
+            "Deedge",
+            2
+          ],
+          [
+            "Riff",
+            2
+          ],
+          [
+            "Yool",
+            1
+          ]
+        ],
         "local_img": "msm_assets/monsters/adults-adult_attmoz.png"
       },
       {
@@ -1720,9 +2040,69 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Adult Hornacle",
         "name": "Adult Hornacle",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/7/7f/Adult_Hornacle.png",
-        "cost": "10 Keys",
-        "time": "x3 x5 x4 x4 x3 x3 x12 x8 x2 x15 x9 x50 Time limit: 12 days",
-        "eggs": [],
+        "time": "31 days",
+        "eggs": [
+          [
+            "Quibble",
+            3
+          ],
+          [
+            "Oaktopus",
+            3
+          ],
+          [
+            "Fwog",
+            3
+          ],
+          [
+            "Maw",
+            3
+          ],
+          [
+            "Spunge",
+            2
+          ],
+          [
+            "Scups",
+            2
+          ],
+          [
+            "Congle",
+            2
+          ],
+          [
+            "Pummel",
+            2
+          ],
+          [
+            "Bowgart",
+            2
+          ],
+          [
+            "T-Rox",
+            2
+          ],
+          [
+            "Shellbeat",
+            2
+          ],
+          [
+            "Deedge",
+            2
+          ],
+          [
+            "Riff",
+            2
+          ],
+          [
+            "Entbrat",
+            2
+          ],
+          [
+            "Carillong",
+            1
+          ]
+        ],
         "local_img": "msm_assets/monsters/adults-adult_hornacle.png"
       },
       {
@@ -1730,9 +2110,93 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Adult Furnoss",
         "name": "Adult Furnoss",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/1/18/Adult_Furnoss.png",
-        "cost": "10 Keys",
-        "time": "x2 x4 x3 x3 x3 x7 x5 x5 x3 x2 x2 x15 x5 x10 x25 Time limit: 25 days",
-        "eggs": [],
+        "time": "-",
+        "eggs": [
+          [
+            "Kayna",
+            3
+          ],
+          [
+            "Dandidoo",
+            3
+          ],
+          [
+            "Cybop",
+            3
+          ],
+          [
+            "Shrubb",
+            3
+          ],
+          [
+            "Glowl",
+            2
+          ],
+          [
+            "Flowah",
+            2
+          ],
+          [
+            "Stogg",
+            2
+          ],
+          [
+            "Reedling",
+            2
+          ],
+          [
+            "Floogull",
+            1
+          ],
+          [
+            "Barrb",
+            1
+          ],
+          [
+            "Repatillo",
+            1
+          ],
+          [
+            "Tring",
+            1
+          ],
+          [
+            "Fluoress",
+            5
+          ],
+          [
+            "Gob",
+            3
+          ],
+          [
+            "Bulbo",
+            3
+          ],
+          [
+            "Pluckbill",
+            3
+          ],
+          [
+            "Spytrap",
+            2
+          ],
+          [
+            "TooToo",
+            2
+          ],
+          [
+            "Fiddlement",
+            2
+          ],
+          [
+            "Blow't",
+            1
+          ],
+          [
+            "Schmoochle",
+            1
+          ]
+        ],
         "local_img": "msm_assets/monsters/adults-adult_furnoss.png"
       },
       {
@@ -1740,9 +2204,69 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Adult Glaishur",
         "name": "Adult Glaishur",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/5/52/Adult_Glaishur.png",
-        "cost": "10 Keys",
-        "time": "x4 x3 x3 x2 x2 x1 x2 x8 x10 x7 x5 x40 Time limit: 10 days",
-        "eggs": [],
+        "time": "31 days",
+        "eggs": [
+          [
+            "Pango",
+            3
+          ],
+          [
+            "Furcorn",
+            3
+          ],
+          [
+            "Drumpler",
+            3
+          ],
+          [
+            "Maw",
+            3
+          ],
+          [
+            "Thumpies",
+            2
+          ],
+          [
+            "PomPom",
+            2
+          ],
+          [
+            "Congle",
+            2
+          ],
+          [
+            "Clamble",
+            2
+          ],
+          [
+            "Bowgart",
+            2
+          ],
+          [
+            "T-Rox",
+            2
+          ],
+          [
+            "Deedge",
+            2
+          ],
+          [
+            "Entbrat",
+            2
+          ],
+          [
+            "Riff",
+            2
+          ],
+          [
+            "Quarrister",
+            2
+          ],
+          [
+            "Ffidyll",
+            1
+          ]
+        ],
         "local_img": "msm_assets/monsters/adults-adult_glaishur.png"
       },
       {
@@ -1750,9 +2274,69 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Adult Blasoom",
         "name": "Adult Blasoom",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/f/fd/Adult_Blasoom.png",
-        "cost": "10 Keys",
-        "time": "x3 x5 x4 x4 x3 x3 x3 x9 x8 x5 x5 x20 Time limit: 14 days",
-        "eggs": [],
+        "time": "30 days",
+        "eggs": [
+          [
+            "Dandidoo",
+            3
+          ],
+          [
+            "Shrubb",
+            3
+          ],
+          [
+            "Oaktopus",
+            3
+          ],
+          [
+            "Furcorn",
+            3
+          ],
+          [
+            "Reedling",
+            2
+          ],
+          [
+            "Spunge",
+            2
+          ],
+          [
+            "Thumpies",
+            2
+          ],
+          [
+            "Pummel",
+            2
+          ],
+          [
+            "Clamble",
+            2
+          ],
+          [
+            "Bowgart",
+            2
+          ],
+          [
+            "Shellbeat",
+            2
+          ],
+          [
+            "Quarrister",
+            2
+          ],
+          [
+            "Deedge",
+            2
+          ],
+          [
+            "Entbrat",
+            2
+          ],
+          [
+            "Blabbit",
+            1
+          ]
+        ],
         "local_img": "msm_assets/monsters/adults-adult_blasoom.png"
       },
       {
@@ -1760,9 +2344,89 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Adult Syncopite",
         "name": "Adult Syncopite",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/e/ec/Adult_Syncopite.png",
-        "cost": "10 Keys",
-        "time": "x2 x4 x6 x4 x3 x6 x6 x3 x5 x2 x10 x6 x12 x30 x75 Time limit: 11 days",
-        "eggs": [],
+        "time": "31 days",
+        "eggs": [
+          [
+            "Dandidoo",
+            3
+          ],
+          [
+            "Cybop",
+            3
+          ],
+          [
+            "Quibble",
+            3
+          ],
+          [
+            "Shrubb",
+            3
+          ],
+          [
+            "Oaktopus",
+            3
+          ],
+          [
+            "Fwog",
+            3
+          ],
+          [
+            "Reedling",
+            2
+          ],
+          [
+            "Spunge",
+            2
+          ],
+          [
+            "Scups",
+            2
+          ],
+          [
+            "Pummel",
+            2
+          ],
+          [
+            "Shellbeat",
+            1
+          ],
+          [
+            "Clackula",
+            5
+          ],
+          [
+            "Peckidna",
+            3
+          ],
+          [
+            "Denchuhs",
+            3
+          ],
+          [
+            "Hawlo",
+            3
+          ],
+          [
+            "Withur",
+            2
+          ],
+          [
+            "Uuduk",
+            2
+          ],
+          [
+            "Banjaw",
+            2
+          ],
+          [
+            "Plinkajou",
+            1
+          ],
+          [
+            "Spurrit",
+            1
+          ]
+        ],
         "local_img": "msm_assets/monsters/adults-adult_syncopite.png"
       },
       {
@@ -1770,9 +2434,65 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Adult Vhamp",
         "name": "Adult Vhamp",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/2/29/Adult_Vhamp.png",
-        "cost": "10 Keys",
-        "time": "x1 x3 x3 x1 x4 x15 x5 x5 x9 x12 x7 x5 x35 x50 x40 Time limit: 8 days",
-        "eggs": [],
+        "time": "30 days",
+        "eggs": [
+          [
+            "Cybop",
+            3
+          ],
+          [
+            "Quibble",
+            3
+          ],
+          [
+            "Pango",
+            3
+          ],
+          [
+            "Fwog",
+            3
+          ],
+          [
+            "Drumpler",
+            3
+          ],
+          [
+            "Maw",
+            3
+          ],
+          [
+            "Scups",
+            2
+          ],
+          [
+            "PomPom",
+            2
+          ],
+          [
+            "Congle",
+            2
+          ],
+          [
+            "T-Rox",
+            2
+          ],
+          [
+            "Riff",
+            1
+          ],
+          [
+            "Tring",
+            1
+          ],
+          [
+            "Sneyser",
+            1
+          ],
+          [
+            "Monculus",
+            1
+          ]
+        ],
         "local_img": "msm_assets/monsters/adults-adult_vhamp.png"
       },
       {
@@ -1780,9 +2500,105 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Adult Galvana",
         "name": "Adult Galvana",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/0/0a/Adult_Galvana.png",
-        "cost": "10 Keys",
-        "time": "x1 x1 x1 x1 x1 x1 x2 x2 x2 x3 x3 x3 x3 x3 x3 x3 x3 x3 x3 x3 x3 x3 x4 x4 x4 x4 x4 x4 x4 x6 x10 x10 x5 x5 x5 Time limit: 28 days",
-        "eggs": [],
+        "time": "31 days",
+        "eggs": [
+          [
+            "Reedling",
+            2
+          ],
+          [
+            "Spunge",
+            2
+          ],
+          [
+            "Thumpies",
+            2
+          ],
+          [
+            "Scups",
+            2
+          ],
+          [
+            "PomPom",
+            2
+          ],
+          [
+            "Congle",
+            2
+          ],
+          [
+            "Pummel",
+            2
+          ],
+          [
+            "Clamble",
+            2
+          ],
+          [
+            "Bowgart",
+            2
+          ],
+          [
+            "T-Rox",
+            2
+          ],
+          [
+            "Barrb",
+            2
+          ],
+          [
+            "Floogull",
+            2
+          ],
+          [
+            "Whaddle",
+            2
+          ],
+          [
+            "Woolabee",
+            2
+          ],
+          [
+            "Repatillo",
+            2
+          ],
+          [
+            "Wynq",
+            2
+          ],
+          [
+            "Entbrat",
+            1
+          ],
+          [
+            "Deedge",
+            1
+          ],
+          [
+            "Riff",
+            1
+          ],
+          [
+            "Shellbeat",
+            1
+          ],
+          [
+            "Quarrister",
+            1
+          ],
+          [
+            "Tring",
+            1
+          ],
+          [
+            "Sneyser",
+            1
+          ],
+          [
+            "Hoola",
+            1
+          ]
+        ],
         "local_img": "msm_assets/monsters/adults-adult_galvana.png"
       }
     ],
@@ -1792,7 +2608,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Kayna",
         "name": "Kayna Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/f/f3/Kayna.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -1883,7 +2698,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Glowl",
         "name": "Glowl Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/9/98/Glowl.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -1942,7 +2756,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Flowah",
         "name": "Flowah Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/f/f6/Flowah.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2001,7 +2814,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Stogg",
         "name": "Stogg Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/e/e7/Stogg.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2060,7 +2872,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Phangler",
         "name": "Phangler Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/5/59/Phangler.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2119,7 +2930,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Boskus",
         "name": "Boskus Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/b/b7/Boskus.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2178,7 +2988,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Barrb",
         "name": "Barrb Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/2/29/Barrb.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2237,7 +3046,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Floogull",
         "name": "Floogull Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/0/0b/Floogull.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2296,7 +3104,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Whaddle",
         "name": "Whaddle Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/a/a9/Whaddle.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2355,7 +3162,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Woolabee",
         "name": "Woolabee Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/e/e2/Woolabee.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2414,7 +3220,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Repatillo",
         "name": "Repatillo Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/3/32/Repatillo.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2473,7 +3278,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Rootitoot",
         "name": "Rootitoot Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/e/e0/Rootitoot.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2532,7 +3336,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Sooza",
         "name": "Sooza Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/e/ef/Sooza.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2591,7 +3394,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Thrumble",
         "name": "Thrumble Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/5/5e/Thrumble.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2650,7 +3452,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Ziggurab",
         "name": "Ziggurab Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/2/2f/Ziggurab.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2709,7 +3510,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Wynq",
         "name": "Wynq Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/6/62/Wynq.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2768,7 +3568,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Tring",
         "name": "Tring Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/e/ed/Tring.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2827,7 +3626,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Sneyser",
         "name": "Sneyser Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/d/db/Sneyser.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2886,7 +3684,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Yelmut",
         "name": "Yelmut Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/9/90/Yelmut.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -2945,7 +3742,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Flum Ox",
         "name": "Flum Ox Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/2/26/Flum_Ox.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -3004,7 +3800,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Krillby",
         "name": "Krillby Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/0/02/Krillby.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -3063,7 +3858,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Edamimi",
         "name": "Edamimi Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/d/d9/Edamimi.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -3122,7 +3916,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "PongPing",
         "name": "PongPing Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/6/69/PongPing.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -3181,7 +3974,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Incisaur",
         "name": "Incisaur Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/0/05/Incisaur.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -3240,7 +4032,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Tiawa",
         "name": "Tiawa Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/1/1d/Tiawa.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -3299,7 +4090,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Bisonorus",
         "name": "Bisonorus Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/3/38/Bisonorus.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -3358,7 +4148,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Candelavra",
         "name": "Candelavra Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/2/2c/Candelavra.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -3505,7 +4294,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Drummidary",
         "name": "Drummidary Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/3/30/Drummidary.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -3632,7 +4420,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Bowhead",
         "name": "Bowhead Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/e/ef/Bowhead.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -3759,7 +4546,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Tuskski",
         "name": "Tuskski Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/b/b4/Tuskski.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -3886,7 +4672,6 @@ window.MSM_SCRAPED_DATA = {
         "base_name": "Gnarls",
         "name": "Gnarls Vessel",
         "img_url": "https://static.wikia.nocookie.net/mysingingmonsters/images/b/b7/Gnarls.png",
-        "cost": "-",
         "time": "-",
         "eggs": [
           [
@@ -4092,9 +4877,9 @@ window.MSM_SCRAPED_DATA = {
     "Epic Woolabee": "msm_assets/eggs/Epic_Woolabee.png",
     "Epic Wynq": "msm_assets/eggs/Epic_Wynq.png",
     "Epic Ziggurab": "msm_assets/eggs/Epic_Ziggurab.png",
-    "Fankit Yelmut": "msm_assets/eggs/Fankit_Yelmut.png",
     "Ffidyll": "msm_assets/eggs/Ffidyll.png",
     "Fiddlement": "msm_assets/eggs/Fiddlement.png",
+    "Flex Element": "msm_assets/eggs/Flex_Element.png",
     "Floogull": "msm_assets/eggs/Floogull.png",
     "Floot Fly": "msm_assets/eggs/Floot_Fly.png",
     "Flowah": "msm_assets/eggs/Flowah.png",
