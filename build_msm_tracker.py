@@ -367,10 +367,14 @@ def scrape_individual_monster(monster_name: str, category: str, egg_url_map: dic
             time_str = m_time.group(1).strip()
             break
 
-    # 5. Fallback for Adult Celestials if Fandom Lua template hid any Flex Eggs
-    if category == "adults" and len(eggs) < 2 and monster_name in ADULT_FALLBACK_RECIPES:
+    # Ensure Adult Celestials always include their Required Flex Eggs at the end of the recipe
+    if category == "adults" and monster_name in ADULT_FALLBACK_RECIPES:
         fb = ADULT_FALLBACK_RECIPES[monster_name]
-        eggs = fb["eggs"]
+        if len(eggs) < 2:
+            eggs = fb["eggs"]
+        elif not any("flex" in e[0].lower() for e in eggs):
+            flex_only = [pair for pair in fb["eggs"] if "flex" in pair[0].lower()]
+            eggs.extend(flex_only)
         if time_str == "-":
             time_str = fb["time"]
 

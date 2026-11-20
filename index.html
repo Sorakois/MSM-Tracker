@@ -33,7 +33,7 @@
       --copper-dark: #5e2c0b;
       --brass-ring: #f5b938;
 
-      /* Chiseled Stone Block Buttons (In-Game EXIT Button Style) */
+      /* Chiseled Stone Block Buttons */
       --stone-top: #948d88;
       --stone-mid: #6e6763;
       --stone-bot: #4f4946;
@@ -142,10 +142,10 @@
       top: -5px;
       bottom: -5px;
       width: 8px;
-      /* background: linear-gradient(180deg, #fff099 0%, var(--brass-ring) 50%, #9e6308 100%);
+      background: linear-gradient(180deg, #fff099 0%, var(--brass-ring) 50%, #9e6308 100%);
       border: 1.5px solid #361904;
       border-radius: 4px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
     .market-banner-pill::before { left: 10px; }
     .market-banner-pill::after { right: 10px; }
@@ -490,7 +490,7 @@
       border-radius: 18px;
       padding: 14px 16px;
       display: grid;
-      grid-template-columns: 205px 1fr 160px;
+      grid-template-columns: 215px 1fr 160px;
       gap: 14px;
       align-items: center;
       box-shadow:
@@ -522,7 +522,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 8px;
+      gap: 7px;
       padding-right: 12px;
       border-right: 2px solid #361908;
     }
@@ -536,8 +536,8 @@
     }
 
     .market-portrait-frame {
-      width: 104px;
-      height: 104px;
+      width: 100px;
+      height: 100px;
       background: radial-gradient(circle at 50% 42%, var(--wood-well-glow) 0%, var(--wood-well-inner) 85%);
       border: 4px solid #8a4e26;
       outline: 2px solid #1f0d04;
@@ -554,8 +554,8 @@
     }
 
     .monster-img {
-      width: 88px;
-      height: 88px;
+      width: 84px;
+      height: 84px;
       object-fit: contain;
       filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.65));
     }
@@ -577,7 +577,7 @@
     }
 
     .monster-title {
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       line-height: 1.15;
       display: flex;
       flex-wrap: wrap;
@@ -594,6 +594,55 @@
       margin-top: 2px;
     }
 
+    /* Compact Common / Rare / Epic Wublin Tier Selector (Zero List Bloat) */
+    .tier-selector-bar {
+      display: inline-flex;
+      width: 100%;
+      background: var(--wood-well-inner);
+      border: 2px solid #1c0c04;
+      border-radius: 9px;
+      padding: 2px;
+      gap: 2px;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.8), 0 1px 0 var(--wood-bevel-hi);
+    }
+
+    .tier-btn {
+      flex: 1;
+      font-family: 'Lilita One', cursive, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      padding: 4px 4px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #c9a789;
+      cursor: pointer;
+      transition: all 0.12s;
+      text-shadow: 0 1px 0 #000;
+    }
+    .tier-btn:hover {
+      color: #ffffff;
+    }
+    .tier-btn.active-common {
+      background: linear-gradient(180deg, var(--stone-top) 0%, var(--stone-bot) 100%);
+      border-color: var(--stone-hi);
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .tier-btn.active-rare {
+      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+      border-color: #bae6fd;
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .tier-btn.active-epic {
+      background: linear-gradient(180deg, #c084fc 0%, #7e22ce 100%);
+      border-color: #f3e8ff;
+      color: #ffd700;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
     .copies-stepper {
       display: inline-flex;
       flex-wrap: wrap;
@@ -602,24 +651,24 @@
       gap: 6px;
       background: var(--wood-well-inner);
       border: 2px solid #1c0c04;
-      padding: 4px 9px;
+      padding: 3px 9px;
       border-radius: 10px;
       box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.75), 0 1px 0 var(--wood-bevel-hi);
     }
 
     .copies-label {
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 700;
       color: #f5dec9;
       text-transform: uppercase;
     }
 
     .stepper-btn {
-      width: 25px;
-      height: 25px;
+      width: 24px;
+      height: 24px;
       border-radius: 7px;
       font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: #ffffff;
       background: linear-gradient(180deg, var(--stone-top) 0%, var(--stone-bot) 100%);
       border: 1.5px solid var(--stone-hi);
@@ -634,7 +683,7 @@
 
     .copies-val {
       font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       min-width: 18px;
       text-align: center;
       color: var(--brass-ring);
@@ -656,8 +705,8 @@
     }
 
     .egg-slot {
-      flex: 0 1 112px;
-      min-width: 100px;
+      flex: 0 1 114px;
+      min-width: 102px;
       background: linear-gradient(180deg, #7d4722 0%, #573015 100%);
       border: 2.5px solid #a16237;
       outline: 2px solid #1f0d04;
@@ -699,7 +748,7 @@
     .egg-stage {
       position: relative;
       width: 100%;
-      height: 52px;
+      height: 54px;
       background: radial-gradient(circle at 50% 45%, var(--wood-well-glow) 0%, var(--wood-well-inner) 88%);
       border: 2px solid #1c0c04;
       border-radius: 9px;
@@ -716,8 +765,8 @@
 
     .egg-sprite-wrap {
       position: relative;
-      width: 44px;
-      height: 46px;
+      width: 52px;
+      height: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -733,10 +782,11 @@
     }
 
     .egg-svg-fallback {
-      width: 38px;
-      height: 42px;
+      width: 48px;
+      height: 48px;
       position: absolute;
       inset: 0;
+      margin: auto;
       z-index: 1;
     }
 
@@ -744,8 +794,8 @@
       display: none;
       position: absolute;
       inset: -2px;
-      width: 46px;
-      height: 46px;
+      width: 50px;
+      height: 48px;
       pointer-events: none;
       z-index: 4;
     }
@@ -776,7 +826,7 @@
     }
 
     .egg-name-label {
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       margin-top: 4px;
       width: 100%;
       text-align: center;
@@ -940,6 +990,10 @@
         width: 62px;
         height: 62px;
       }
+      .tier-selector-bar {
+        width: auto;
+        min-width: 175px;
+      }
       .board-actions-col {
         border-left: none;
         border-top: 2px solid #361908;
@@ -1080,13 +1134,13 @@
 
   <script>
     const STORAGE_KEY = "msm_tracker_clean_v1";
-    const IMG_MAP_KEY = "msm_direct_wikia_urls_v3";
+    const IMG_MAP_KEY = "msm_direct_wikia_urls_v4";
 
     let MONSTER_DB = { wublins: [], celestials: [], adults: [], amber: [] };
     let EGG_IMAGES = {};
     let imgMap = JSON.parse(localStorage.getItem(IMG_MAP_KEY) || "{}");
 
-    // Verified Adult Celestial recipes used to auto-repair msm_recipes.json if the old scraper saved "eggs": []
+    // Complete Adult Celestial recipes (including all Required Flex Eggs)
     const ADULT_CELESTIALS_REPAIR = [
       { id: "adults-adult_scaratar", name: "Adult Scaratar", time: "31 days (Aug)", eggs: [["Floot Fly",3], ["Shrubb",3], ["Fwog",3], ["Drumpler",3], ["HippityHop",2], ["Squot",2], ["Wimmzies",2], ["Ziggurab",2], ["Cantorell",2], ["Bridg-it",2], ["Clavi Gnat",2], ["Reedling",2], ["Pladdie",2], ["Quarrister",2], ["Boo'qwurm",1], ["Rare 2E Faerie Flex",2], ["Rare 3E Fire Flex",1]] },
       { id: "adults-adult_loodvigg", name: "Adult Loodvigg", time: "30 days (Sep)", eggs: [["Pango",3], ["Maw",3], ["Gob",3], ["Bulbo",3], ["Spytrap",3], ["TooToo",3], ["Fiddlement",2], ["Bowgart",2], ["Spunge",2], ["Thumpies",2], ["Congle",1], ["Deedge",1], ["Blow't",1], ["Pluckbill",1], ["Whisp",1], ["Nebulob",1], ["Arackulele",1], ["Rare 2E Light Flex",1], ["Rare 3E Psychic Flex",1], ["Rare 3E Faerie Flex",1], ["Rare 3E Bone Flex",1]] },
@@ -1102,10 +1156,58 @@
       { id: "adults-adult_galvana", name: "Adult Galvana", time: "31 days (Jul)", eggs: [["Kayna",3], ["Glowl",2], ["Flowah",2], ["Stogg",2], ["Phangler",2], ["Boskus",2], ["Barrb",1], ["Floogull",1], ["Whaddle",2], ["Woolabee",1], ["Repatillo",1], ["Rootitoot",1], ["Sooza",1], ["Thrumble",1], ["Ziggurab",1], ["Wynq",1], ["Tring",1], ["Sneyser",1], ["Hoola",1], ["Rare 4E Plant Flex",1], ["Rare 4E Cold Flex",1], ["Rare 4E Air Flex",1], ["Rare 4E Water Flex",1], ["Rare 4E Earth Flex",1]] }
     ];
 
+    // Verified Rare Wublin & Epic Wublin inventories (attached to each Wublin card's tier switcher)
+    const WUBLIN_RARE_RECIPES = {
+      "brump": [["Rare Furcorn",3], ["Rare Fwog",1]],
+      "zynth": [["Rare T-Rox",1], ["Rare Congle",1], ["Rare Maw",1], ["Rare Drumpler",1], ["Rare Oaktopus",1], ["Rare Pango",1]],
+      "poewk": [["Rare Shellbeat",1], ["Rare Reedling",1], ["Rare PomPom",1], ["Rare Scups",1], ["Rare Clamble",1], ["Rare Pango",1], ["Rare Oaktopus",1], ["Rare Shrubb",1], ["Rare Dandidoo",1]],
+      "thwok": [["Rare Entbrat",1], ["Rare Deedge",1], ["Rare Riff",1], ["Rare Shellbeat",1], ["Rare Quarrister",1], ["Rare Bowgart",2], ["Rare PomPom",2], ["Rare Spunge",2], ["Rare Furcorn",2], ["Rare Quibble",2]],
+      "dwumrohl": [["Rare Entbrat",1], ["Rare Deedge",1], ["Rare Riff",1], ["Rare Shellbeat",1], ["Rare Quarrister",1], ["Rare Bowgart",2], ["Rare PomPom",2], ["Rare Reedling",2], ["Rare Scups",1], ["Rare Thumpies",1], ["Rare Congle",2], ["Rare Pummel",1], ["Rare Clamble",1], ["Rare T-Rox",2], ["Rare Fwog",2], ["Rare Drumpler",2], ["Rare Maw",2], ["Rare Mammott",3], ["Rare Noggin",3]],
+      "zuuker": [["Rare Entbrat",1], ["Rare Deedge",1], ["Rare Bowgart",2], ["Rare T-Rox",2], ["Rare Oaktopus",2], ["Rare Furcorn",2], ["Rare Fwog",2]],
+      "screemu": [["Rare Shellbeat",1], ["Rare Spunge",2], ["Rare Shrubb",3], ["Rare Quibble",3]],
+      "tympa": [["Rare Shellbeat",3], ["Rare Pummel",3], ["Rare Clamble",3], ["Rare T-Rox",3], ["Rare Drumpler",8]],
+      "dermit": [["Rare Entbrat",1], ["Rare Quarrister",1], ["Rare Scups",2], ["Rare Thumpies",2], ["Rare Fwog",4]],
+      "gheegur": [["Rare Riff",2], ["Rare Quarrister",2], ["Rare PomPom",2], ["Rare Reedling",2], ["Rare Scups",2], ["Rare Cybop",3]],
+      "whajje": [["Rare Deedge",2], ["Rare Reedling",3], ["Rare Cybop",3], ["Rare Dandidoo",3], ["Rare Fwog",4], ["Rare Tweedle",4]],
+      "creepuscule": [["Rare Shellbeat",2], ["Rare Deedge",2], ["Rare Congle",3], ["Rare Pummel",2], ["Rare T-Rox",2], ["Rare Quibble",3], ["Rare Noggin",4]],
+      "blipsqueak": [["Rare Deedge",2], ["Rare PomPom",2], ["Rare T-Rox",3], ["Rare Cybop",3], ["Rare Toe Jammer",2]],
+      "scargo": [["Rare Shellbeat",1], ["Rare Spunge",1], ["Rare Pummel",1], ["Rare Clamble",1], ["Rare Shrubb",2], ["Rare Dandidoo",2]],
+      "astropod": [["Rare Shellbeat",2], ["Rare Deedge",2], ["Rare Reedling",3], ["Rare Spunge",3], ["Rare Scups",2], ["Rare Toe Jammer",3]],
+      "pixolotl": [["Rare Riff",2], ["Rare Entbrat",2], ["Rare Scups",3], ["Rare Pummel",3], ["Rare T-Rox",3], ["Rare Cybop",5], ["Rare Fwog",4]],
+      "bona-petite": [["Rare Riff",2], ["Rare Entbrat",2], ["Rare PomPom",2], ["Rare Bowgart",2], ["Rare T-Rox",2], ["Rare Fwog",3], ["Rare Drumpler",3], ["Rare Maw",3], ["Rare Mammott",3]],
+      "maulch": [["Rare Quarrister",2], ["Rare Entbrat",2], ["Rare Spunge",2], ["Rare Pummel",2], ["Rare Clamble",2], ["Rare Furcorn",3], ["Rare Noggin",2]],
+      "fleechwurm": [["Rare Shellbeat",1], ["Rare Quarrister",1], ["Rare Reedling",1], ["Rare Spunge",1], ["Rare Scups",2], ["Rare Dandidoo",2], ["Rare Furcorn",2]],
+      "monculus": [["Rare Entbrat",1], ["Rare Deedge",1], ["Rare Riff",1], ["Rare Shellbeat",1], ["Rare Quarrister",1], ["Rare T-Rox",1], ["Rare Bowgart",1], ["Rare Spunge",1], ["Rare PomPom",1], ["Rare Reedling",1], ["Rare Clamble",1], ["Rare Pummel",1], ["Rare Scups",1], ["Rare Thumpies",1], ["Rare Congle",1]]
+    };
+
+    const WUBLIN_EPIC_RECIPES = {
+      "brump": [["Epic Furcorn",1], ["Epic Fwog",1], ["Epic Stogg",1]],
+      "zynth": [["Epic T-Rox",1], ["Epic Congle",1], ["Epic Maw",1], ["Epic Drumpler",1], ["Epic Oaktopus",1], ["Epic Pango",1], ["Epic Phangler",1]],
+      "poewk": [["Epic Shellbeat",1], ["Epic Reedling",1], ["Epic PomPom",1], ["Epic Scups",1], ["Epic Clamble",1], ["Epic Pango",1], ["Epic Oaktopus",1], ["Epic Shrubb",1], ["Epic Dandidoo",1], ["Epic Floogull",1]],
+      "thwok": [["Epic Entbrat",1], ["Epic Deedge",1], ["Epic Riff",1], ["Epic Shellbeat",1], ["Epic Quarrister",1], ["Epic Bowgart",1], ["Epic PomPom",1], ["Epic Spunge",1], ["Epic Furcorn",1], ["Epic Quibble",1], ["Epic Repatillo",1]],
+      "dwumrohl": [["Epic Entbrat",1], ["Epic Deedge",1], ["Epic Riff",1], ["Epic Shellbeat",1], ["Epic Quarrister",1], ["Epic Bowgart",1], ["Epic PomPom",1], ["Epic Reedling",1], ["Epic Scups",1], ["Epic Thumpies",1], ["Epic Congle",1], ["Epic Pummel",1], ["Epic Clamble",1], ["Epic T-Rox",1], ["Epic Fwog",1], ["Epic Drumpler",1], ["Epic Maw",1], ["Epic Mammott",1], ["Epic Noggin",1], ["Epic Tring",1], ["Epic Sneyser",1]],
+      "zuuker": [["Epic Entbrat",1], ["Epic Deedge",1], ["Epic Bowgart",1], ["Epic T-Rox",1], ["Epic Oaktopus",1], ["Epic Furcorn",1], ["Epic Fwog",1], ["Epic Whaddle",1]],
+      "screemu": [["Epic Shellbeat",1], ["Epic Spunge",1], ["Epic Shrubb",1], ["Epic Quibble",1], ["Epic Glowl",1]],
+      "tympa": [["Epic Shellbeat",1], ["Epic Pummel",1], ["Epic Clamble",1], ["Epic T-Rox",1], ["Epic Drumpler",1], ["Epic Sooza",1]],
+      "dermit": [["Epic Entbrat",1], ["Epic Quarrister",1], ["Epic Scups",1], ["Epic Thumpies",1], ["Epic Fwog",1], ["Epic Thrumble",1]],
+      "gheegur": [["Epic Riff",1], ["Epic Quarrister",1], ["Epic PomPom",1], ["Epic Reedling",1], ["Epic Scups",1], ["Epic Cybop",1], ["Epic Ziggurab",1]],
+      "whajje": [["Epic Deedge",1], ["Epic Reedling",1], ["Epic Cybop",1], ["Epic Dandidoo",1], ["Epic Fwog",1], ["Epic Tweedle",1], ["Epic Woolabee",1]],
+      "creepuscule": [["Epic Shellbeat",1], ["Epic Deedge",1], ["Epic Congle",1], ["Epic Pummel",1], ["Epic T-Rox",1], ["Epic Quibble",1], ["Epic Noggin",1], ["Epic Wynq",1]],
+      "blipsqueak": [["Epic Deedge",1], ["Epic PomPom",1], ["Epic T-Rox",1], ["Epic Cybop",1], ["Epic Toe Jammer",1], ["Epic Boskus",1]],
+      "scargo": [["Epic Shellbeat",1], ["Epic Spunge",1], ["Epic Pummel",1], ["Epic Clamble",1], ["Epic Shrubb",1], ["Epic Dandidoo",1], ["Epic Flowah",1]],
+      "astropod": [["Epic Shellbeat",1], ["Epic Reedling",1], ["Epic Spunge",1], ["Epic Scups",1], ["Epic Toe Jammer",1], ["Epic Rootitoot",1]],
+      "pixolotl": [["Epic Riff",1], ["Epic Entbrat",1], ["Epic Scups",1], ["Epic Pummel",1], ["Epic T-Rox",1], ["Epic Cybop",1], ["Epic Fwog",1], ["Epic Barrb",1]],
+      "bona-petite": [["Epic Riff",1], ["Epic Entbrat",1], ["Epic PomPom",1], ["Epic Bowgart",1], ["Epic T-Rox",1], ["Epic Fwog",1], ["Epic Drumpler",1], ["Epic Maw",1], ["Epic Mammott",1], ["Epic Kayna",1]],
+      "maulch": [["Epic Quarrister",1], ["Epic Entbrat",1], ["Epic Spunge",1], ["Epic Pummel",1], ["Epic Clamble",1], ["Epic Furcorn",1], ["Epic Noggin",1], ["Epic Stogg",1]],
+      "fleechwurm": [["Epic Shellbeat",1], ["Epic Quarrister",1], ["Epic Reedling",1], ["Epic Spunge",1], ["Epic Scups",1], ["Epic Dandidoo",1], ["Epic Furcorn",1], ["Epic Phangler",1]],
+      "monculus": [["Epic Entbrat",1], ["Epic Deedge",1], ["Epic Riff",1], ["Epic Shellbeat",1], ["Epic Quarrister",1], ["Epic T-Rox",1], ["Epic Bowgart",1], ["Epic Spunge",1], ["Epic PomPom",1], ["Epic Reedling",1]]
+    };
+
     const CLEAN_INITIAL_STATE = {
       tallies: {},
       pinned: {},
-      instances: {}
+      instances: {},
+      tiers: {} // key: `${instKey}` -> "common" | "rare" | "epic"
     };
 
     let currentTab = "wublins";
@@ -1141,6 +1243,7 @@
         parsed.tallies = parsed.tallies || {};
         parsed.pinned = parsed.pinned || {};
         parsed.instances = parsed.instances || {};
+        parsed.tiers = parsed.tiers || {};
         return parsed;
       } catch (e) {
         return JSON.parse(JSON.stringify(CLEAN_INITIAL_STATE));
@@ -1153,6 +1256,7 @@
       pill.textContent = "SAVED";
     }
 
+    // Standard Egg Fallback Colors
     const EGG_STYLE = {
       "Entbrat": { c1: "#e07a24", c2: "#8f3f09", spot: "#5eb327" },
       "Deedge": { c1: "#4da6ff", c2: "#154c91", spot: "#ffffff" },
@@ -1187,13 +1291,121 @@
       "Kayna": { c1: "#ff621f", c2: "#8f2400", spot: "#ffbe4f" }
     };
 
+    // Element Sigil Colors & Glyphs for the In-Game Flex Egg Renderer
+    const ELEMENT_SIGIL_MAP = {
+      "Psychic": { bg: "#7e22ce", fg: "#f0abfc", glyph: "◎" },
+      "Fire":    { bg: "#c2410c", fg: "#fde047", glyph: "🔥" },
+      "Faerie":  { bg: "#be185d", fg: "#fbcfe8", glyph: "✿" },
+      "Light":   { bg: "#b45309", fg: "#fef08a", glyph: "☀" },
+      "Bone":    { bg: "#57534e", fg: "#f5f5f4", glyph: "🦴" },
+      "Plant":   { bg: "#15803d", fg: "#86efac", glyph: "♣" },
+      "Cold":    { bg: "#0369a1", fg: "#bae6fd", glyph: "❄" },
+      "Air":     { bg: "#6d28d9", fg: "#ddd6fe", glyph: "≈" },
+      "Water":   { bg: "#1d4ed8", fg: "#93c5fd", glyph: "💧" },
+      "Earth":   { bg: "#78350f", fg: "#fcd34d", glyph: "▲" },
+      "Mythical":{ bg: "#4c1d95", fg: "#fde68a", glyph: "☾" }
+    };
+
+    // Exact In-Game Rare Flex / Mythical Flex Egg SVG matching user's screenshot (mint spotted egg + monster skull + copper element & wildcard '*' sigils)
+    function buildFlexEggSVG(eggName, uidSuffix = "") {
+      const gradId = "flex_" + safeFilename(eggName) + "_" + uidSuffix;
+      const isMythical = /mythical/i.test(eggName);
+
+      // Determine element count (2E, 3E, 4E, or 1 for Mythical)
+      let numElements = 2;
+      if (/4E|Quad/i.test(eggName)) numElements = 4;
+      else if (/3E|Triple/i.test(eggName)) numElements = 3;
+      else if (isMythical) numElements = 1;
+
+      // Determine primary element sigil
+      let elemKey = "Fire";
+      for (const k of Object.keys(ELEMENT_SIGIL_MAP)) {
+        if (eggName.toLowerCase().includes(k.toLowerCase())) {
+          elemKey = k;
+          break;
+        }
+      }
+      const sigil = ELEMENT_SIGIL_MAP[elemKey];
+
+      // Build Copper-Rimmed Sigil Badges along the bottom of the egg
+      const badgeRadius = 6.2;
+      const spacing = numElements === 4 ? 11.2 : 13.5;
+      const startX = 26 - ((numElements - 1) * spacing) / 2;
+
+      let badgesSVG = "";
+      for (let i = 0; i < numElements; i++) {
+        const cx = startX + i * spacing;
+        const cy = 39;
+        if (i === 0) {
+          // Primary Element Sigil Badge
+          let innerIcon = "";
+          if (elemKey === "Psychic") {
+            innerIcon = `<path d="M${cx-3},${cy} A3,3 0 1,1 ${cx+3},${cy} A2,2 0 1,1 ${cx-1.5},${cy} A1,1 0 1,1 ${cx+1},${cy}" fill="none" stroke="#f0abfc" stroke-width="1.4" stroke-linecap="round"/>`;
+          } else if (elemKey === "Fire") {
+            innerIcon = `<path d="M${cx},${cy-3.8} C${cx+2.5},${cy-1} ${cx+3},${cy+1.5} ${cx},${cy+3.5} C${cx-3},${cy+1.5} ${cx-2.5},${cy-1} ${cx},${cy-3.8} Z" fill="#fb923c"/><circle cx="${cx}" cy="${cy+1.2}" r="1.4" fill="#fef08a"/>`;
+          } else {
+            innerIcon = `<text x="${cx}" y="${cy+2.6}" text-anchor="middle" fill="${sigil.fg}" font-size="7.5" font-weight="900">${sigil.glyph}</text>`;
+          }
+          badgesSVG += `
+            <g>
+              <circle cx="${cx}" cy="${cy}" r="${badgeRadius}" fill="${sigil.bg}" stroke="#d97706" stroke-width="1.8"/>
+              <circle cx="${cx}" cy="${cy}" r="${badgeRadius-0.8}" fill="none" stroke="#fef08a" stroke-width="0.5" stroke-dasharray="2,2"/>
+              ${innerIcon}
+            </g>
+          `;
+        } else {
+          // Green Wildcard '*' Sigil Badge
+          badgesSVG += `
+            <g>
+              <circle cx="${cx}" cy="${cy}" r="${badgeRadius}" fill="#1e1b2e" stroke="#d97706" stroke-width="1.8"/>
+              <circle cx="${cx}" cy="${cy}" r="${badgeRadius-0.8}" fill="none" stroke="#fef08a" stroke-width="0.5" stroke-dasharray="2,2"/>
+              <path d="M${cx},${cy-3.3} L${cx},${cy+3.3} M${cx-2.9},${cy-1.7} L${cx+2.9},${cy+1.7} M${cx-2.9},${cy+1.7} L${cx+2.9},${cy-1.7}"
+                    stroke="#84cc16" stroke-width="1.6" stroke-linecap="round"/>
+            </g>
+          `;
+        }
+      }
+
+      return `
+        <svg class="egg-svg-fallback" viewBox="0 0 52 48">
+          <defs>
+            <radialGradient id="${gradId}" cx="38%" cy="28%" r="68%">
+              <stop offset="0%" stop-color="#c4f9ec" />
+              <stop offset="55%" stop-color="#45b8a6" />
+              <stop offset="100%" stop-color="#135e59" />
+            </radialGradient>
+          </defs>
+          <!-- Mint-Teal Horizontally-Rounded Rare Flex Egg Shell -->
+          <ellipse cx="26" cy="22" rx="19" ry="16.5" fill="url(#${gradId})" stroke="#0f3d3a" stroke-width="1.5"/>
+          <!-- Outer Shell Spots -->
+          <circle cx="12" cy="18" r="2.2" fill="#136b61" opacity="0.65"/>
+          <circle cx="13" cy="26" r="3" fill="#136b61" opacity="0.65"/>
+          <circle cx="39" cy="17" r="2" fill="#136b61" opacity="0.65"/>
+          <circle cx="38" cy="25" r="2.6" fill="#136b61" opacity="0.65"/>
+          <!-- Horned Monster Skull Silhouette Inside Egg -->
+          <path d="M18,17 C16,13 17,10 19,12 C21,10 23,11 26,11 C29,11 31,10 33,12 C35,10 36,13 34,17 C36,21 34,28 29,30 L23,30 C18,28 16,21 18,17 Z"
+                fill="#118776" opacity="0.88"/>
+          <!-- Dark Eye Sockets & Jaw Line -->
+          <circle cx="22.5" cy="21" r="2.6" fill="#0d4a42"/>
+          <circle cx="29.5" cy="21" r="2.6" fill="#0d4a42"/>
+          <path d="M21,26.5 Q26,28.5 31,26.5" fill="none" stroke="#0d4a42" stroke-width="1.3" stroke-linecap="round"/>
+          <!-- Copper-Rimmed Element + Wildcard '*' Sigils at Bottom -->
+          ${badgesSVG}
+        </svg>
+      `;
+    }
+
     function buildEggSVG(eggName, uidSuffix = "") {
-      const isFlex = eggName.includes("Flex");
-      const st = isFlex
-        ? { c1: "#f59e0b", c2: "#6d28d9", spot: "#fde047" }
-        : (EGG_STYLE[eggName] || { c1: "#c27838", c2: "#6e3814", spot: "#f5cba7" });
+      if (/flex/i.test(eggName)) {
+        return buildFlexEggSVG(eggName, uidSuffix);
+      }
+      const baseClean = eggName.replace(/^(Rare|Epic)\s+/i, "").trim();
+      const isRare = /^Rare\s+/i.test(eggName);
+      const isEpic = /^Epic\s+/i.test(eggName);
+      const st = EGG_STYLE[baseClean] || { c1: "#c27838", c2: "#6e3814", spot: "#f5cba7" };
       const gradId = "eg_" + safeFilename(eggName) + "_" + uidSuffix;
-      const label = isFlex ? "FLEX" : eggName.slice(0, 3).toUpperCase();
+      const label = baseClean.slice(0, 3).toUpperCase();
+      const rimStroke = isEpic ? "#c084fc" : (isRare ? "#38bdf8" : "rgba(0,0,0,0.45)");
 
       return `
         <svg class="egg-svg-fallback" viewBox="0 0 40 44">
@@ -1204,7 +1416,7 @@
             </radialGradient>
           </defs>
           <path d="M20,3 C30,3 36,16 36,27 C36,36 29,41 20,41 C11,41 4,36 4,27 C4,16 10,3 20,3 Z"
-                fill="url(#${gradId})" stroke="rgba(0,0,0,0.45)" stroke-width="1.5"/>
+                fill="url(#${gradId})" stroke="${rimStroke}" stroke-width="2"/>
           <circle cx="14" cy="15" r="3.2" fill="${st.spot}" opacity="0.65"/>
           <circle cx="26" cy="19" r="2.5" fill="${st.spot}" opacity="0.6"/>
           <circle cx="15" cy="28" r="2.8" fill="${st.spot}" opacity="0.55"/>
@@ -1214,30 +1426,59 @@
       `;
     }
 
-    // Repairs MONSTER_DB.adults if msm_recipes.json had empty "eggs": [] from the previous scraper bug
+    // Repairs MONSTER_DB.adults if msm_recipes.json is missing the Required Flex Eggs at the end of any Adult Celestial
     function ensureAdultCelestialsPopulated() {
       if (!MONSTER_DB.adults || MONSTER_DB.adults.length === 0) {
         MONSTER_DB.adults = JSON.parse(JSON.stringify(ADULT_CELESTIALS_REPAIR));
         return;
       }
       MONSTER_DB.adults.forEach(adult => {
+        const cleanName = adult.name.replace(/\s*\([^)]*\)/g, "").trim().toLowerCase();
+        const match = ADULT_CELESTIALS_REPAIR.find(r => r.name.toLowerCase() === cleanName);
+        if (!match) return;
+
         if (!adult.eggs || adult.eggs.length < 2) {
-          const cleanName = adult.name.replace(/\s*\([^)]*\)/g, "").trim().toLowerCase();
-          const match = ADULT_CELESTIALS_REPAIR.find(r => r.name.toLowerCase() === cleanName);
-          if (match) {
-            adult.eggs = JSON.parse(JSON.stringify(match.eggs));
-            if (!adult.time || adult.time === "-") {
-              adult.time = match.time;
-            }
+          adult.eggs = JSON.parse(JSON.stringify(match.eggs));
+        } else {
+          // If the old scraper grabbed the 14-19 regular eggs but missed the Flex Eggs, append the Flex Eggs now!
+          const hasFlex = adult.eggs.some(([eName]) => /flex/i.test(eName));
+          if (!hasFlex) {
+            const flexEggs = match.eggs.filter(([eName]) => /flex/i.test(eName));
+            adult.eggs.push(... JSON.parse(JSON.stringify(flexEggs)));
           }
+        }
+        if (!adult.time || adult.time === "-") {
+          adult.time = match.time;
         }
       });
     }
 
-    // Background JSONP resolver for any Adult Celestial or Magical/Seasonal egg not yet downloaded to ./msm_assets/
+    // Attaches Rare & Epic Wublin variants onto each Wublin object so there is zero list bloat
+    function ensureWublinVariantsAttached() {
+      (MONSTER_DB.wublins || []).forEach(w => {
+        const key = w.id.toLowerCase();
+        w.variants = w.variants || {};
+        if (!w.variants.rare && WUBLIN_RARE_RECIPES[key]) {
+          w.variants.rare = {
+            name: `Rare ${w.name}`,
+            time: "No Limit",
+            eggs: WUBLIN_RARE_RECIPES[key]
+          };
+        }
+        if (!w.variants.epic && WUBLIN_EPIC_RECIPES[key]) {
+          w.variants.epic = {
+            name: `Epic ${w.name}`,
+            time: "No Limit",
+            eggs: WUBLIN_EPIC_RECIPES[key]
+          };
+        }
+      });
+    }
+
+    // Background JSONP resolver for any Rare/Epic Wublin or Adult Celestial sprites not yet in ./msm_assets/
     function fetchWikiImageBatchJSONP(fileList) {
       return new Promise((resolve) => {
-        const cbName = "msmAdultCB_" + Math.random().toString(36).slice(2);
+        const cbName = "msmWikiCB_" + Math.random().toString(36).slice(2);
         const titlesParam = fileList.map(f => "File:" + f).join("|");
         const script = document.createElement("script");
         const timeout = setTimeout(() => { cleanup(); resolve(); }, 7000);
@@ -1286,28 +1527,52 @@
       });
     }
 
-    async function resolveMissingAdultSpritesOnline() {
+    async function resolveMissingSpritesOnline() {
       const needed = new Set();
+
+      // Adult Celestials
       (MONSTER_DB.adults || []).forEach(m => {
         const cleanMonster = m.name.replace(/\s*\([^)]*\)/g, "").trim().replace(/\s+/g, "_");
         if (!imgMap[`${cleanMonster}.png`]) needed.add(`${cleanMonster}.png`);
         (m.eggs || []).forEach(([eggName]) => {
-          if (!EGG_IMAGES[eggName]) {
-            const cleanEgg = eggName.includes("Flex") ? "Rare_Double-Element_Fire_Flex-Egg.png" : `${eggName.replace(/\s+/g, "_")}-egg.png`;
-            const cleanEgg2 = eggName.includes("Flex") ? "Spooktacle_Mythical_Flex-Egg.png" : `${eggName.replace(/\s+/g, "_")}_Egg.png`;
-            if (!imgMap[cleanEgg]) needed.add(cleanEgg);
-            if (!imgMap[cleanEgg2]) needed.add(cleanEgg2);
+          if (!/flex/i.test(eggName) && !EGG_IMAGES[eggName]) {
+            const ce1 = `${eggName.replace(/\s+/g, "_")}-egg.png`;
+            const ce2 = `${eggName.replace(/\s+/g, "_")}_Egg.png`;
+            if (!imgMap[ce1]) needed.add(ce1);
+            if (!imgMap[ce2]) needed.add(ce2);
           }
         });
+      });
+
+      // Rare & Epic Wublin Portraits & Eggs
+      (MONSTER_DB.wublins || []).forEach(w => {
+        ["Rare", "Epic"].forEach(prefix => {
+          const pFile = `${prefix}_${w.name.replace(/\s+/g, "_")}.png`;
+          if (!imgMap[pFile]) needed.add(pFile);
+        });
+        if (w.variants) {
+          ["rare", "epic"].forEach(t => {
+            if (w.variants[t] && w.variants[t].eggs) {
+              w.variants[t].eggs.forEach(([eggName]) => {
+                if (!EGG_IMAGES[eggName]) {
+                  const ce1 = `${eggName.replace(/\s+/g, "_")}-egg.png`;
+                  const ce2 = `${eggName.replace(/\s+/g, "_")}_Egg.png`;
+                  if (!imgMap[ce1]) needed.add(ce1);
+                  if (!imgMap[ce2]) needed.add(ce2);
+                }
+              });
+            }
+          });
+        }
       });
 
       const list = Array.from(needed);
       if (list.length === 0) return;
       for (let i = 0; i < list.length; i += 40) {
         await fetchWikiImageBatchJSONP(list.slice(i, i + 40));
+        try { localStorage.setItem(IMG_MAP_KEY, JSON.stringify(imgMap)); } catch (e) {}
+        render();
       }
-      try { localStorage.setItem(IMG_MAP_KEY, JSON.stringify(imgMap)); } catch (e) {}
-      if (currentTab === "adults") render();
     }
 
     async function loadRecipesFromJson() {
@@ -1319,9 +1584,10 @@
             MONSTER_DB = data.monsters;
             EGG_IMAGES = data.eggs || {};
             ensureAdultCelestialsPopulated();
+            ensureWublinVariantsAttached();
             updateTabCounts();
             render();
-            resolveMissingAdultSpritesOnline();
+            resolveMissingSpritesOnline();
             return;
           }
         }
@@ -1331,17 +1597,18 @@
         MONSTER_DB = window.MSM_SCRAPED_DATA.monsters;
         EGG_IMAGES = window.MSM_SCRAPED_DATA.eggs || {};
         ensureAdultCelestialsPopulated();
+        ensureWublinVariantsAttached();
         updateTabCounts();
         render();
-        resolveMissingAdultSpritesOnline();
+        resolveMissingSpritesOnline();
         return;
       }
 
-      // Even if msm_recipes.json couldn't be fetched on file://, populate Adult Celestials so the tab works
       ensureAdultCelestialsPopulated();
+      ensureWublinVariantsAttached();
       updateTabCounts();
       render();
-      resolveMissingAdultSpritesOnline();
+      resolveMissingSpritesOnline();
     }
 
     function updateTabCounts() {
@@ -1366,11 +1633,50 @@
       return arr;
     }
 
+    function getInstanceTier(instKey) {
+      if (currentTab !== "wublins") return "common";
+      return state.tiers[instKey] || "common";
+    }
+
+    function setInstanceTier(instKey, tier) {
+      state.tiers = state.tiers || {};
+      state.tiers[instKey] = tier;
+      saveState();
+      render();
+    }
+
+    // Returns the active tier's data (name, time, eggs, portrait URL, tallyKeyPrefix) for a monster instance
+    function getActiveTierData(monster, instKey) {
+      const tier = currentTab === "wublins" ? (state.tiers[instKey] || "common") : "common";
+      if (tier === "common" || !monster.variants || !monster.variants[tier]) {
+        return {
+          tier: "common",
+          name: monster.name,
+          time: monster.time,
+          eggs: monster.eggs || [],
+          tallyPrefix: instKey,
+          imgUrl: getMonsterImgUrl(monster, "common")
+        };
+      }
+      const v = monster.variants[tier];
+      return {
+        tier,
+        name: v.name || `${tier === "rare" ? "Rare" : "Epic"} ${monster.name}`,
+        time: v.time || "No Limit",
+        eggs: v.eggs || [],
+        tallyPrefix: `${instKey}__${tier}`,
+        imgUrl: v.local_img || v.img_url || getMonsterImgUrl(monster, tier)
+      };
+    }
+
     function addMonsterCopy(monsterId) {
       const current = getInstancesForMonster(monsterId).slice();
       const nextNum = Math.max(...current) + 1;
       current.push(nextNum);
       state.instances[monsterId] = current;
+      // Inherit the tier of the previous copy so if you're adding Rare Zynths it stays on Rare
+      const prevTier = state.tiers[`${monsterId}#${current[current.length - 2]}`] || "common";
+      state.tiers[`${monsterId}#${nextNum}`] = prevTier;
       state.pinned[`${monsterId}#${nextNum}`] = true;
       if (current.length === 2) {
         state.pinned[`${monsterId}#${current[0]}`] = true;
@@ -1387,6 +1693,7 @@
         if (k.startsWith(instKey + "__")) delete state.tallies[k];
       });
       delete state.pinned[instKey];
+      delete state.tiers[instKey];
 
       if (current.length > 1) {
         state.instances[monsterId] = current.filter(n => n !== instNum);
@@ -1407,7 +1714,13 @@
       removeMonsterCopy(monsterId, lastNum);
     }
 
-    function getMonsterImgUrl(monster) {
+    function getMonsterImgUrl(monster, tier = "common") {
+      if (tier === "rare" || tier === "epic") {
+        const prefix = tier === "rare" ? "Rare" : "Epic";
+        const wFile = `${prefix}_${monster.name.replace(/\s+/g, "_")}.png`;
+        if (imgMap[wFile]) return imgMap[wFile];
+        return `msm_assets/monsters/${tier}-${monster.id}.png`;
+      }
       if (monster.local_img) return monster.local_img;
       if (monster.img_url) return monster.img_url;
       const clean = monster.name.replace(/\s*\([^)]*\)/g, "").trim().replace(/\s+/g, "_");
@@ -1416,9 +1729,11 @@
     }
 
     function getEggImgUrl(eggName) {
+      // Flex Eggs always use our exact in-game Rare Flex SVG with the element + '*' sigils
+      if (/flex/i.test(eggName)) return "";
       if (EGG_IMAGES[eggName]) return EGG_IMAGES[eggName];
-      const c1 = eggName.includes("Flex") ? "Rare_Double-Element_Fire_Flex-Egg.png" : `${eggName.replace(/\s+/g, "_")}-egg.png`;
-      const c2 = eggName.includes("Flex") ? "Spooktacle_Mythical_Flex-Egg.png" : `${eggName.replace(/\s+/g, "_")}_Egg.png`;
+      const c1 = `${eggName.replace(/\s+/g, "_")}-egg.png`;
+      const c2 = `${eggName.replace(/\s+/g, "_")}_Egg.png`;
       if (imgMap[c1]) return imgMap[c1];
       if (imgMap[c2]) return imgMap[c2];
       return `msm_assets/eggs/${safeFilename(eggName)}.png`;
@@ -1438,12 +1753,12 @@
       return html;
     }
 
-    function adjustEggTally(instKey, eggName, reqCount, mode, event) {
+    function adjustEggTally(tallyPrefix, eggName, reqCount, mode, event) {
       if (event) {
         event.preventDefault();
         event.stopPropagation();
       }
-      const key = `${instKey}__${eggName}`;
+      const key = `${tallyPrefix}__${eggName}`;
       const current = state.tallies[key] || 0;
 
       if (mode === "max" || (event && event.shiftKey)) {
@@ -1467,8 +1782,9 @@
     function fillAllInstance(monsterId, instKey) {
       const m = (MONSTER_DB[currentTab] || []).find(x => x.id === monsterId);
       if (!m) return;
-      (m.eggs || []).forEach(([eggName, req]) => {
-        state.tallies[`${instKey}__${eggName}`] = req;
+      const tierData = getActiveTierData(m, instKey);
+      tierData.eggs.forEach(([eggName, req]) => {
+        state.tallies[`${tierData.tallyPrefix}__${eggName}`] = req;
       });
       saveState();
       render();
@@ -1477,8 +1793,9 @@
     function clearInstance(monsterId, instKey) {
       const m = (MONSTER_DB[currentTab] || []).find(x => x.id === monsterId);
       if (!m) return;
-      (m.eggs || []).forEach(([eggName]) => {
-        delete state.tallies[`${instKey}__${eggName}`];
+      const tierData = getActiveTierData(m, instKey);
+      tierData.eggs.forEach(([eggName]) => {
+        delete state.tallies[`${tierData.tallyPrefix}__${eggName}`];
       });
       saveState();
       render();
@@ -1497,14 +1814,16 @@
       let activeInstancesCount = 0;
 
       monsters.forEach(m => {
-        const eggsList = m.eggs || [];
         const instances = getInstancesForMonster(m.id);
         instances.forEach(instNum => {
           const instKey = `${m.id}#${instNum}`;
+          const tierData = getActiveTierData(m, instKey);
+          const eggsList = tierData.eggs;
+
           let zapped = 0;
           let total = 0;
           eggsList.forEach(([eggName, req]) => {
-            zapped += Math.min(req, state.tallies[`${instKey}__${eggName}`] || 0);
+            zapped += Math.min(req, state.tallies[`${tierData.tallyPrefix}__${eggName}`] || 0);
             total += req;
           });
 
@@ -1512,7 +1831,7 @@
           if (isWorking && zapped < total) {
             activeInstancesCount++;
             eggsList.forEach(([eggName, req]) => {
-              const cur = Math.min(req, state.tallies[`${instKey}__${eggName}`] || 0);
+              const cur = Math.min(req, state.tallies[`${tierData.tallyPrefix}__${eggName}`] || 0);
               const rem = Math.max(0, req - cur);
               if (rem > 0) {
                 neededMap[eggName] = (neededMap[eggName] || 0) + rem;
@@ -1536,7 +1855,7 @@
         const eggUrl = getEggImgUrl(eggName);
         return `
           <span class="queue-pill">
-            <img class="queue-egg-img" src="${eggUrl}" alt="" onerror="this.style.display='none'" />
+            ${eggUrl ? `<img class="queue-egg-img" src="${eggUrl}" alt="" onerror="this.style.display='none'" />` : ""}
             <span class="msm-label-text" style="font-size:0.8rem;">${eggName}</span>
             <span class="sale-badge">x${rem}</span>
           </span>
@@ -1563,24 +1882,26 @@
       const renderItems = [];
 
       monsters.forEach(monster => {
-        const eggsList = monster.eggs || [];
-        if (search) {
-          const matchName = monster.name.toLowerCase().includes(search);
-          const matchEgg = eggsList.some(([e]) => e.toLowerCase().includes(search));
-          if (!matchName && !matchEgg) return;
-        }
-
         const instances = getInstancesForMonster(monster.id);
         const totalCopies = instances.length;
 
         instances.forEach((instNum, idx) => {
           const instKey = `${monster.id}#${instNum}`;
+          const tierData = getActiveTierData(monster, instKey);
+          const eggsList = tierData.eggs;
+
+          if (search) {
+            const matchName = tierData.name.toLowerCase().includes(search) || monster.name.toLowerCase().includes(search);
+            const matchEgg = eggsList.some(([e]) => e.toLowerCase().includes(search));
+            if (!matchName && !matchEgg) return;
+          }
+
           let totalReq = 0;
           let totalZapped = 0;
 
           eggsList.forEach(([eggName, req]) => {
             totalReq += req;
-            totalZapped += Math.min(req, state.tallies[`${instKey}__${eggName}`] || 0);
+            totalZapped += Math.min(req, state.tallies[`${tierData.tallyPrefix}__${eggName}`] || 0);
           });
 
           const remaining = Math.max(0, totalReq - totalZapped);
@@ -1594,6 +1915,7 @@
 
           renderItems.push({
             monster,
+            tierData,
             eggsList,
             instNum,
             idx,
@@ -1630,7 +1952,7 @@
 
       renderItems.forEach(item => {
         const {
-          monster, eggsList, instNum, idx, totalCopies, instKey,
+          monster, tierData, eggsList, instNum, idx, totalCopies, instKey,
           totalReq, totalZapped, remaining, pct, isCompleted, isPinned, isActive
         } = item;
 
@@ -1638,31 +1960,38 @@
         const board = document.createElement("article");
         board.className = `monster-board ${isCompleted ? "board-completed" : (isActive ? "board-active" : "")}`;
 
-        const monsterImgUrl = getMonsterImgUrl(monster);
-        const cleanMonsterFile = monster.name.replace(/\s*\([^)]*\)/g, "").trim().replace(/\s+/g, "_") + ".png";
-        const remoteFallback = monster.img_url || imgMap[cleanMonsterFile] || "";
-        const displayTitle = totalCopies > 1 ? `${monster.name} #${idx + 1}` : monster.name;
-        const cleanedTime = cleanTimeLimit(monster.time);
+        const monsterImgUrl = tierData.imgUrl;
+        const fallbackCommonUrl = getMonsterImgUrl(monster, "common");
+        const displayTitle = totalCopies > 1 ? `${tierData.name} #${idx + 1}` : tierData.name;
+        const cleanedTime = cleanTimeLimit(tierData.time);
 
         const eggsHTML = eggsList.map(([eggName, req], eggIdx) => {
-          const cur = Math.min(req, state.tallies[`${instKey}__${eggName}`] || 0);
+          const cur = Math.min(req, state.tallies[`${tierData.tallyPrefix}__${eggName}`] || 0);
           const done = cur >= req;
+          const isFlexEgg = /flex/i.test(eggName);
           const eggImgUrl = getEggImgUrl(eggName);
           const safeEgg = eggName.replace(/'/g, "\\'");
-          const uid = `${monster.id}_${instNum}_${eggIdx}`;
+          const uid = `${monster.id}_${tierData.tier}_${instNum}_${eggIdx}`;
+
+          // Format display label for Flex Eggs just like the screenshot ("Rare Flex (2E Psychic)" / "Mythical Flex")
+          let displayEggLabel = eggName;
+          if (isFlexEgg && /^Rare\s+/i.test(eggName)) {
+            const sub = eggName.replace(/^Rare\s+/i, "").replace(/\s*Flex.*$/i, "").trim();
+            displayEggLabel = `Rare Flex (${sub})`;
+          }
 
           return `
             <div class="egg-slot ${done ? 'slot-complete' : ''}"
-                 oncontextmenu="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'minus', event)">
+                 oncontextmenu="adjustEggTally('${tierData.tallyPrefix}', '${safeEgg}', ${req}, 'minus', event)">
               <div class="egg-tap-area"
-                   onclick="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'plus', event)"
+                   onclick="adjustEggTally('${tierData.tallyPrefix}', '${safeEgg}', ${req}, 'plus', event)"
                    title="Tap to add +1 ${eggName}">
                 <div class="egg-stage">
                   <div class="egg-sprite-wrap">
                     ${buildEggSVG(eggName, uid)}
-                    <img class="egg-img" src="${eggImgUrl}" alt="" loading="lazy"
+                    ${!isFlexEgg && eggImgUrl ? `<img class="egg-img" src="${eggImgUrl}" alt="" loading="lazy"
                          onload="if(this.previousElementSibling)this.previousElementSibling.style.display='none'"
-                         onerror="this.style.display='none'" />
+                         onerror="this.style.display='none'" />` : ""}
                     <svg class="egg-scribble" viewBox="0 0 40 44">
                       <path d="M4,6 L36,38 M36,6 L4,38 M2,22 L38,18 M6,32 L34,10"
                             stroke="#ff2b2b" stroke-width="4" stroke-linecap="round"/>
@@ -1670,26 +1999,35 @@
                   </div>
                 </div>
                 <span class="egg-counter-badge">${cur}/${req}</span>
-                <div class="egg-name-label msm-label-text">${eggName}</div>
+                <div class="egg-name-label msm-label-text">${displayEggLabel}</div>
                 <div class="tally-row">${formatTalliesHTML(cur)}</div>
               </div>
 
               <div class="slot-btn-row">
-                <button class="slot-micro-btn" onclick="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'minus', event)" title="Subtract 1">-</button>
-                <button class="slot-micro-btn slot-btn-plus" onclick="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'plus', event)" title="Add 1">+</button>
-                <button class="slot-micro-btn slot-btn-max" onclick="adjustEggTally('${instKey}', '${safeEgg}', ${req}, 'max', event)" title="Max / Cross Out">MAX</button>
+                <button class="slot-micro-btn" onclick="adjustEggTally('${tierData.tallyPrefix}', '${safeEgg}', ${req}, 'minus', event)" title="Subtract 1">-</button>
+                <button class="slot-micro-btn slot-btn-plus" onclick="adjustEggTally('${tierData.tallyPrefix}', '${safeEgg}', ${req}, 'plus', event)" title="Add 1">+</button>
+                <button class="slot-micro-btn slot-btn-max" onclick="adjustEggTally('${tierData.tallyPrefix}', '${safeEgg}', ${req}, 'max', event)" title="Max / Cross Out">MAX</button>
               </div>
             </div>
           `;
         }).join("");
 
+        // Compact Common | Rare | Epic Switcher shown inside Wublin cards
+        const tierSwitcherHTML = currentTab === "wublins" ? `
+          <div class="tier-selector-bar" title="Switch this statue between Common, Rare, and Epic">
+            <button class="tier-btn ${tierData.tier === 'common' ? 'active-common' : ''}" onclick="setInstanceTier('${instKey}', 'common')">Common</button>
+            <button class="tier-btn ${tierData.tier === 'rare' ? 'active-rare' : ''}" onclick="setInstanceTier('${instKey}', 'rare')">Rare</button>
+            <button class="tier-btn ${tierData.tier === 'epic' ? 'active-epic' : ''}" onclick="setInstanceTier('${instKey}', 'epic')">Epic</button>
+          </div>
+        ` : "";
+
         board.innerHTML = `
-          <!-- Left Column: Market-Style Wooden Portrait Frame + Nameplate + Red Pill Badges -->
+          <!-- Left Column: Market-Style Wooden Portrait Frame + Nameplate + Tier Switcher + Copies Stepper -->
           <div class="monster-pedestal-col">
             <div class="pedestal-left-wrap">
               <div class="market-portrait-frame">
-                <img class="monster-img" src="${monsterImgUrl}" alt="${monster.name}" loading="lazy"
-                     onerror="if('${remoteFallback}' && this.src !== '${remoteFallback}'){this.src='${remoteFallback}';}else{this.style.display='none';}" />
+                <img class="monster-img" src="${monsterImgUrl}" alt="${tierData.name}" loading="lazy"
+                     onerror="if('${fallbackCommonUrl}' && this.src !== '${fallbackCommonUrl}'){this.src='${fallbackCommonUrl}';}else{this.style.display='none';}" />
                 ${totalCopies > 1 ? `<span class="sale-badge copy-number-tag">#${idx + 1}</span>` : ""}
               </div>
               <div style="width:100%;">
@@ -1702,6 +2040,8 @@
                 </div>
               </div>
             </div>
+
+            ${tierSwitcherHTML}
 
             <div class="copies-stepper" title="Track multiple copies of ${monster.name}">
               <span class="copies-label">Copies:</span>
@@ -1758,8 +2098,9 @@
         instances.forEach(instNum => {
           const instKey = `${m.id}#${instNum}`;
           delete state.pinned[instKey];
-          (m.eggs || []).forEach(([eggName]) => {
-            delete state.tallies[`${instKey}__${eggName}`];
+          delete state.tiers[instKey];
+          Object.keys(state.tallies).forEach(k => {
+            if (k.startsWith(instKey + "__")) delete state.tallies[k];
           });
         });
         delete state.instances[m.id];
@@ -1789,6 +2130,7 @@
             state = parsed;
             state.instances = state.instances || {};
             state.pinned = state.pinned || {};
+            state.tiers = state.tiers || {};
             saveState();
             render();
           }
