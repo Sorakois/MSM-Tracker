@@ -92,9 +92,9 @@
         0 3px 5px rgba(0, 0, 0, 0.65);
     }
 
+    /* Sticky Top Plank Header */
     header {
-      background:
-        linear-gradient(180deg, rgba(49, 38, 66, 0.96) 0%, rgba(28, 21, 38, 0.98) 100%);
+      background: linear-gradient(180deg, rgba(49, 38, 66, 0.96) 0%, rgba(28, 21, 38, 0.98) 100%);
       border-bottom: 3px solid #120c1a;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65), inset 0 -2px 0 var(--plank-highlight);
       position: sticky;
@@ -152,7 +152,7 @@
 
     .banner-title {
       font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 1.25rem;
+      font-size: 1.22rem;
       letter-spacing: 1.2px;
       text-transform: uppercase;
       color: var(--msm-green);
@@ -182,19 +182,19 @@
       display: none;
     }
 
-    .island-tabs {
+    /* Primary 2-Mode Switcher: Active Inventory vs. Monsterpedia */
+    .mode-switcher-tabs {
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
     }
 
-    .tab-btn {
+    .mode-tab-btn {
       font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      padding: 7px 14px;
-      border-radius: 10px;
+      padding: 8px 16px;
+      border-radius: 11px;
       cursor: pointer;
       color: #f5e6d3;
       background: linear-gradient(180deg, var(--wood-frame-top) 0%, var(--wood-frame-mid) 55%, var(--wood-frame-bot) 100%);
@@ -215,13 +215,13 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      gap: 6px;
       text-align: center;
     }
-    .tab-btn:hover { filter: brightness(1.1); }
-    .tab-btn:active { transform: translateY(2px); }
+    .mode-tab-btn:hover { filter: brightness(1.1); }
+    .mode-tab-btn:active { transform: translateY(2px); }
 
-    .tab-btn.active {
+    .mode-tab-btn.active {
       background: linear-gradient(180deg, #1b1326 0%, #2d1f40 100%);
       color: var(--msm-green);
       border-color: var(--copper-light);
@@ -232,6 +232,7 @@
         0 4px 8px rgba(0, 0, 0, 0.6);
     }
 
+    /* Chiseled Stone & Wood Game Buttons */
     .toolbar-actions {
       display: flex;
       flex-wrap: wrap;
@@ -320,6 +321,42 @@
       gap: 16px;
     }
 
+    /* Island Category Sub-Bar (Used in Monsterpedia & Inventory Filtering) */
+    .island-sub-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .sub-tab-btn {
+      font-family: 'Lilita One', cursive, sans-serif;
+      font-size: 0.84rem;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      padding: 6px 13px;
+      border-radius: 9px;
+      cursor: pointer;
+      color: #e6ccb2;
+      background: var(--wood-well-inner);
+      border: 2px solid #1c0c04;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7), 0 1px 0 var(--wood-bevel-hi);
+      transition: all 0.12s;
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .sub-tab-btn:hover { color: #ffffff; }
+    .sub-tab-btn.active {
+      background: linear-gradient(180deg, var(--gold-top) 0%, var(--gold-bot) 100%);
+      border-color: #fff3a1;
+      color: #ffffff;
+      text-shadow: 0 1.5px 0 #422100;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Carved Wooden Controls Bar */
     .controls-frame {
       background: linear-gradient(180deg, var(--wood-frame-mid) 0%, var(--wood-frame-bot) 100%);
       border: 3px solid var(--wood-bevel-hi);
@@ -327,9 +364,7 @@
       border-radius: 14px;
       padding: 10px 14px;
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
       gap: 10px;
       box-shadow:
         inset 0 2px 0 rgba(255, 220, 180, 0.35),
@@ -342,7 +377,7 @@
       flex-wrap: wrap;
       align-items: center;
       gap: 10px;
-      flex: 1;
+      width: 100%;
     }
 
     .search-box,
@@ -391,6 +426,7 @@
       cursor: pointer;
     }
 
+    /* Remaining Eggs Needed Queue */
     .breeding-queue-board {
       background: linear-gradient(180deg, var(--wood-frame-mid) 0%, var(--wood-frame-bot) 100%);
       border: 3px solid var(--wood-bevel-hi);
@@ -428,7 +464,7 @@
       align-items: center;
       justify-content: center;
       font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       letter-spacing: 0.5px;
       text-transform: uppercase;
       color: #ffffff;
@@ -444,6 +480,23 @@
         1px -1px 0 #3d0303,
         -1px 1px 0 #3d0303,
         1px 1px 0 #3d0303;
+    }
+
+    .green-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Lilita One', cursive, sans-serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #ffffff;
+      background: linear-gradient(180deg, #5ce619 0%, #207a05 100%);
+      border: 1.5px solid #d8ffc4;
+      outline: 1.5px solid #0b2901;
+      padding: 1px 10px;
+      border-radius: 99px;
+      text-shadow: 0 1px 0 #0b2901;
     }
 
     .queue-well {
@@ -477,6 +530,9 @@
       filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.6));
     }
 
+    /* ============================================================
+       VIEW 1: ACTIVE INVENTORY CARDS
+    ============================================================ */
     .monster-list {
       display: flex;
       flex-direction: column;
@@ -490,7 +546,7 @@
       border-radius: 18px;
       padding: 14px 16px;
       display: grid;
-      grid-template-columns: 215px 1fr 160px;
+      grid-template-columns: 205px 1fr 160px;
       gap: 14px;
       align-items: center;
       box-shadow:
@@ -499,7 +555,7 @@
         0 10px 22px rgba(0, 0, 0, 0.65);
     }
 
-    .monster-board.board-active {
+    .monster-board.board-pinned {
       border-color: var(--brass-ring);
       box-shadow:
         0 0 0 2px var(--brass-ring),
@@ -571,7 +627,7 @@
       border: 2px solid #995c33;
       outline: 1.5px solid #1f0d04;
       border-radius: 8px;
-      padding: 3px 10px;
+      padding: 4px 10px;
       width: 100%;
       box-shadow: inset 0 1px 0 rgba(255, 220, 180, 0.35), 0 3px 5px rgba(0, 0, 0, 0.5);
     }
@@ -591,103 +647,7 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 5px;
-      margin-top: 2px;
-    }
-
-    /* Compact Common / Rare / Epic Wublin Tier Selector (Zero List Bloat) */
-    .tier-selector-bar {
-      display: inline-flex;
-      width: 100%;
-      background: var(--wood-well-inner);
-      border: 2px solid #1c0c04;
-      border-radius: 9px;
-      padding: 2px;
-      gap: 2px;
-      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.8), 0 1px 0 var(--wood-bevel-hi);
-    }
-
-    .tier-btn {
-      flex: 1;
-      font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-      padding: 4px 4px;
-      border-radius: 6px;
-      border: 1px solid transparent;
-      background: transparent;
-      color: #c9a789;
-      cursor: pointer;
-      transition: all 0.12s;
-      text-shadow: 0 1px 0 #000;
-    }
-    .tier-btn:hover {
-      color: #ffffff;
-    }
-    .tier-btn.active-common {
-      background: linear-gradient(180deg, var(--stone-top) 0%, var(--stone-bot) 100%);
-      border-color: var(--stone-hi);
-      color: #ffffff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-    .tier-btn.active-rare {
-      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
-      border-color: #bae6fd;
-      color: #ffffff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-    .tier-btn.active-epic {
-      background: linear-gradient(180deg, #c084fc 0%, #7e22ce 100%);
-      border-color: #f3e8ff;
-      color: #ffd700;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    .copies-stepper {
-      display: inline-flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      background: var(--wood-well-inner);
-      border: 2px solid #1c0c04;
-      padding: 3px 9px;
-      border-radius: 10px;
-      box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.75), 0 1px 0 var(--wood-bevel-hi);
-    }
-
-    .copies-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: #f5dec9;
-      text-transform: uppercase;
-    }
-
-    .stepper-btn {
-      width: 24px;
-      height: 24px;
-      border-radius: 7px;
-      font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.95rem;
-      color: #ffffff;
-      background: linear-gradient(180deg, var(--stone-top) 0%, var(--stone-bot) 100%);
-      border: 1.5px solid var(--stone-hi);
-      outline: 1.5px solid #1a1615;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-shadow: 0 1px 0 #000;
-    }
-    .stepper-btn:active { transform: translateY(1px); }
-
-    .copies-val {
-      font-family: 'Lilita One', cursive, sans-serif;
-      font-size: 0.92rem;
-      min-width: 18px;
-      text-align: center;
-      color: var(--brass-ring);
-      text-shadow: 0 1px 0 #000;
+      margin-top: 3px;
     }
 
     .inventory-well-col {
@@ -942,16 +902,185 @@
       border-left: 2px solid #361908;
     }
 
+    /* ============================================================
+       VIEW 2: MONSTERPEDIA (BOOK OF MONSTERS / MARKET CATALOG GRID)
+    ============================================================ */
+    .monsterpedia-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+      gap: 16px;
+    }
+
+    .pedia-card {
+      background: linear-gradient(180deg, var(--wood-frame-top) 0%, var(--wood-frame-mid) 50%, var(--wood-frame-bot) 100%);
+      border: 3px solid var(--wood-bevel-hi);
+      outline: 2.5px solid var(--wood-frame-edge);
+      border-radius: 18px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow:
+        inset 0 2px 0 rgba(255, 225, 190, 0.4),
+        inset 0 -4px 0 #2b1407,
+        0 8px 18px rgba(0, 0, 0, 0.65);
+    }
+
+    .pedia-card-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pedia-portrait {
+      width: 82px;
+      height: 82px;
+      background: radial-gradient(circle at 50% 42%, var(--wood-well-glow) 0%, var(--wood-well-inner) 85%);
+      border: 3.5px solid #8a4e26;
+      outline: 2px solid #1f0d04;
+      border-radius: 14px;
+      box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.85), 0 1px 0 var(--wood-bevel-hi);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .pedia-portrait img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.65));
+    }
+
+    .pedia-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      flex: 1;
+    }
+
+    /* Common / Rare / Epic Preview Switcher inside Monsterpedia Wublin Cards */
+    .tier-selector-bar {
+      display: inline-flex;
+      width: 100%;
+      background: var(--wood-well-inner);
+      border: 2px solid #1c0c04;
+      border-radius: 9px;
+      padding: 2px;
+      gap: 2px;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.8), 0 1px 0 var(--wood-bevel-hi);
+    }
+
+    .tier-btn {
+      flex: 1;
+      font-family: 'Lilita One', cursive, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      padding: 5px 4px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #c9a789;
+      cursor: pointer;
+      transition: all 0.12s;
+      text-shadow: 0 1px 0 #000;
+    }
+    .tier-btn:hover { color: #ffffff; }
+    .tier-btn.active-common {
+      background: linear-gradient(180deg, var(--stone-top) 0%, var(--stone-bot) 100%);
+      border-color: var(--stone-hi);
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .tier-btn.active-rare {
+      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+      border-color: #bae6fd;
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .tier-btn.active-epic {
+      background: linear-gradient(180deg, #c084fc 0%, #7e22ce 100%);
+      border-color: #f3e8ff;
+      color: #ffd700;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Compact Egg Preview Well inside Monsterpedia Card */
+    .pedia-eggs-well {
+      background: radial-gradient(circle at 50% 45%, var(--wood-well-glow) 0%, var(--wood-well-inner) 90%);
+      border: 2px solid #1a0b03;
+      border-radius: 11px;
+      padding: 8px;
+      box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.85), 0 1px 0 var(--wood-bevel-hi);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      flex: 1;
+      align-content: flex-start;
+    }
+
+    .pedia-mini-egg {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(125, 71, 34, 0.55);
+      border: 1px solid #8f532a;
+      border-radius: 8px;
+      padding: 3px 6px 3px 4px;
+    }
+
+    .pedia-mini-egg-icon {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .pedia-mini-egg-icon img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+    .pedia-mini-egg-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .pedia-mini-egg-text {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #fff3e0;
+      line-height: 1.15;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+
+    .pedia-card-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: auto;
+    }
+
     .empty-status-board {
       background: linear-gradient(180deg, var(--wood-frame-mid) 0%, var(--wood-frame-bot) 100%);
       border: 3px solid var(--wood-bevel-hi);
       outline: 2px solid var(--wood-frame-edge);
       border-radius: 18px;
-      padding: 26px 18px;
+      padding: 32px 20px;
       text-align: center;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.65);
     }
 
     @media (max-width: 920px) {
@@ -989,10 +1118,6 @@
       .monster-img {
         width: 62px;
         height: 62px;
-      }
-      .tier-selector-bar {
-        width: auto;
-        min-width: 175px;
       }
       .board-actions-col {
         border-left: none;
@@ -1045,14 +1170,23 @@
         padding: 6px 8px;
         font-size: 0.74rem;
       }
-      .island-tabs {
+      .mode-switcher-tabs {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 6px;
       }
-      .tab-btn {
-        padding: 6px 8px;
-        font-size: 0.78rem;
+      .mode-tab-btn {
+        padding: 7px 8px;
+        font-size: 0.8rem;
+      }
+      .island-sub-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+      .sub-tab-btn {
+        font-size: 0.75rem;
+        padding: 6px 6px;
       }
       .search-box, .sort-select {
         width: 100%;
@@ -1077,63 +1211,30 @@
         <button class="game-btn mobile-menu-btn" onclick="toggleMobileMenu()">Menu</button>
       </div>
 
-      <nav class="island-tabs">
-        <button class="tab-btn active" data-tab="wublins" onclick="switchTab('wublins')">Wublins</button>
-        <button class="tab-btn" data-tab="celestials" onclick="switchTab('celestials')">Young Celestials</button>
-        <button class="tab-btn" data-tab="adults" onclick="switchTab('adults')">Adult Celestials</button>
-        <button class="tab-btn" data-tab="amber" onclick="switchTab('amber')">Amber Island</button>
+      <!-- Primary 2-View Navigation: Active Inventory vs. Monsterpedia -->
+      <nav class="mode-switcher-tabs">
+        <button class="mode-tab-btn active" data-view="inventory" onclick="switchViewMode('inventory')" id="navInventoryBtn">
+          Active Inventory (0)
+        </button>
+        <button class="mode-tab-btn" data-view="monsterpedia" onclick="switchViewMode('monsterpedia')" id="navMonsterpediaBtn">
+          Monsterpedia
+        </button>
       </nav>
 
       <div class="toolbar-actions" id="toolbarActions">
         <button class="game-btn" onclick="exportProgress()">Export Backup</button>
         <button class="game-btn" onclick="document.getElementById('importFile').click()">Import Backup</button>
         <input type="file" id="importFile" style="display:none" accept=".json" onchange="importProgress(event)" />
-        <button class="game-btn game-btn-red" onclick="resetCurrentTab()">Reset Tab</button>
+        <button class="game-btn game-btn-red" onclick="clearAllInventory()">Clear Inventory</button>
       </div>
     </div>
   </header>
 
-  <main class="main-container">
-    <!-- Filter, Search & Sort Bar -->
-    <section class="controls-frame">
-      <div class="filter-group">
-        <input type="text" class="search-box" id="searchInput" placeholder="Search monster or egg..." oninput="render()" />
-        <select class="sort-select" id="sortSelect" onchange="render()">
-          <option value="req_asc">Sort: Required Eggs (Low to High)</option>
-          <option value="pct_asc">Sort: Progress (0% to 100%)</option>
-          <option value="rem_asc">Sort: Remaining Eggs (Low to High)</option>
-        </select>
-        <label class="check-pill">
-          <input type="checkbox" id="filterActiveOnly" onchange="render()" />
-          <span>📌 Pinned / Active Only</span>
-        </label>
-        <label class="check-pill">
-          <input type="checkbox" id="hideCompleted" onchange="render()" />
-          <span>Hide Awakened (100%)</span>
-        </label>
-      </div>
-    </section>
-
-    <!-- Aggregated Remaining Eggs Queue -->
-    <section class="breeding-queue-board">
-      <div class="queue-header">
-        <div class="queue-title-wrap">
-          <span class="queue-title msm-label-text">Remaining Eggs Needed</span>
-          <span class="sale-badge" id="activeStatuesBadge">0 Active</span>
-        </div>
-        <span style="font-size:0.78rem; font-weight:600; color:#e6ccb2;">Tap any egg slot or pin a statue to add its remaining eggs here</span>
-      </div>
-      <div class="queue-well" id="shoppingPills"></div>
-    </section>
-
-    <!-- Monster Inventory Boards -->
-    <section class="monster-list" id="monsterListContainer">
-      <div class="empty-status-board msm-label-text">Loading recipes from msm_recipes.json...</div>
-    </section>
-  </main>
+  <main class="main-container" id="mainContainer"></main>
 
   <script>
-    const STORAGE_KEY = "msm_tracker_clean_v1";
+    const STORAGE_KEY = "msm_tracker_v2_inventory";
+    const LEGACY_KEY = "msm_tracker_clean_v1";
     const IMG_MAP_KEY = "msm_direct_wikia_urls_v4";
 
     let MONSTER_DB = { wublins: [], celestials: [], adults: [], amber: [] };
@@ -1156,7 +1257,7 @@
       { id: "adults-adult_galvana", name: "Adult Galvana", time: "31 days (Jul)", eggs: [["Kayna",3], ["Glowl",2], ["Flowah",2], ["Stogg",2], ["Phangler",2], ["Boskus",2], ["Barrb",1], ["Floogull",1], ["Whaddle",2], ["Woolabee",1], ["Repatillo",1], ["Rootitoot",1], ["Sooza",1], ["Thrumble",1], ["Ziggurab",1], ["Wynq",1], ["Tring",1], ["Sneyser",1], ["Hoola",1], ["Rare 4E Plant Flex",1], ["Rare 4E Cold Flex",1], ["Rare 4E Air Flex",1], ["Rare 4E Water Flex",1], ["Rare 4E Earth Flex",1]] }
     ];
 
-    // Verified Rare Wublin & Epic Wublin inventories (attached to each Wublin card's tier switcher)
+    // Rare & Epic Wublin Recipes (stored cleanly on Wublin objects without bloating the list)
     const WUBLIN_RARE_RECIPES = {
       "brump": [["Rare Furcorn",3], ["Rare Fwog",1]],
       "zynth": [["Rare T-Rox",1], ["Rare Congle",1], ["Rare Maw",1], ["Rare Drumpler",1], ["Rare Oaktopus",1], ["Rare Pango",1]],
@@ -1203,14 +1304,12 @@
       "monculus": [["Epic Entbrat",1], ["Epic Deedge",1], ["Epic Riff",1], ["Epic Shellbeat",1], ["Epic Quarrister",1], ["Epic T-Rox",1], ["Epic Bowgart",1], ["Epic Spunge",1], ["Epic PomPom",1], ["Epic Reedling",1]]
     };
 
-    const CLEAN_INITIAL_STATE = {
-      tallies: {},
-      pinned: {},
-      instances: {},
-      tiers: {} // key: `${instKey}` -> "common" | "rare" | "epic"
-    };
+    // UI Navigation State
+    let viewMode = "inventory";       // "inventory" | "monsterpedia"
+    let pediaTab = "wublins";         // "wublins" | "celestials" | "adults" | "amber"
+    let invIslandFilter = "all";      // "all" | "wublins" | "celestials" | "adults" | "amber"
+    let pediaPreviewTiers = {};       // monsterId -> "common" | "rare" | "epic"
 
-    let currentTab = "wublins";
     let state = loadState();
 
     function safeFilename(name) {
@@ -1232,22 +1331,64 @@
       return s;
     }
 
+    function makeUid() {
+      return "inv_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 7);
+    }
+
     function loadState() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(CLEAN_INITIAL_STATE));
-          return JSON.parse(JSON.stringify(CLEAN_INITIAL_STATE));
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          parsed.inventory = Array.isArray(parsed.inventory) ? parsed.inventory : [];
+          return parsed;
         }
-        const parsed = JSON.parse(raw);
-        parsed.tallies = parsed.tallies || {};
-        parsed.pinned = parsed.pinned || {};
-        parsed.instances = parsed.instances || {};
-        parsed.tiers = parsed.tiers || {};
-        return parsed;
-      } catch (e) {
-        return JSON.parse(JSON.stringify(CLEAN_INITIAL_STATE));
-      }
+        // Migrate any active items from v1 if present, otherwise start with a 100% clean slate
+        const legacyRaw = localStorage.getItem(LEGACY_KEY);
+        if (legacyRaw) {
+          const leg = JSON.parse(legacyRaw);
+          const migrated = [];
+          const allInstKeys = new Set([
+            ...Object.keys(leg.pinned || {}),
+            ...Object.keys(leg.tallies || {}).map(k => k.split("__")[0])
+          ]);
+          allInstKeys.forEach(instKey => {
+            const mId = instKey.split("#")[0];
+            const tier = (leg.tiers && leg.tiers[instKey]) || "common";
+            const tallies = {};
+            Object.entries(leg.tallies || {}).forEach(([k, v]) => {
+              if (k.startsWith(instKey + "__") && v > 0) {
+                const parts = k.split("__");
+                tallies[parts[parts.length - 1]] = v;
+              }
+            });
+            if (leg.pinned?.[instKey] || Object.keys(tallies).length > 0) {
+              migrated.push({
+                uid: makeUid(),
+                tab: inferTabForMonsterId(mId),
+                monsterId: mId,
+                tier,
+                pinned: !!leg.pinned?.[instKey],
+                tallies
+              });
+            }
+          });
+          const nextState = { inventory: migrated };
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(nextState));
+          return nextState;
+        }
+      } catch (e) {}
+      const clean = { inventory: [] };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(clean));
+      return clean;
+    }
+
+    function inferTabForMonsterId(mId) {
+      if (mId.startsWith("adults-")) return "adults";
+      if (mId.startsWith("amber-")) return "amber";
+      const celIds = new Set(["scaratar","loodvigg","torrt","plixie","attmoz","hornacle","furnoss","glaishur","blasoom","syncopite","vhamp","galvana"]);
+      if (celIds.has(mId)) return "celestials";
+      return "wublins";
     }
 
     function saveState() {
@@ -1291,33 +1432,64 @@
       "Kayna": { c1: "#ff621f", c2: "#8f2400", spot: "#ffbe4f" }
     };
 
-    // Element Sigil Colors & Glyphs for the In-Game Flex Egg Renderer
     const ELEMENT_SIGIL_MAP = {
-      "Psychic": { bg: "#7e22ce", fg: "#f0abfc", glyph: "◎" },
-      "Fire":    { bg: "#c2410c", fg: "#fde047", glyph: "🔥" },
-      "Faerie":  { bg: "#be185d", fg: "#fbcfe8", glyph: "✿" },
-      "Light":   { bg: "#b45309", fg: "#fef08a", glyph: "☀" },
-      "Bone":    { bg: "#57534e", fg: "#f5f5f4", glyph: "🦴" },
-      "Plant":   { bg: "#15803d", fg: "#86efac", glyph: "♣" },
-      "Cold":    { bg: "#0369a1", fg: "#bae6fd", glyph: "❄" },
-      "Air":     { bg: "#6d28d9", fg: "#ddd6fe", glyph: "≈" },
-      "Water":   { bg: "#1d4ed8", fg: "#93c5fd", glyph: "💧" },
-      "Earth":   { bg: "#78350f", fg: "#fcd34d", glyph: "▲" },
-      "Mythical":{ bg: "#4c1d95", fg: "#fde68a", glyph: "☾" }
+      "Psychic":  { bg: "#7e22ce", fg: "#f0abfc" },
+      "Fire":     { bg: "#c2410c", fg: "#fde047" },
+      "Faerie":   { bg: "#be185d", fg: "#fbcfe8" },
+      "Light":    { bg: "#b45309", fg: "#fef08a" },
+      "Bone":     { bg: "#57534e", fg: "#f5f5f4" },
+      "Plant":    { bg: "#15803d", fg: "#86efac" },
+      "Cold":     { bg: "#0369a1", fg: "#bae6fd" },
+      "Air":      { bg: "#6d28d9", fg: "#ddd6fe" },
+      "Water":    { bg: "#1d4ed8", fg: "#93c5fd" },
+      "Earth":    { bg: "#78350f", fg: "#fcd34d" },
+      "Mythical": { bg: "#4c1d95", fg: "#fde68a" }
     };
 
-    // Exact In-Game Rare Flex / Mythical Flex Egg SVG matching user's screenshot (mint spotted egg + monster skull + copper element & wildcard '*' sigils)
+    function getElementVectorPath(elemKey, cx, cy) {
+      if (elemKey === "Psychic") {
+        return `<path d="M${cx-3},${cy} A3,3 0 1,1 ${cx+3},${cy} A2,2 0 1,1 ${cx-1.5},${cy} A1,1 0 1,1 ${cx+1},${cy}" fill="none" stroke="#f0abfc" stroke-width="1.4" stroke-linecap="round"/>`;
+      }
+      if (elemKey === "Fire") {
+        return `<path d="M${cx},${cy-3.8} C${cx+2.5},${cy-1} ${cx+3},${cy+1.5} ${cx},${cy+3.5} C${cx-3},${cy+1.5} ${cx-2.5},${cy-1} ${cx},${cy-3.8} Z" fill="#fb923c"/><circle cx="${cx}" cy="${cy+1.2}" r="1.4" fill="#fef08a"/>`;
+      }
+      if (elemKey === "Plant") {
+        return `<circle cx="${cx}" cy="${cy-1.8}" r="1.7" fill="#86efac"/><circle cx="${cx-1.7}" cy="${cy+1}" r="1.7" fill="#86efac"/><circle cx="${cx+1.7}" cy="${cy+1}" r="1.7" fill="#86efac"/>`;
+      }
+      if (elemKey === "Cold") {
+        return `<path d="M${cx},${cy-3.5} L${cx},${cy+3.5} M${cx-3},${cy-1.8} L${cx+3},${cy+1.8} M${cx-3},${cy+1.8} L${cx+3},${cy-1.8}" stroke="#bae6fd" stroke-width="1.4" stroke-linecap="round"/>`;
+      }
+      if (elemKey === "Air") {
+        return `<path d="M${cx-3.2},${cy-1.2} Q${cx},${cy-3.4} ${cx+3.2},${cy-1.2} M${cx-3.2},${cy+1.5} Q${cx},${cy-0.7} ${cx+3.2},${cy+1.5}" fill="none" stroke="#ddd6fe" stroke-width="1.4" stroke-linecap="round"/>`;
+      }
+      if (elemKey === "Water") {
+        return `<path d="M${cx},${cy-3.6} C${cx+2.6},${cy-0.4} ${cx+2.8},${cy+1.6} ${cx},${cy+3.4} C${cx-2.8},${cy+1.6} ${cx-2.6},${cy-0.4} ${cx},${cy-3.6} Z" fill="#93c5fd"/>`;
+      }
+      if (elemKey === "Earth") {
+        return `<polygon points="${cx},${cy-3.4} ${cx+3.4},${cy+2.8} ${cx-3.4},${cy+2.8}" fill="#fcd34d"/>`;
+      }
+      if (elemKey === "Faerie") {
+        return `<polygon points="${cx},${cy-3.6} ${cx+1.2},${cy-1.2} ${cx+3.6},${cy} ${cx+1.2},${cy+1.2} ${cx},${cy+3.6} ${cx-1.2},${cy+1.2} ${cx-3.6},${cy} ${cx-1.2},${cy-1.2}" fill="#fbcfe8"/>`;
+      }
+      if (elemKey === "Light") {
+        return `<circle cx="${cx}" cy="${cy}" r="2.3" fill="#fef08a"/><circle cx="${cx}" cy="${cy}" r="3.6" fill="none" stroke="#fef08a" stroke-width="1" stroke-dasharray="1.5,1.5"/>`;
+      }
+      if (elemKey === "Bone") {
+        return `<path d="M${cx-2.5},${cy-2} L${cx+2.5},${cy+2} M${cx-2.5},${cy+2} L${cx+2.5},${cy-2}" stroke="#f5f5f4" stroke-width="1.8" stroke-linecap="round"/>`;
+      }
+      // Mythical crescent
+      return `<path d="M${cx+1.5},${cy-3.2} A3.4,3.4 0 1,0 ${cx+1.5},${cy+3.2} A2.6,2.6 0 1,1 ${cx+1.5},${cy-3.2} Z" fill="#fde68a"/>`;
+    }
+
     function buildFlexEggSVG(eggName, uidSuffix = "") {
       const gradId = "flex_" + safeFilename(eggName) + "_" + uidSuffix;
       const isMythical = /mythical/i.test(eggName);
 
-      // Determine element count (2E, 3E, 4E, or 1 for Mythical)
       let numElements = 2;
       if (/4E|Quad/i.test(eggName)) numElements = 4;
       else if (/3E|Triple/i.test(eggName)) numElements = 3;
       else if (isMythical) numElements = 1;
 
-      // Determine primary element sigil
       let elemKey = "Fire";
       for (const k of Object.keys(ELEMENT_SIGIL_MAP)) {
         if (eggName.toLowerCase().includes(k.toLowerCase())) {
@@ -1327,7 +1499,6 @@
       }
       const sigil = ELEMENT_SIGIL_MAP[elemKey];
 
-      // Build Copper-Rimmed Sigil Badges along the bottom of the egg
       const badgeRadius = 6.2;
       const spacing = numElements === 4 ? 11.2 : 13.5;
       const startX = 26 - ((numElements - 1) * spacing) / 2;
@@ -1337,24 +1508,14 @@
         const cx = startX + i * spacing;
         const cy = 39;
         if (i === 0) {
-          // Primary Element Sigil Badge
-          let innerIcon = "";
-          if (elemKey === "Psychic") {
-            innerIcon = `<path d="M${cx-3},${cy} A3,3 0 1,1 ${cx+3},${cy} A2,2 0 1,1 ${cx-1.5},${cy} A1,1 0 1,1 ${cx+1},${cy}" fill="none" stroke="#f0abfc" stroke-width="1.4" stroke-linecap="round"/>`;
-          } else if (elemKey === "Fire") {
-            innerIcon = `<path d="M${cx},${cy-3.8} C${cx+2.5},${cy-1} ${cx+3},${cy+1.5} ${cx},${cy+3.5} C${cx-3},${cy+1.5} ${cx-2.5},${cy-1} ${cx},${cy-3.8} Z" fill="#fb923c"/><circle cx="${cx}" cy="${cy+1.2}" r="1.4" fill="#fef08a"/>`;
-          } else {
-            innerIcon = `<text x="${cx}" y="${cy+2.6}" text-anchor="middle" fill="${sigil.fg}" font-size="7.5" font-weight="900">${sigil.glyph}</text>`;
-          }
           badgesSVG += `
             <g>
               <circle cx="${cx}" cy="${cy}" r="${badgeRadius}" fill="${sigil.bg}" stroke="#d97706" stroke-width="1.8"/>
               <circle cx="${cx}" cy="${cy}" r="${badgeRadius-0.8}" fill="none" stroke="#fef08a" stroke-width="0.5" stroke-dasharray="2,2"/>
-              ${innerIcon}
+              ${getElementVectorPath(elemKey, cx, cy)}
             </g>
           `;
         } else {
-          // Green Wildcard '*' Sigil Badge
           badgesSVG += `
             <g>
               <circle cx="${cx}" cy="${cy}" r="${badgeRadius}" fill="#1e1b2e" stroke="#d97706" stroke-width="1.8"/>
@@ -1375,21 +1536,16 @@
               <stop offset="100%" stop-color="#135e59" />
             </radialGradient>
           </defs>
-          <!-- Mint-Teal Horizontally-Rounded Rare Flex Egg Shell -->
           <ellipse cx="26" cy="22" rx="19" ry="16.5" fill="url(#${gradId})" stroke="#0f3d3a" stroke-width="1.5"/>
-          <!-- Outer Shell Spots -->
           <circle cx="12" cy="18" r="2.2" fill="#136b61" opacity="0.65"/>
           <circle cx="13" cy="26" r="3" fill="#136b61" opacity="0.65"/>
           <circle cx="39" cy="17" r="2" fill="#136b61" opacity="0.65"/>
           <circle cx="38" cy="25" r="2.6" fill="#136b61" opacity="0.65"/>
-          <!-- Horned Monster Skull Silhouette Inside Egg -->
           <path d="M18,17 C16,13 17,10 19,12 C21,10 23,11 26,11 C29,11 31,10 33,12 C35,10 36,13 34,17 C36,21 34,28 29,30 L23,30 C18,28 16,21 18,17 Z"
                 fill="#118776" opacity="0.88"/>
-          <!-- Dark Eye Sockets & Jaw Line -->
           <circle cx="22.5" cy="21" r="2.6" fill="#0d4a42"/>
           <circle cx="29.5" cy="21" r="2.6" fill="#0d4a42"/>
           <path d="M21,26.5 Q26,28.5 31,26.5" fill="none" stroke="#0d4a42" stroke-width="1.3" stroke-linecap="round"/>
-          <!-- Copper-Rimmed Element + Wildcard '*' Sigils at Bottom -->
           ${badgesSVG}
         </svg>
       `;
@@ -1426,7 +1582,7 @@
       `;
     }
 
-    // Repairs MONSTER_DB.adults if msm_recipes.json is missing the Required Flex Eggs at the end of any Adult Celestial
+    // Ensures all 12 Adult Celestials have both their regular eggs AND their Required Flex Eggs
     function ensureAdultCelestialsPopulated() {
       if (!MONSTER_DB.adults || MONSTER_DB.adults.length === 0) {
         MONSTER_DB.adults = JSON.parse(JSON.stringify(ADULT_CELESTIALS_REPAIR));
@@ -1440,11 +1596,10 @@
         if (!adult.eggs || adult.eggs.length < 2) {
           adult.eggs = JSON.parse(JSON.stringify(match.eggs));
         } else {
-          // If the old scraper grabbed the 14-19 regular eggs but missed the Flex Eggs, append the Flex Eggs now!
           const hasFlex = adult.eggs.some(([eName]) => /flex/i.test(eName));
           if (!hasFlex) {
             const flexEggs = match.eggs.filter(([eName]) => /flex/i.test(eName));
-            adult.eggs.push(... JSON.parse(JSON.stringify(flexEggs)));
+            adult.eggs.push(...JSON.parse(JSON.stringify(flexEggs)));
           }
         }
         if (!adult.time || adult.time === "-") {
@@ -1453,7 +1608,6 @@
       });
     }
 
-    // Attaches Rare & Epic Wublin variants onto each Wublin object so there is zero list bloat
     function ensureWublinVariantsAttached() {
       (MONSTER_DB.wublins || []).forEach(w => {
         const key = w.id.toLowerCase();
@@ -1530,7 +1684,6 @@
     async function resolveMissingSpritesOnline() {
       const needed = new Set();
 
-      // Adult Celestials
       (MONSTER_DB.adults || []).forEach(m => {
         const cleanMonster = m.name.replace(/\s*\([^)]*\)/g, "").trim().replace(/\s+/g, "_");
         if (!imgMap[`${cleanMonster}.png`]) needed.add(`${cleanMonster}.png`);
@@ -1544,7 +1697,6 @@
         });
       });
 
-      // Rare & Epic Wublin Portraits & Eggs
       (MONSTER_DB.wublins || []).forEach(w => {
         ["Rare", "Epic"].forEach(prefix => {
           const pFile = `${prefix}_${w.name.replace(/\s+/g, "_")}.png`;
@@ -1585,7 +1737,6 @@
             EGG_IMAGES = data.eggs || {};
             ensureAdultCelestialsPopulated();
             ensureWublinVariantsAttached();
-            updateTabCounts();
             render();
             resolveMissingSpritesOnline();
             return;
@@ -1598,7 +1749,6 @@
         EGG_IMAGES = window.MSM_SCRAPED_DATA.eggs || {};
         ensureAdultCelestialsPopulated();
         ensureWublinVariantsAttached();
-        updateTabCounts();
         render();
         resolveMissingSpritesOnline();
         return;
@@ -1606,112 +1756,35 @@
 
       ensureAdultCelestialsPopulated();
       ensureWublinVariantsAttached();
-      updateTabCounts();
       render();
       resolveMissingSpritesOnline();
     }
 
-    function updateTabCounts() {
-      const labels = {
-        wublins: "Wublins",
-        celestials: "Young Celestials",
-        adults: "Adult Celestials",
-        amber: "Amber Island"
-      };
-      ["wublins", "celestials", "adults", "amber"].forEach(tab => {
-        const count = (MONSTER_DB[tab] || []).length;
-        const btn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
-        if (btn) {
-          btn.textContent = count > 0 ? `${labels[tab]} (${count})` : labels[tab];
-        }
-      });
-    }
-
-    function getInstancesForMonster(monsterId) {
-      const arr = state.instances[monsterId];
-      if (!arr || !Array.isArray(arr) || arr.length === 0) return [1];
-      return arr;
-    }
-
-    function getInstanceTier(instKey) {
-      if (currentTab !== "wublins") return "common";
-      return state.tiers[instKey] || "common";
-    }
-
-    function setInstanceTier(instKey, tier) {
-      state.tiers = state.tiers || {};
-      state.tiers[instKey] = tier;
-      saveState();
-      render();
-    }
-
-    // Returns the active tier's data (name, time, eggs, portrait URL, tallyKeyPrefix) for a monster instance
-    function getActiveTierData(monster, instKey) {
-      const tier = currentTab === "wublins" ? (state.tiers[instKey] || "common") : "common";
-      if (tier === "common" || !monster.variants || !monster.variants[tier]) {
+    // Lookup monster definition & tier recipe
+    function resolveMonsterSpec(tab, monsterId, tier = "common") {
+      const base = (MONSTER_DB[tab] || []).find(m => m.id === monsterId);
+      if (!base) return null;
+      if (tab === "wublins" && tier !== "common" && base.variants && base.variants[tier]) {
+        const v = base.variants[tier];
         return {
-          tier: "common",
-          name: monster.name,
-          time: monster.time,
-          eggs: monster.eggs || [],
-          tallyPrefix: instKey,
-          imgUrl: getMonsterImgUrl(monster, "common")
+          base,
+          tier,
+          name: v.name || `${tier === "rare" ? "Rare" : "Epic"} ${base.name}`,
+          time: v.time || "No Limit",
+          eggs: v.eggs || [],
+          imgUrl: v.local_img || v.img_url || getMonsterImgUrl(base, tier),
+          fallbackImgUrl: getMonsterImgUrl(base, "common")
         };
       }
-      const v = monster.variants[tier];
       return {
-        tier,
-        name: v.name || `${tier === "rare" ? "Rare" : "Epic"} ${monster.name}`,
-        time: v.time || "No Limit",
-        eggs: v.eggs || [],
-        tallyPrefix: `${instKey}__${tier}`,
-        imgUrl: v.local_img || v.img_url || getMonsterImgUrl(monster, tier)
+        base,
+        tier: "common",
+        name: base.name,
+        time: base.time,
+        eggs: base.eggs || [],
+        imgUrl: getMonsterImgUrl(base, "common"),
+        fallbackImgUrl: ""
       };
-    }
-
-    function addMonsterCopy(monsterId) {
-      const current = getInstancesForMonster(monsterId).slice();
-      const nextNum = Math.max(...current) + 1;
-      current.push(nextNum);
-      state.instances[monsterId] = current;
-      // Inherit the tier of the previous copy so if you're adding Rare Zynths it stays on Rare
-      const prevTier = state.tiers[`${monsterId}#${current[current.length - 2]}`] || "common";
-      state.tiers[`${monsterId}#${nextNum}`] = prevTier;
-      state.pinned[`${monsterId}#${nextNum}`] = true;
-      if (current.length === 2) {
-        state.pinned[`${monsterId}#${current[0]}`] = true;
-      }
-      saveState();
-      render();
-    }
-
-    function removeMonsterCopy(monsterId, instNum) {
-      const current = getInstancesForMonster(monsterId).slice();
-      const instKey = `${monsterId}#${instNum}`;
-
-      Object.keys(state.tallies).forEach(k => {
-        if (k.startsWith(instKey + "__")) delete state.tallies[k];
-      });
-      delete state.pinned[instKey];
-      delete state.tiers[instKey];
-
-      if (current.length > 1) {
-        state.instances[monsterId] = current.filter(n => n !== instNum);
-      } else {
-        state.instances[monsterId] = [1];
-      }
-      saveState();
-      render();
-    }
-
-    function decrementMonsterCopy(monsterId) {
-      const current = getInstancesForMonster(monsterId);
-      if (current.length <= 1) {
-        removeMonsterCopy(monsterId, current[0]);
-        return;
-      }
-      const lastNum = current[current.length - 1];
-      removeMonsterCopy(monsterId, lastNum);
     }
 
     function getMonsterImgUrl(monster, tier = "common") {
@@ -1729,7 +1802,6 @@
     }
 
     function getEggImgUrl(eggName) {
-      // Flex Eggs always use our exact in-game Rare Flex SVG with the element + '*' sigils
       if (/flex/i.test(eggName)) return "";
       if (EGG_IMAGES[eggName]) return EGG_IMAGES[eggName];
       const c1 = `${eggName.replace(/\s+/g, "_")}-egg.png`;
@@ -1737,6 +1809,133 @@
       if (imgMap[c1]) return imgMap[c1];
       if (imgMap[c2]) return imgMap[c2];
       return `msm_assets/eggs/${safeFilename(eggName)}.png`;
+    }
+
+    // Inventory Actions (Add, Clone, Pin, Tally, Fill, Clear, Remove)
+    function addToInventory(tab, monsterId, tier = "common", btnEl = null) {
+      state.inventory.push({
+        uid: makeUid(),
+        tab,
+        monsterId,
+        tier,
+        pinned: false,
+        tallies: {}
+      });
+      saveState();
+      updateHeaderCounts();
+
+      // Provide immediate feedback on the Monsterpedia button without losing scroll position
+      if (btnEl) {
+        const origText = btnEl.textContent;
+        btnEl.textContent = "Added!";
+        setTimeout(() => { render(); }, 450);
+      } else {
+        render();
+      }
+    }
+
+    function cloneInventoryItem(uid) {
+      const idx = state.inventory.findIndex(x => x.uid === uid);
+      if (idx === -1) return;
+      const src = state.inventory[idx];
+      state.inventory.splice(idx + 1, 0, {
+        uid: makeUid(),
+        tab: src.tab,
+        monsterId: src.monsterId,
+        tier: src.tier,
+        pinned: src.pinned,
+        tallies: {}
+      });
+      saveState();
+      render();
+    }
+
+    function removeInventoryItem(uid) {
+      state.inventory = state.inventory.filter(x => x.uid !== uid);
+      saveState();
+      render();
+    }
+
+    function togglePinInventoryItem(uid) {
+      const item = state.inventory.find(x => x.uid === uid);
+      if (!item) return;
+      item.pinned = !item.pinned;
+      saveState();
+      render();
+    }
+
+    function adjustInventoryEgg(uid, eggName, reqCount, mode, event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      const item = state.inventory.find(x => x.uid === uid);
+      if (!item) return;
+      item.tallies = item.tallies || {};
+      const current = item.tallies[eggName] || 0;
+
+      if (mode === "max" || (event && event.shiftKey)) {
+        item.tallies[eggName] = current >= reqCount ? 0 : reqCount;
+      } else if (mode === "minus" || (event && (event.type === "contextmenu" || event.button === 2))) {
+        item.tallies[eggName] = Math.max(0, current - 1);
+      } else {
+        item.tallies[eggName] = current >= reqCount ? 0 : current + 1;
+      }
+
+      saveState();
+      render();
+    }
+
+    function fillAllInventoryItem(uid) {
+      const item = state.inventory.find(x => x.uid === uid);
+      if (!item) return;
+      const spec = resolveMonsterSpec(item.tab, item.monsterId, item.tier);
+      if (!spec) return;
+      item.tallies = {};
+      spec.eggs.forEach(([eggName, req]) => {
+        item.tallies[eggName] = req;
+      });
+      saveState();
+      render();
+    }
+
+    function clearInventoryItem(uid) {
+      const item = state.inventory.find(x => x.uid === uid);
+      if (!item) return;
+      item.tallies = {};
+      saveState();
+      render();
+    }
+
+    function switchViewMode(mode) {
+      viewMode = mode;
+      document.querySelectorAll(".mode-tab-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-view") === mode);
+      });
+      render();
+    }
+
+    function switchPediaTab(tab) {
+      pediaTab = tab;
+      render();
+    }
+
+    function switchInvIslandFilter(tab) {
+      invIslandFilter = tab;
+      render();
+    }
+
+    function setPediaPreviewTier(monsterId, tier) {
+      pediaPreviewTiers[monsterId] = tier;
+      render();
+    }
+
+    function updateHeaderCounts() {
+      const invBtn = document.getElementById("navInventoryBtn");
+      const pediaBtn = document.getElementById("navMonsterpediaBtn");
+      if (invBtn) invBtn.textContent = `Active Inventory (${state.inventory.length})`;
+      const totalCatalog = ["wublins", "celestials", "adults", "amber"].reduce((acc, t) => acc + (MONSTER_DB[t] || []).length, 0);
+      if (pediaBtn) pediaBtn.textContent = totalCatalog > 0 ? `Monsterpedia (${totalCatalog})` : "Monsterpedia";
     }
 
     function formatTalliesHTML(count) {
@@ -1753,227 +1952,218 @@
       return html;
     }
 
-    function adjustEggTally(tallyPrefix, eggName, reqCount, mode, event) {
-      if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      const key = `${tallyPrefix}__${eggName}`;
-      const current = state.tallies[key] || 0;
+    // ============================================================
+    // RENDER: ACTIVE INVENTORY VIEW
+    // ============================================================
+    function renderInventoryView(container) {
+      const searchVal = (document.getElementById("searchInput")?.value || "");
+      const sortVal = (document.getElementById("sortSelect")?.value || "req_asc");
+      const pinnedOnlyVal = !!document.getElementById("filterActiveOnly")?.checked;
+      const hideDoneVal = !!document.getElementById("hideCompleted")?.checked;
 
-      if (mode === "max" || (event && event.shiftKey)) {
-        state.tallies[key] = current >= reqCount ? 0 : reqCount;
-      } else if (mode === "minus" || (event && (event.type === "contextmenu" || event.button === 2))) {
-        state.tallies[key] = Math.max(0, current - 1);
-      } else {
-        state.tallies[key] = current >= reqCount ? 0 : current + 1;
-      }
+      // Filter inventory by selected island filter
+      const islandFiltered = state.inventory.filter(item => invIslandFilter === "all" || item.tab === invIslandFilter);
 
-      saveState();
-      render();
-    }
-
-    function togglePinInstance(instKey) {
-      state.pinned[instKey] = !state.pinned[instKey];
-      saveState();
-      render();
-    }
-
-    function fillAllInstance(monsterId, instKey) {
-      const m = (MONSTER_DB[currentTab] || []).find(x => x.id === monsterId);
-      if (!m) return;
-      const tierData = getActiveTierData(m, instKey);
-      tierData.eggs.forEach(([eggName, req]) => {
-        state.tallies[`${tierData.tallyPrefix}__${eggName}`] = req;
-      });
-      saveState();
-      render();
-    }
-
-    function clearInstance(monsterId, instKey) {
-      const m = (MONSTER_DB[currentTab] || []).find(x => x.id === monsterId);
-      if (!m) return;
-      const tierData = getActiveTierData(m, instKey);
-      tierData.eggs.forEach(([eggName]) => {
-        delete state.tallies[`${tierData.tallyPrefix}__${eggName}`];
-      });
-      saveState();
-      render();
-    }
-
-    function switchTab(tab) {
-      currentTab = tab;
-      document.querySelectorAll(".tab-btn").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-tab") === tab);
-      });
-      render();
-    }
-
-    function renderShoppingSummary(monsters) {
+      // Compute aggregated Remaining Eggs Needed across incomplete inventory items
       const neededMap = {};
-      let activeInstancesCount = 0;
+      let activeIncompleteCount = 0;
 
-      monsters.forEach(m => {
-        const instances = getInstancesForMonster(m.id);
-        instances.forEach(instNum => {
-          const instKey = `${m.id}#${instNum}`;
-          const tierData = getActiveTierData(m, instKey);
-          const eggsList = tierData.eggs;
-
-          let zapped = 0;
-          let total = 0;
-          eggsList.forEach(([eggName, req]) => {
-            zapped += Math.min(req, state.tallies[`${tierData.tallyPrefix}__${eggName}`] || 0);
-            total += req;
-          });
-
-          const isWorking = (zapped > 0 && zapped < total) || !!state.pinned[instKey];
-          if (isWorking && zapped < total) {
-            activeInstancesCount++;
-            eggsList.forEach(([eggName, req]) => {
-              const cur = Math.min(req, state.tallies[`${tierData.tallyPrefix}__${eggName}`] || 0);
-              const rem = Math.max(0, req - cur);
-              if (rem > 0) {
-                neededMap[eggName] = (neededMap[eggName] || 0) + rem;
-              }
-            });
-          }
+      islandFiltered.forEach(item => {
+        const spec = resolveMonsterSpec(item.tab, item.monsterId, item.tier);
+        if (!spec) return;
+        let zapped = 0;
+        let total = 0;
+        spec.eggs.forEach(([eName, req]) => {
+          zapped += Math.min(req, (item.tallies && item.tallies[eName]) || 0);
+          total += req;
         });
-      });
-
-      document.getElementById("activeStatuesBadge").textContent = `${activeInstancesCount} Active`;
-
-      const container = document.getElementById("shoppingPills");
-      const entries = Object.entries(neededMap).sort((a, b) => b[1] - a[1]);
-
-      if (entries.length === 0) {
-        container.innerHTML = `<span style="font-size:0.84rem; color:#d9b89c; font-weight:600;">No active statues yet. Tap any egg slot below, click <b>"📌 Pin Statue"</b>, or increase <b>Copies [+]</b> to build your breeding list.</span>`;
-        return;
-      }
-
-      container.innerHTML = entries.map(([eggName, rem]) => {
-        const eggUrl = getEggImgUrl(eggName);
-        return `
-          <span class="queue-pill">
-            ${eggUrl ? `<img class="queue-egg-img" src="${eggUrl}" alt="" onerror="this.style.display='none'" />` : ""}
-            <span class="msm-label-text" style="font-size:0.8rem;">${eggName}</span>
-            <span class="sale-badge">x${rem}</span>
-          </span>
-        `;
-      }).join("");
-    }
-
-    function render() {
-      const monsters = MONSTER_DB[currentTab] || [];
-      const container = document.getElementById("monsterListContainer");
-      const search = document.getElementById("searchInput").value.trim().toLowerCase();
-      const sortMode = document.getElementById("sortSelect").value;
-      const activeOnly = document.getElementById("filterActiveOnly").checked;
-      const hideCompleted = document.getElementById("hideCompleted").checked;
-
-      renderShoppingSummary(monsters);
-      container.innerHTML = "";
-
-      if (monsters.length === 0) {
-        container.innerHTML = `<div class="empty-status-board msm-label-text">No monsters loaded for this tab yet.</div>`;
-        return;
-      }
-
-      const renderItems = [];
-
-      monsters.forEach(monster => {
-        const instances = getInstancesForMonster(monster.id);
-        const totalCopies = instances.length;
-
-        instances.forEach((instNum, idx) => {
-          const instKey = `${monster.id}#${instNum}`;
-          const tierData = getActiveTierData(monster, instKey);
-          const eggsList = tierData.eggs;
-
-          if (search) {
-            const matchName = tierData.name.toLowerCase().includes(search) || monster.name.toLowerCase().includes(search);
-            const matchEgg = eggsList.some(([e]) => e.toLowerCase().includes(search));
-            if (!matchName && !matchEgg) return;
-          }
-
-          let totalReq = 0;
-          let totalZapped = 0;
-
-          eggsList.forEach(([eggName, req]) => {
-            totalReq += req;
-            totalZapped += Math.min(req, state.tallies[`${tierData.tallyPrefix}__${eggName}`] || 0);
+        if (total > 0 && zapped < total) {
+          activeIncompleteCount++;
+          spec.eggs.forEach(([eName, req]) => {
+            const cur = Math.min(req, (item.tallies && item.tallies[eName]) || 0);
+            const rem = Math.max(0, req - cur);
+            if (rem > 0) neededMap[eName] = (neededMap[eName] || 0) + rem;
           });
-
-          const remaining = Math.max(0, totalReq - totalZapped);
-          const pct = totalReq > 0 ? (totalZapped / totalReq) * 100 : 0;
-          const isCompleted = totalReq > 0 && totalZapped >= totalReq;
-          const isPinned = !!state.pinned[instKey];
-          const isActive = isPinned || (totalZapped > 0 && !isCompleted);
-
-          if (activeOnly && !isActive) return;
-          if (hideCompleted && isCompleted) return;
-
-          renderItems.push({
-            monster,
-            tierData,
-            eggsList,
-            instNum,
-            idx,
-            totalCopies,
-            instKey,
-            totalReq,
-            totalZapped,
-            remaining,
-            pct,
-            isCompleted,
-            isPinned,
-            isActive
-          });
-        });
-      });
-
-      // Pinned statues float to the top; both pinned and unpinned groups share the same sort rules
-      renderItems.sort((a, b) => {
-        if (a.isPinned !== b.isPinned) {
-          return a.isPinned ? -1 : 1;
         }
-        if (sortMode === "pct_asc") {
+      });
+
+      const neededEntries = Object.entries(neededMap).sort((a, b) => b[1] - a[1]);
+      const queueHTML = neededEntries.length > 0
+        ? neededEntries.map(([eggName, rem]) => {
+            const eggUrl = getEggImgUrl(eggName);
+            return `
+              <span class="queue-pill">
+                ${eggUrl ? `<img class="queue-egg-img" src="${eggUrl}" alt="" onerror="this.style.display='none'" />` : ""}
+                <span class="msm-label-text" style="font-size:0.8rem;">${eggName}</span>
+                <span class="sale-badge">x${rem}</span>
+              </span>
+            `;
+          }).join("")
+        : `<span style="font-size:0.84rem; color:#d9b89c; font-weight:600;">No remaining eggs needed for this filter. Add statues from the Monsterpedia to populate your breeding list.</span>`;
+
+      // Count how many copies of each (tab + monsterId + tier) exist so identical copies get #1, #2 badges
+      const groupTotals = {};
+      const groupSeen = {};
+      state.inventory.forEach(item => {
+        const gKey = `${item.tab}__${item.monsterId}__${item.tier}`;
+        groupTotals[gKey] = (groupTotals[gKey] || 0) + 1;
+      });
+
+      const enriched = [];
+      state.inventory.forEach((item, originalIdx) => {
+        const gKey = `${item.tab}__${item.monsterId}__${item.tier}`;
+        groupSeen[gKey] = (groupSeen[gKey] || 0) + 1;
+        const copyIndex = groupSeen[gKey];
+        const copyTotal = groupTotals[gKey];
+
+        if (invIslandFilter !== "all" && item.tab !== invIslandFilter) return;
+
+        const spec = resolveMonsterSpec(item.tab, item.monsterId, item.tier);
+        if (!spec) return;
+
+        const searchLow = searchVal.trim().toLowerCase();
+        if (searchLow) {
+          const matchName = spec.name.toLowerCase().includes(searchLow);
+          const matchEgg = spec.eggs.some(([e]) => e.toLowerCase().includes(searchLow));
+          if (!matchName && !matchEgg) return;
+        }
+
+        let totalReq = 0;
+        let totalZapped = 0;
+        spec.eggs.forEach(([eName, req]) => {
+          totalReq += req;
+          totalZapped += Math.min(req, (item.tallies && item.tallies[eName]) || 0);
+        });
+
+        const remaining = Math.max(0, totalReq - totalZapped);
+        const pct = totalReq > 0 ? (totalZapped / totalReq) * 100 : 0;
+        const isCompleted = totalReq > 0 && totalZapped >= totalReq;
+
+        if (pinnedOnlyVal && !item.pinned) return;
+        if (hideDoneVal && isCompleted) return;
+
+        enriched.push({
+          item,
+          spec,
+          copyIndex,
+          copyTotal,
+          originalIdx,
+          totalReq,
+          totalZapped,
+          remaining,
+          pct,
+          isCompleted
+        });
+      });
+
+      // Pinned statues float to the top; both pinned and unpinned share the same sort rule
+      enriched.sort((a, b) => {
+        if (a.item.pinned !== b.item.pinned) {
+          return a.item.pinned ? -1 : 1;
+        }
+        if (sortVal === "pct_asc") {
           if (a.pct !== b.pct) return a.pct - b.pct;
           return a.totalReq - b.totalReq;
         }
-        if (sortMode === "rem_asc") {
+        if (sortVal === "rem_asc") {
           if (a.remaining !== b.remaining) return a.remaining - b.remaining;
           return a.totalReq - b.totalReq;
         }
         if (a.totalReq !== b.totalReq) return a.totalReq - b.totalReq;
         if (a.pct !== b.pct) return a.pct - b.pct;
-        return a.instNum - b.instNum;
+        return a.originalIdx - b.originalIdx;
       });
 
-      renderItems.forEach(item => {
-        const {
-          monster, tierData, eggsList, instNum, idx, totalCopies, instKey,
-          totalReq, totalZapped, remaining, pct, isCompleted, isPinned, isActive
-        } = item;
+      const tabNames = [
+        ["all", `All Active (${state.inventory.length})`],
+        ["wublins", `Wublins (${state.inventory.filter(x => x.tab === "wublins").length})`],
+        ["celestials", `Young Celestials (${state.inventory.filter(x => x.tab === "celestials").length})`],
+        ["adults", `Adult Celestials (${state.inventory.filter(x => x.tab === "adults").length})`],
+        ["amber", `Amber Island (${state.inventory.filter(x => x.tab === "amber").length})`]
+      ];
 
+      container.innerHTML = `
+        <section class="controls-frame">
+          <div class="island-sub-tabs">
+            ${tabNames.map(([tKey, tLabel]) => `
+              <button class="sub-tab-btn ${invIslandFilter === tKey ? "active" : ""}" onclick="switchInvIslandFilter('${tKey}')">${tLabel}</button>
+            `).join("")}
+          </div>
+          <div class="filter-group">
+            <input type="text" class="search-box" id="searchInput" value="${searchVal.replace(/"/g, "&quot;")}" placeholder="Search active statues or eggs..." oninput="render()" />
+            <select class="sort-select" id="sortSelect" onchange="render()">
+              <option value="req_asc" ${sortVal === "req_asc" ? "selected" : ""}>Sort: Required Eggs (Low to High)</option>
+              <option value="pct_asc" ${sortVal === "pct_asc" ? "selected" : ""}>Sort: Progress (0% to 100%)</option>
+              <option value="rem_asc" ${sortVal === "rem_asc" ? "selected" : ""}>Sort: Remaining Eggs (Low to High)</option>
+            </select>
+            <label class="check-pill">
+              <input type="checkbox" id="filterActiveOnly" ${pinnedOnlyVal ? "checked" : ""} onchange="render()" />
+              <span>📌 Pinned Only</span>
+            </label>
+            <label class="check-pill">
+              <input type="checkbox" id="hideCompleted" ${hideDoneVal ? "checked" : ""} onchange="render()" />
+              <span>Hide Awakened (100%)</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="breeding-queue-board">
+          <div class="queue-header">
+            <div class="queue-title-wrap">
+              <span class="queue-title msm-label-text">Remaining Eggs Needed</span>
+              <span class="sale-badge">${activeIncompleteCount} In Progress</span>
+            </div>
+            <button class="game-btn game-btn-green" onclick="switchViewMode('monsterpedia')">+ Add From Monsterpedia</button>
+          </div>
+          <div class="queue-well">${queueHTML}</div>
+        </section>
+
+        <section class="monster-list" id="inventoryCardsList"></section>
+      `;
+
+      const listEl = document.getElementById("inventoryCardsList");
+
+      if (state.inventory.length === 0) {
+        listEl.innerHTML = `
+          <div class="empty-status-board">
+            <div class="msm-label-text" style="font-size:1.2rem;">Your Active Inventory is Empty</div>
+            <p style="color:#f5dec9; font-size:0.9rem; max-width:520px;">
+              Open the Monsterpedia to browse Wublins (Common, Rare, and Epic), Young Celestials, Adult Celestials, and Amber Vessels, and add any number of copies to your workbench.
+            </p>
+            <button class="game-btn game-btn-green" style="padding:10px 20px; font-size:0.95rem;" onclick="switchViewMode('monsterpedia')">
+              Open Monsterpedia
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      if (enriched.length === 0) {
+        listEl.innerHTML = `
+          <div class="empty-status-board">
+            <div class="msm-label-text">No Active Statues Match Your Current Filter</div>
+          </div>
+        `;
+        return;
+      }
+
+      enriched.forEach(entry => {
+        const { item, spec, copyIndex, copyTotal, totalReq, totalZapped, remaining, pct, isCompleted } = entry;
         const pctRounded = Math.round(pct);
         const board = document.createElement("article");
-        board.className = `monster-board ${isCompleted ? "board-completed" : (isActive ? "board-active" : "")}`;
+        board.className = `monster-board ${isCompleted ? "board-completed" : (item.pinned ? "board-pinned" : "")}`;
 
-        const monsterImgUrl = tierData.imgUrl;
-        const fallbackCommonUrl = getMonsterImgUrl(monster, "common");
-        const displayTitle = totalCopies > 1 ? `${tierData.name} #${idx + 1}` : tierData.name;
-        const cleanedTime = cleanTimeLimit(tierData.time);
+        const displayTitle = copyTotal > 1 ? `${spec.name} #${copyIndex}` : spec.name;
+        const cleanedTime = cleanTimeLimit(spec.time);
 
-        const eggsHTML = eggsList.map(([eggName, req], eggIdx) => {
-          const cur = Math.min(req, state.tallies[`${tierData.tallyPrefix}__${eggName}`] || 0);
+        const eggsHTML = spec.eggs.map(([eggName, req], eggIdx) => {
+          const cur = Math.min(req, (item.tallies && item.tallies[eggName]) || 0);
           const done = cur >= req;
           const isFlexEgg = /flex/i.test(eggName);
           const eggImgUrl = getEggImgUrl(eggName);
           const safeEgg = eggName.replace(/'/g, "\\'");
-          const uid = `${monster.id}_${tierData.tier}_${instNum}_${eggIdx}`;
+          const uid = `${item.uid}_${eggIdx}`;
 
-          // Format display label for Flex Eggs just like the screenshot ("Rare Flex (2E Psychic)" / "Mythical Flex")
           let displayEggLabel = eggName;
           if (isFlexEgg && /^Rare\s+/i.test(eggName)) {
             const sub = eggName.replace(/^Rare\s+/i, "").replace(/\s*Flex.*$/i, "").trim();
@@ -1982,10 +2172,9 @@
 
           return `
             <div class="egg-slot ${done ? 'slot-complete' : ''}"
-                 oncontextmenu="adjustEggTally('${tierData.tallyPrefix}', '${safeEgg}', ${req}, 'minus', event)">
+                 oncontextmenu="adjustInventoryEgg('${item.uid}', '${safeEgg}', ${req}, 'minus', event)">
               <div class="egg-tap-area"
-                   onclick="adjustEggTally('${tierData.tallyPrefix}', '${safeEgg}', ${req}, 'plus', event)"
-                   title="Tap to add +1 ${eggName}">
+                   onclick="adjustInventoryEgg('${item.uid}', '${safeEgg}', ${req}, 'plus', event)">
                 <div class="egg-stage">
                   <div class="egg-sprite-wrap">
                     ${buildEggSVG(eggName, uid)}
@@ -2004,54 +2193,34 @@
               </div>
 
               <div class="slot-btn-row">
-                <button class="slot-micro-btn" onclick="adjustEggTally('${tierData.tallyPrefix}', '${safeEgg}', ${req}, 'minus', event)" title="Subtract 1">-</button>
-                <button class="slot-micro-btn slot-btn-plus" onclick="adjustEggTally('${tierData.tallyPrefix}', '${safeEgg}', ${req}, 'plus', event)" title="Add 1">+</button>
-                <button class="slot-micro-btn slot-btn-max" onclick="adjustEggTally('${tierData.tallyPrefix}', '${safeEgg}', ${req}, 'max', event)" title="Max / Cross Out">MAX</button>
+                <button class="slot-micro-btn" onclick="adjustInventoryEgg('${item.uid}', '${safeEgg}', ${req}, 'minus', event)">-</button>
+                <button class="slot-micro-btn slot-btn-plus" onclick="adjustInventoryEgg('${item.uid}', '${safeEgg}', ${req}, 'plus', event)">+</button>
+                <button class="slot-micro-btn slot-btn-max" onclick="adjustInventoryEgg('${item.uid}', '${safeEgg}', ${req}, 'max', event)">MAX</button>
               </div>
             </div>
           `;
         }).join("");
 
-        // Compact Common | Rare | Epic Switcher shown inside Wublin cards
-        const tierSwitcherHTML = currentTab === "wublins" ? `
-          <div class="tier-selector-bar" title="Switch this statue between Common, Rare, and Epic">
-            <button class="tier-btn ${tierData.tier === 'common' ? 'active-common' : ''}" onclick="setInstanceTier('${instKey}', 'common')">Common</button>
-            <button class="tier-btn ${tierData.tier === 'rare' ? 'active-rare' : ''}" onclick="setInstanceTier('${instKey}', 'rare')">Rare</button>
-            <button class="tier-btn ${tierData.tier === 'epic' ? 'active-epic' : ''}" onclick="setInstanceTier('${instKey}', 'epic')">Epic</button>
-          </div>
-        ` : "";
-
         board.innerHTML = `
-          <!-- Left Column: Market-Style Wooden Portrait Frame + Nameplate + Tier Switcher + Copies Stepper -->
           <div class="monster-pedestal-col">
             <div class="pedestal-left-wrap">
               <div class="market-portrait-frame">
-                <img class="monster-img" src="${monsterImgUrl}" alt="${tierData.name}" loading="lazy"
-                     onerror="if('${fallbackCommonUrl}' && this.src !== '${fallbackCommonUrl}'){this.src='${fallbackCommonUrl}';}else{this.style.display='none';}" />
-                ${totalCopies > 1 ? `<span class="sale-badge copy-number-tag">#${idx + 1}</span>` : ""}
+                <img class="monster-img" src="${spec.imgUrl}" alt="${spec.name}" loading="lazy"
+                     onerror="if('${spec.fallbackImgUrl}' && this.src !== '${spec.fallbackImgUrl}'){this.src='${spec.fallbackImgUrl}';}else{this.style.display='none';}" />
+                ${copyTotal > 1 ? `<span class="sale-badge copy-number-tag">#${copyIndex}</span>` : ""}
               </div>
               <div style="width:100%;">
                 <div class="wooden-nameplate">
                   <div class="monster-title msm-label-text">${displayTitle}</div>
                 </div>
-                <div class="meta-badges-stack" style="margin-top:5px;">
+                <div class="meta-badges-stack">
                   <span class="sale-badge">${totalReq} Eggs</span>
                   ${cleanedTime ? `<span class="sale-badge">${cleanedTime}</span>` : ""}
                 </div>
               </div>
             </div>
-
-            ${tierSwitcherHTML}
-
-            <div class="copies-stepper" title="Track multiple copies of ${monster.name}">
-              <span class="copies-label">Copies:</span>
-              <button class="stepper-btn" onclick="decrementMonsterCopy('${monster.id}')">-</button>
-              <span class="copies-val">${totalCopies}</span>
-              <button class="stepper-btn" onclick="addMonsterCopy('${monster.id}')">+</button>
-            </div>
           </div>
 
-          <!-- Middle Column: Recessed Egg Slots & Progress Meter -->
           <div class="inventory-well-col">
             <div class="eggs-slot-grid">${eggsHTML}</div>
             <div class="meter-bar-wrap">
@@ -2064,47 +2233,200 @@
             </div>
           </div>
 
-          <!-- Right Column: Chiseled Stone & Wood Action Buttons -->
           <div class="board-actions-col">
-            <button class="game-btn ${isPinned ? 'game-btn-gold' : ''}" onclick="togglePinInstance('${instKey}')">
-              ${isPinned ? "📌 Pinned" : "📌 Pin Statue"}
+            <button class="game-btn ${item.pinned ? 'game-btn-gold' : ''}" onclick="togglePinInventoryItem('${item.uid}')">
+              ${item.pinned ? "📌 Pinned" : "📌 Pin"}
             </button>
-            <button class="game-btn game-btn-wood" onclick="addMonsterCopy('${monster.id}')">
-              Add Copy
+            <button class="game-btn game-btn-wood" onclick="cloneInventoryItem('${item.uid}')">
+              + Clone
             </button>
-            <button class="game-btn game-btn-green" onclick="fillAllInstance('${monster.id}', '${instKey}')">
+            <button class="game-btn game-btn-green" onclick="fillAllInventoryItem('${item.uid}')">
               Fill All
             </button>
-            <button class="game-btn" onclick="clearInstance('${monster.id}', '${instKey}')">
-              Clear Eggs
+            <button class="game-btn" onclick="clearInventoryItem('${item.uid}')">
+              Clear
             </button>
-            ${totalCopies > 1 ? `
-              <button class="game-btn game-btn-red" onclick="removeMonsterCopy('${monster.id}', ${instNum})">
-                Remove #${idx + 1}
-              </button>
-            ` : ""}
+            <button class="game-btn game-btn-red" onclick="removeInventoryItem('${item.uid}')">
+              Remove
+            </button>
           </div>
         `;
 
-        container.appendChild(board);
+        listEl.appendChild(board);
       });
     }
 
-    function resetCurrentTab() {
-      if (!confirm(`Reset all tallies and extra copies for ${currentTab.toUpperCase()}?`)) return;
-      const monsters = MONSTER_DB[currentTab] || [];
-      monsters.forEach(m => {
-        const instances = getInstancesForMonster(m.id);
-        instances.forEach(instNum => {
-          const instKey = `${m.id}#${instNum}`;
-          delete state.pinned[instKey];
-          delete state.tiers[instKey];
-          Object.keys(state.tallies).forEach(k => {
-            if (k.startsWith(instKey + "__")) delete state.tallies[k];
-          });
-        });
-        delete state.instances[m.id];
+    // ============================================================
+    // RENDER: MONSTERPEDIA VIEW (BOOK OF MONSTERS / CATALOG)
+    // ============================================================
+    function renderMonsterpediaView(container) {
+      const searchVal = (document.getElementById("searchInput")?.value || "");
+      const sortVal = (document.getElementById("sortSelect")?.value || "req_asc");
+
+      const islandLabels = [
+        ["wublins", `Wublins (${(MONSTER_DB.wublins || []).length})`],
+        ["celestials", `Young Celestials (${(MONSTER_DB.celestials || []).length})`],
+        ["adults", `Adult Celestials (${(MONSTER_DB.adults || []).length})`],
+        ["amber", `Amber Island (${(MONSTER_DB.amber || []).length})`]
+      ];
+
+      const rawMonsters = MONSTER_DB[pediaTab] || [];
+      const searchLow = searchVal.trim().toLowerCase();
+
+      const cardsData = rawMonsters.map((m, idx) => {
+        const previewTier = pediaTab === "wublins" ? (pediaPreviewTiers[m.id] || "common") : "common";
+        const spec = resolveMonsterSpec(pediaTab, m.id, previewTier);
+        const totalReq = spec.eggs.reduce((acc, [, r]) => acc + r, 0);
+        return { m, spec, previewTier, totalReq, idx };
+      }).filter(({ m, spec }) => {
+        if (!searchLow) return true;
+        const matchName = spec.name.toLowerCase().includes(searchLow) || m.name.toLowerCase().includes(searchLow);
+        const matchEgg = spec.eggs.some(([e]) => e.toLowerCase().includes(searchLow));
+        // Also search Rare/Epic egg requirements if user searches a Rare/Epic egg on Wublins
+        const matchRareEgg = m.variants?.rare?.eggs?.some(([e]) => e.toLowerCase().includes(searchLow));
+        const matchEpicEgg = m.variants?.epic?.eggs?.some(([e]) => e.toLowerCase().includes(searchLow));
+        return matchName || matchEgg || matchRareEgg || matchEpicEgg;
       });
+
+      cardsData.sort((a, b) => {
+        if (sortVal === "req_desc") {
+          if (b.totalReq !== a.totalReq) return b.totalReq - a.totalReq;
+          return a.idx - b.idx;
+        }
+        if (sortVal === "name_asc") {
+          return a.spec.name.localeCompare(b.spec.name);
+        }
+        if (a.totalReq !== b.totalReq) return a.totalReq - b.totalReq;
+        return a.idx - b.idx;
+      });
+
+      container.innerHTML = `
+        <section class="controls-frame">
+          <div class="island-sub-tabs">
+            ${islandLabels.map(([tKey, tLabel]) => `
+              <button class="sub-tab-btn ${pediaTab === tKey ? "active" : ""}" onclick="switchPediaTab('${tKey}')">${tLabel}</button>
+            `).join("")}
+          </div>
+          <div class="filter-group">
+            <input type="text" class="search-box" id="searchInput" value="${searchVal.replace(/"/g, "&quot;")}" placeholder="Search Monsterpedia by monster or egg..." oninput="render()" />
+            <select class="sort-select" id="sortSelect" onchange="render()">
+              <option value="req_asc" ${sortVal === "req_asc" ? "selected" : ""}>Sort: Required Eggs (Low to High)</option>
+              <option value="req_desc" ${sortVal === "req_desc" ? "selected" : ""}>Sort: Required Eggs (High to Low)</option>
+              <option value="name_asc" ${sortVal === "name_asc" ? "selected" : ""}>Sort: Name (A to Z)</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="monsterpedia-grid" id="monsterpediaGrid"></section>
+      `;
+
+      const gridEl = document.getElementById("monsterpediaGrid");
+
+      cardsData.forEach(({ m, spec, previewTier, totalReq }, cardIdx) => {
+        const card = document.createElement("article");
+        card.className = "pedia-card";
+
+        const cleanedTime = cleanTimeLimit(spec.time);
+        const ownedCount = state.inventory.filter(x => x.tab === pediaTab && x.monsterId === m.id && x.tier === previewTier).length;
+
+        const tierSwitcherHTML = pediaTab === "wublins" ? `
+          <div class="tier-selector-bar">
+            <button class="tier-btn ${previewTier === 'common' ? 'active-common' : ''}" onclick="setPediaPreviewTier('${m.id}', 'common')">Common</button>
+            <button class="tier-btn ${previewTier === 'rare' ? 'active-rare' : ''}" onclick="setPediaPreviewTier('${m.id}', 'rare')">Rare</button>
+            <button class="tier-btn ${previewTier === 'epic' ? 'active-epic' : ''}" onclick="setPediaPreviewTier('${m.id}', 'epic')">Epic</button>
+          </div>
+        ` : "";
+
+        const miniEggsHTML = spec.eggs.map(([eggName, req], eIdx) => {
+          const isFlexEgg = /flex/i.test(eggName);
+          const eggImgUrl = getEggImgUrl(eggName);
+          const uid = `pedia_${m.id}_${previewTier}_${cardIdx}_${eIdx}`;
+
+          let shortLabel = eggName;
+          if (isFlexEgg && /^Rare\s+/i.test(eggName)) {
+            const sub = eggName.replace(/^Rare\s+/i, "").replace(/\s*Flex.*$/i, "").trim();
+            shortLabel = `Rare Flex (${sub})`;
+          }
+
+          return `
+            <div class="pedia-mini-egg">
+              <div class="pedia-mini-egg-icon">
+                ${buildEggSVG(eggName, uid)}
+                ${!isFlexEgg && eggImgUrl ? `<img src="${eggImgUrl}" alt="" loading="lazy"
+                     onload="if(this.previousElementSibling)this.previousElementSibling.style.display='none'"
+                     onerror="this.style.display='none'" />` : ""}
+              </div>
+              <div class="pedia-mini-egg-text">
+                <span>${shortLabel}</span>
+                <span style="color:#ffd166;">x${req}</span>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        card.innerHTML = `
+          <div class="pedia-card-top">
+            <div class="pedia-portrait">
+              <img src="${spec.imgUrl}" alt="${spec.name}" loading="lazy"
+                   onerror="if('${spec.fallbackImgUrl}' && this.src !== '${spec.fallbackImgUrl}'){this.src='${spec.fallbackImgUrl}';}else{this.style.display='none';}" />
+            </div>
+            <div class="pedia-info">
+              <div class="wooden-nameplate">
+                <div class="monster-title msm-label-text">${spec.name}</div>
+              </div>
+              <div class="meta-badges-stack" style="justify-content:flex-start;">
+                <span class="sale-badge">${totalReq} Eggs</span>
+                ${cleanedTime ? `<span class="sale-badge">${cleanedTime}</span>` : ""}
+                ${ownedCount > 0 ? `<span class="green-pill-badge">In Inventory: ${ownedCount}</span>` : ""}
+              </div>
+            </div>
+          </div>
+
+          ${tierSwitcherHTML}
+
+          <div class="pedia-eggs-well">${miniEggsHTML}</div>
+
+          <div class="pedia-card-footer">
+            <button class="game-btn game-btn-green" style="width:100%; padding:9px 12px;"
+                    onclick="addToInventory('${pediaTab}', '${m.id}', '${previewTier}', this)">
+              + Add to Inventory
+            </button>
+          </div>
+        `;
+
+        gridEl.appendChild(card);
+      });
+    }
+
+    function render() {
+      updateHeaderCounts();
+      const mainContainer = document.getElementById("mainContainer");
+
+      // Preserve search input focus & cursor position across re-renders
+      const activeEl = document.activeElement;
+      const wasSearchFocused = activeEl && activeEl.id === "searchInput";
+      const selStart = wasSearchFocused ? activeEl.selectionStart : null;
+      const selEnd = wasSearchFocused ? activeEl.selectionEnd : null;
+
+      if (viewMode === "inventory") {
+        renderInventoryView(mainContainer);
+      } else {
+        renderMonsterpediaView(mainContainer);
+      }
+
+      if (wasSearchFocused) {
+        const newSearch = document.getElementById("searchInput");
+        if (newSearch) {
+          newSearch.focus();
+          if (selStart !== null) newSearch.setSelectionRange(selStart, selEnd);
+        }
+      }
+    }
+
+    function clearAllInventory() {
+      if (state.inventory.length === 0) return;
+      if (!confirm("Remove all statues from your Active Inventory?")) return;
+      state.inventory = [];
       saveState();
       render();
     }
@@ -2126,13 +2448,12 @@
       reader.onload = e => {
         try {
           const parsed = JSON.parse(e.target.result);
-          if (parsed && parsed.tallies) {
+          if (parsed && Array.isArray(parsed.inventory)) {
             state = parsed;
-            state.instances = state.instances || {};
-            state.pinned = state.pinned || {};
-            state.tiers = state.tiers || {};
             saveState();
             render();
+          } else {
+            alert("Invalid backup JSON file.");
           }
         } catch (err) {
           alert("Invalid backup JSON file.");
